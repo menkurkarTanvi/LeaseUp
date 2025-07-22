@@ -18,7 +18,7 @@ def get_apartments(db: Session = Depends(get_db)
 
 
 #Saves details of an apartment the user liked to the database
-@router.post("/save_apartment")
+@router.post("/apartments/{property_id}")
 def save_aparments(db: Session = Depends(get_db)):
 
     return "Apartment information successfully saved to database"

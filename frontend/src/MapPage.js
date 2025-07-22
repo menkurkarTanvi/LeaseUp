@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import './App.css'
+import './MapPage.css'
 import {APIProvider, Map, Marker, useMapsLibrary, useMap} from '@vis.gl/react-google-maps';
 
 //Temporary apartment locations (this will be replaced with an API call to get all the apartments near a given location)
@@ -138,7 +138,7 @@ function CrimeRate({display, setDisplay}){
   }
 }
 
-function App() {
+function MapPage() {
   const [showBusRoutes, setShowBusRoutes] = useState(false);
   const [showCrimeData, setShowCrimeData] = useState(false)
   const [apart, setApart] = useState(locations[0]);
@@ -167,7 +167,7 @@ function App() {
   )
   return (
     <div className = 'container'>
-        <APIProvider apiKey={"AIzaSyCa8bWzF5tllZ0X1FTST9vvYLHU9nSkb24"}>
+        <APIProvider apiKey={"API_KEY"}>
       <div className='map'>
         <Map
           style={{width: '900px', height: '800px'}}
@@ -189,4 +189,4 @@ function App() {
   );
 }
 
-export default App
+export default MapPage

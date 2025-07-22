@@ -4,7 +4,7 @@ from datetime import date
 from sqlmodel import Field
 
 #Fields from the questionare sheet
-class InfoFromQuestionare(BaseModel):
+class InfoFromQuestionnaire(BaseModel):
     name: str
     college: str
     country: str
