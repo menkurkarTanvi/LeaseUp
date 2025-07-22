@@ -26,9 +26,31 @@ const locations = [
  images: ["apart1.jpg", "apart2.jpg"]},
 ];
 
-
+function ChatBox({chatAI, setChatAI}){
+  const handleExit = () => {
+      setChatAI(false);
+  }
+  if(chatAI){
+    return(
+        <div className="chatbox" id="chatbox">
+          <div className="chatbox-header">AI Assistant</div>
+          <div className="chatbox-body" id="chat-messages">
+            <p><strong>Bot:</strong> Hi! Looking for an apartment?</p>
+          </div>
+          <div className="chatbox-input">
+            <input type="text" placeholder="Type your message..." id="chat-input" />
+            <button>Send</button>
+            <button className = "exit" onClick={handleExit}>X</button>
+          </div>
+        </div>
+    );
+  }else{
+    return (<></>);
+  }
+}
 export function ApartmentList({apartmentName, images}){
   const [index, setIndex] = useState(0);
+  const [chat, setChat] = useState(false);
   const handleNextImage = () => {
       if(index + 1 >= images.length){
         setIndex(0);
@@ -36,19 +58,25 @@ export function ApartmentList({apartmentName, images}){
           setIndex(prev => prev + 1);
       }
   }
+  const handleChat = () => {
+      setChat(true);
+  }
   return (
-    <div className='apartment'>
-      <h1>{apartmentName}</h1>
-      <div className='apartment_image'>
-        <img src = {images[index]}></img>
-        <div className='buttons'>
-           <button onClick={handleNextImage}>Next Image</button>
-           <button className='like_button'>Like</button>
-          <button>Chat with AI</button>
+    <>
+      <div className='apartment'>
+        <h1>{apartmentName}</h1>
+        <div className='apartment_image'>
+          <img src = {images[index]}></img>
+          <div className='buttons'>
+            <button onClick={handleNextImage}>Next Image</button>
+            <button className='like_button'>Like</button>
+            <button onClick={handleChat}>Chat with AI</button>
+          </div>
         </div>
+        <p>Apartment Details</p>
       </div>
-      <p>Apartment Details</p>
-    </div>
+      {chat && <ChatBox chatAI = {chat} setChatAI = {setChat}/>}
+     </>
   );
 }
 
@@ -96,8 +124,8 @@ function CrimeRate({display, setDisplay}){
   }
   if(display){
       return (
-      <div class="overlay">
-        <div class="crime_rate">
+      <div className="overlay">
+        <div className="crime_rate">
           <h2>Crime Data</h2>
           <p>Crime data (graph, chart, etc) goes here</p>
           <button onClick={handleExit}>Close</button>
@@ -111,7 +139,6 @@ function CrimeRate({display, setDisplay}){
 }
 
 function App() {
-  const [directions, setDirections] = useState(null);
   const [showBusRoutes, setShowBusRoutes] = useState(false);
   const [showCrimeData, setShowCrimeData] = useState(false)
   const [apart, setApart] = useState(locations[0]);
