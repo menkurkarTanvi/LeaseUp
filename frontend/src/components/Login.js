@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 import '@fontsource/roboto/500.css';
 import '../styles/Login.css';
 
@@ -50,7 +51,8 @@ export default function Login() {
         value={password}
         onChange={(e) => setPassword(e.target.value)} 
       />
-      <Button variant="contained" onClick={handleSubmit}>Login</Button>
+      <Button id="login-button" variant="contained" onClick={handleSubmit}>Login</Button>
+      <Link id="signup-link" variant="body2">Sign Up</Link>
     </Box>
   </div>
   );
