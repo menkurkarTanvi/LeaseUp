@@ -8,7 +8,7 @@ import CollegeSelect from './CollegeSelect';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import LeaseUpTypography from '../ux/LeaseUpTypography';
-import logo from "../../assets/logo-removed.png";
+import logo from "../../assets/logo.png";
 import './ApartmentForm.css';
 import { TypeAnimation } from 'react-type-animation';
 
@@ -64,8 +64,11 @@ export default function ApartmentForm(){
     }
 
     const LeaseUpButtonStyle = {
-        mt: 2,
+        mt: 5,
         backgroundColor: '#005c2a',
+        borderRadius: '24px',
+        px: 6,
+        height: 40,
         color: 'white',
         '&:hover': {
             backgroundColor: '#00461f',
@@ -138,6 +141,7 @@ export default function ApartmentForm(){
 
         <div style={{ position: 'relative', zIndex: 0 }}>
             <div className="background-fade"></div>
+            
             <Container
                 sx={{
                     position: 'relative',
@@ -147,12 +151,8 @@ export default function ApartmentForm(){
                     alignItems: 'center',
                     py: 4,
                 }}
-                >
-
+            >
                 <Stack spacing={100} sx={{ width: '100%', maxWidth: 600 }}>
-                    
-                    
-
                     {/* first box needs padding to move downward due to lack of height */}
                     <Box 
                         ref={(el) => questionRefs.current.name = el}
@@ -175,7 +175,7 @@ export default function ApartmentForm(){
                                 <TypeAnimation
                                 sequence={[
                                     'Hi! Here are a few questions we want to get to know about your apartment searching process.',
-                                    2000, // wait 2 seconds before repeating
+                                    2000,
                                 ]}
                                 wrapper="p"
                                 cursor={true}
@@ -183,7 +183,7 @@ export default function ApartmentForm(){
                                 />
                             </Typography>
                         </Box>
-                        
+
                         <Box mt={6}>
                             <LeaseUpTypography>
                             What's your name?

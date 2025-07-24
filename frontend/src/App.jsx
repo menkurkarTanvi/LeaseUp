@@ -1,4 +1,4 @@
-import './App.css';
+
 import ApartmentForm from "./components/FormComponents/ApartmentForm";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import MapsPage from './components/MapsPage';
