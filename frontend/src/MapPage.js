@@ -3,20 +3,55 @@ import './MapPage.css'
 import {APIProvider, Map, Marker, useMapsLibrary, useMap} from '@vis.gl/react-google-maps';
 import axios from 'axios'
 
-function ChatBox({chatAI, setChatAI, apartName}){
+function ChatBox({chatAI, setChatAI, apartName, apartId}){
+  const [send, setSend] = useState(0);
+  const [conversationList, setConversationList] = useState([]);
+  const [userQuestion, setUserQuestion] = useState('');
+  const handleSend = () => {
+    if (!userQuestion.trim()) return;
+    setSend(prev => prev + 1);
+  }
   const handleExit = () => {
       setChatAI(false);
   }
+   const conversation = conversationList.map(msg => (
+    <p>
+      <strong>{msg.sender === "human" ? "You" : "Bot"}:</strong> {msg.content}
+    </p>
+  ));
+  useEffect(() => {
+    if (send === 0) return;
+    axios.put(`http://localhost:8000/save_conversation/${apartId}/${encodeURIComponent(userQuestion)}`)
+      .then(res => {
+        setUserQuestion('');
+      })
+      .catch(err => console.error(err));
+  }, [send]);
+
+  useEffect(() => {
+      axios.get(`http://localhost:8000/conversation/${apartId}`)
+    .then(res => {
+      setConversationList(res.data);
+    })
+    .catch(err => console.error(err));
+  }, [send]);
+  console.log(conversationList);
   if(chatAI){
     return(
         <div className="chatbox" id="chatbox">
           <div className="chatbox-header">AI Assistant</div>
           <div className="chatbox-body" id="chat-messages">
             <p><strong>Bot:</strong> Hi! What questions can I help you answer about {apartName}!</p>
+            {conversation}
           </div>
           <div className="chatbox-input">
-            <input type="text" placeholder="Type your message..." id="chat-input" />
-            <button>Send</button>
+             <input
+              type="text"
+              placeholder="Type your message..."
+              value={userQuestion}
+              onChange={(e) => setUserQuestion(e.target.value)}
+            />
+            <button onClick={handleSend}>Send</button>
             <button className = "exit" onClick={handleExit}>X</button>
           </div>
         </div>
@@ -25,7 +60,7 @@ function ChatBox({chatAI, setChatAI, apartName}){
     return (<></>);
   }
 }
-export function ApartmentList({apartmentName, images, description, price, beds, baths, sqft}){
+export function ApartmentList({apartmentName, images, description, price, beds, baths, sqft, id}){
   const [index, setIndex] = useState(0);
   const [chat, setChat] = useState(false);
   const handleNextImage = () => {
@@ -65,7 +100,8 @@ export function ApartmentList({apartmentName, images, description, price, beds, 
           <div className = 'description'><p>{description}</p></div>
         </div>
       </div>
-      {chat && <ChatBox chatAI = {chat} setChatAI = {setChat} apartName = {apartmentName}/>}
+      {chat && <ChatBox chatAI = {chat} setChatAI = {setChat} apartName = {apartmentName}
+      apartId={id}/>}
      </>
   );
 }
@@ -194,7 +230,7 @@ function MapPage() {
       {showCrimeData && <CrimeRate display = {showCrimeData} setDisplay={setShowCrimeData}/>}
       {apart && <ApartmentList apartmentName={apart.name} images={apart.images} 
       description={apart.description} price = {apart.price} beds = {apart.beds}
-      baths = {apart.baths} sqft={apart.lot_size_sqft}/>}
+      baths = {apart.baths} sqft={apart.lot_size_sqft} id = {apart.id}/>}
     </APIProvider>
     </div>
   );

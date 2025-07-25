@@ -3,6 +3,7 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from datetime import datetime
+from datetime import datetime, timezone
 
 #Database models go here
 class UserDetails(SQLModel, table=True):
@@ -35,9 +36,9 @@ class SavedApartments(SQLModel, table=True):
 
 
 #Stores conversation history for the map_page
-class ConversationHistoryMap(SQLModel, table=False):
+class ConversationHistoryMap(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     property_id: int
     sender: str  # 'human' or 'ai'
     content: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

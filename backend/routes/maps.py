@@ -11,6 +11,7 @@ from backend.app.schemas import OutputApartmentDetails
 import httpx
 import asyncio
 from backend.routes.data import apartments
+from datetime import datetime, timezone
 router = APIRouter()
 
 #Retrieves the apartments based on the data gathered from the questionare
@@ -34,38 +35,52 @@ def get_crime_rates():
 
 
 #Get the conversation history that will be displayed in the chat box
-@router.get("/conversation/{property_id}")
-def get_chat_history(property_id: int, db: Session = Depends(get_db)):
-    statement = select(ConversationHistoryMap).where(
-        and_(ConversationHistoryMap.property_id == property_id, 
-             ConversationHistoryMap.sender == 'ai')
-        ).order_by(ConversationHistoryMap.timestamp)
+@router.get("/conversation/{id}")
+def get_chat_history(id: int, db: Session = Depends(get_db)):
+    # Get all messages (human + AI), ordered by timestamp
+    statement = (
+        select(ConversationHistoryMap)
+        .where(ConversationHistoryMap.property_id == id)
+        .order_by(ConversationHistoryMap.timestamp)
+    )
     
-    statement2 = select(ConversationHistoryMap).where(
-        and_(ConversationHistoryMap.property_id == property_id, 
-             ConversationHistoryMap.sender == 'human')
-        ).order_by(ConversationHistoryMap.timestamp)
-    
-    ai_response = db.exec(statement).all()
-    human_response = db.exec(statement2).all()
+    messages = db.exec(statement).all()
 
-    conversation_list = []
-    while len(ai_response) > 0 and len(human_response) > 0:
-        conversation_list.append(human_response.pop(0).content)
-        conversation_list.append(ai_response.pop(0).content)
-    
-    #What it looks like: ["What is the monthly rent?", "The monthly rent is ___"...]
-    return conversation_list
+    # Convert to list of dicts
+    return [
+        {"sender": msg.sender, "content": msg.content} for msg in messages
+    ]
 
 
 #Gets ai_response to user_question and save both to the database
-@router.post("/{property_id}{user_query}")
-def save_message(property_id: int, user_query: str):
+@router.put("/save_conversation/{id}/{user_query}")
+def save_message(id: int, user_query: str, db: Session = Depends(get_db)):
     #call the maps agent to get ai_response to user question
-
+        
     #Agent will return formatted response like this
     #[HumanMessage(content='What is 3 * 12? Also, what is 11 + 49?'),
     #AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_loT2pliJwJe3p7nkgXYF48A1', 'function': {'arguments': '{"a": 3, "b": 12}', 'name': 'multiply'}, 'type': 'function'}, {'id': 'call_bG9tYZCXOeYDZf3W46TceoV4', 'function': {'arguments': '{"a": 11, "b": 49}', 'name': 'add'}, 'type': 'function'}]}, response_metadata={'token_usage': {'completion_tokens': 50, 'prompt_tokens': 87, 'total_tokens': 137}, 'model_name': 'gpt-4o-mini-2024-07-18', 'system_fingerprint': 'fp_661538dc1f', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-e3db3c46-bf9e-478e-abc1-dc9a264f4afe-0', tool_calls=[{'name': 'multiply', 'args': {'a': 3, 'b': 12}, 'id': 'call_loT2pliJwJe3p7nkgXYF48A1', 'type': 'tool_call'}, {'name': 'add', 'args': {'a': 11, 'b': 49}, 'id': 'call_bG9tYZCXOeYDZf3W46TceoV4', 'type': 'tool_call'}], usage_metadata={'input_tokens': 87, 'output_tokens': 50, 'total_tokens': 137}),
     #ToolMessage(content='36', name='multiply', tool_call_id='call_loT2pliJwJe3p7nkgXYF48A1'),
     #ToolMessage(content='60', name='add', tool_call_id='call_bG9tYZCXOeYDZf3W46TceoV4')]
-    pass
+
+     # Sample human message
+    human_message = ConversationHistoryMap(
+        property_id=id,
+        sender="human",
+        content=user_query,
+        timestamp=datetime.now(timezone.utc)
+    )
+    db.add(human_message)
+    
+    # Sample AI response (for testing)
+    ai_message = ConversationHistoryMap(
+        property_id=id,
+        sender="ai",
+        content="This is a sample AI response to your question.",
+        timestamp=datetime.now(timezone.utc)
+    )
+    db.add(ai_message)
+    
+    # Commit the changes to the database
+    db.commit()
+    return {"message": "Sample conversation saved!"}
