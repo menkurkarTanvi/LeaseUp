@@ -1,0 +1,19 @@
+# LeaseUp/requirements.txt
+
+# Flask + CORS
+flask
+flask-cors
+
+# .env support
+python-dotenv
+
+# PDF processing
+pymupdf
+
+# LangChain components
+langchain
+openai
+pinecone-client
+
+# Optional: in case you expand later
+tiktoken
