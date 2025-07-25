@@ -3,7 +3,7 @@ import './MapPage.css'
 import {APIProvider, Map, Marker, useMapsLibrary, useMap} from '@vis.gl/react-google-maps';
 import axios from 'axios'
 
-function ChatBox({chatAI, setChatAI}){
+function ChatBox({chatAI, setChatAI, apartName}){
   const handleExit = () => {
       setChatAI(false);
   }
@@ -12,7 +12,7 @@ function ChatBox({chatAI, setChatAI}){
         <div className="chatbox" id="chatbox">
           <div className="chatbox-header">AI Assistant</div>
           <div className="chatbox-body" id="chat-messages">
-            <p><strong>Bot:</strong> Hi! Looking for an apartment?</p>
+            <p><strong>Bot:</strong> Hi! What questions can I help you answer about {apartName}!</p>
           </div>
           <div className="chatbox-input">
             <input type="text" placeholder="Type your message..." id="chat-input" />
@@ -25,7 +25,7 @@ function ChatBox({chatAI, setChatAI}){
     return (<></>);
   }
 }
-export function ApartmentList({apartmentName, images}){
+export function ApartmentList({apartmentName, images, description, price, beds, baths, sqft}){
   const [index, setIndex] = useState(0);
   const [chat, setChat] = useState(false);
   const handleNextImage = () => {
@@ -41,7 +41,9 @@ export function ApartmentList({apartmentName, images}){
   return (
     <>
       <div className='apartment'>
-        <h1>{apartmentName}</h1>
+        <div className='apartment-title'>
+          <h1>{apartmentName}</h1>
+        </div>
         <div className='apartment_image'>
           <img src = {images[index]}></img>
           <div className='buttons'>
@@ -50,9 +52,20 @@ export function ApartmentList({apartmentName, images}){
             <button onClick={handleChat}>Chat with AI</button>
           </div>
         </div>
-        <p>Apartment Details</p>
+        <div className = "apartment-details">
+          <div className='apartment-heading'>
+            <span className="price">${price}/mo</span>
+            <span className="divider">|</span>
+            <span className="beds">{beds} beds</span>
+            <span className="divider">|</span>
+            <span className="baths">{baths} baths</span>
+            <span className="divider">|</span>
+            <span className="sqft">{sqft} sqft</span>
+          </div>
+          <div className = 'description'><p>{description}</p></div>
+        </div>
       </div>
-      {chat && <ChatBox chatAI = {chat} setChatAI = {setChat}/>}
+      {chat && <ChatBox chatAI = {chat} setChatAI = {setChat} apartName = {apartmentName}/>}
      </>
   );
 }
@@ -163,7 +176,7 @@ function MapPage() {
   )
   return (
     <div className = 'container'>
-        <APIProvider apiKey={""}>
+        <APIProvider apiKey={"AIzaSyCa8bWzF5tllZ0X1FTST9vvYLHU9nSkb24"}>
       <div className='map'>
         <Map
           style={{width: '900px', height: '800px'}}
@@ -179,7 +192,9 @@ function MapPage() {
         </div>
       </div>
       {showCrimeData && <CrimeRate display = {showCrimeData} setDisplay={setShowCrimeData}/>}
-      {apart && <ApartmentList apartmentName={apart.name} images={apart.images} />}
+      {apart && <ApartmentList apartmentName={apart.name} images={apart.images} 
+      description={apart.description} price = {apart.price} beds = {apart.beds}
+      baths = {apart.baths} sqft={apart.lot_size_sqft}/>}
     </APIProvider>
     </div>
   );

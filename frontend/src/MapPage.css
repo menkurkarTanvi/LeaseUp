@@ -39,7 +39,7 @@
 .map button:hover {
   background-color: #555;
 }
-/*------------------------------------------------------------------------*/
+/*-------------------------Apartment list-----------------------------------------------*/
 .apartment{
   height: 800px;
   width: 800px;
@@ -54,7 +54,26 @@
   justify-content: flex-start;
   align-items: start;
   font-family: 'Arial', sans-serif;
+  overflow: scroll;
 }
+
+.apartment-title {
+  text-align: center;
+  padding: 0.5rem 1rem;
+  width: 700px;
+}
+
+.apartment-title h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50; /* deep modern blue-gray */
+  margin: 0;
+  padding: 0.3rem;
+  border: 3px solid #6c757d; /* accent color */
+  border-radius: 12px;
+}
+
 
 .apartment_image{
   display:flex;
@@ -114,9 +133,9 @@ img{
   border-radius: 20px;
 }
 
-.apartment p{
+.apartment-details{
   font-size: 16px;
-  width: 700px;
+  width: 750px;
   height: 400px;
   color: #333;
   background: #f0f0f0; /* Matches the button panel */
@@ -124,6 +143,22 @@ img{
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.apartment-heading {
+  font-size: 1 rem;
+  font-weight: bold;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.apartment-heading .divider {
+  color: #888;
 }
 
 
@@ -158,7 +193,7 @@ img{
   position: fixed;
   bottom: 80px;
   right: 24px;
-  width: 320px;
+  width: 500px;
   max-height: 400px;
   background-color: #ffffff;
   border-radius: 16px;
