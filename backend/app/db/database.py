@@ -10,6 +10,7 @@ connect_args = {"check_same_thread": False}
 
 #Create an engine which is what holds connection to the databse
 engine = create_engine(sqlite_url, connect_args=connect_args)
+print(engine.url)
 
 #Create the table for all table models
 def create_db():

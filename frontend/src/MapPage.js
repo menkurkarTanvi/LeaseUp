@@ -22,19 +22,18 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
   useEffect(() => {
     if (send === 0) return;
     axios.put(`http://localhost:8000/save_conversation/${apartId}/${encodeURIComponent(userQuestion)}`)
-      .then(res => {
+      .then(() => {
         setUserQuestion('');
-      })
-      .catch(err => console.error(err));
+      }).catch(err => console.error(err))
+      .then(() =>{
+          axios.get(`http://localhost:8000/conversation/${apartId}`)
+          .then(res => {
+            setConversationList(res.data);
+          })
+          .catch(err => console.error(err));
+      });
   }, [send]);
-
-  useEffect(() => {
-      axios.get(`http://localhost:8000/conversation/${apartId}`)
-    .then(res => {
-      setConversationList(res.data);
-    })
-    .catch(err => console.error(err));
-  }, [send]);
+  
   console.log(conversationList);
   if(chatAI){
     return(
@@ -73,6 +72,9 @@ export function ApartmentList({apartmentName, images, description, price, beds, 
   const handleChat = () => {
       setChat(true);
   }
+  useEffect (() => {
+        setChat(false);
+  }, [id])
   return (
     <>
       <div className='apartment'>
