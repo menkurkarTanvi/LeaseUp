@@ -33,8 +33,7 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
           .catch(err => console.error(err));
       });
   }, [send]);
-  
-  console.log(conversationList);
+
   if(chatAI){
     return(
         <div className="chatbox" id="chatbox">
