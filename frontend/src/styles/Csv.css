@@ -1,0 +1,7 @@
+#csv-display {
+    display: flex;
+    align-items: center;
+    margin-left: 5%;
+    max-width: 45%;
+    max-height: 80%;
+}
