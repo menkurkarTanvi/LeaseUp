@@ -14,3 +14,24 @@ class InfoFromQuestionnaire(BaseModel):
     max_price: int
     amenities: List[str]
 
+
+class OutputApartmentDetails(BaseModel):
+    property_id: str
+    price: int
+    address: str
+    latitude: float 
+    longitude: float
+    beds: int
+    baths: int
+    lot_size_sqft: int | None = None
+    description: str | None = None
+    listing_agent: List[str] = []
+    amentities: List[str] = []
+    appliances: List[str] = []
+    flooring: str | None = None
+    heating: str | None = None
+    cooling: str | None = None
+    parking: str | None = None
+    images: List[str] = []
+
+

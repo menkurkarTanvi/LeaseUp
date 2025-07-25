@@ -1,30 +1,7 @@
 import { useState, useEffect } from 'react'
 import './MapPage.css'
 import {APIProvider, Map, Marker, useMapsLibrary, useMap} from '@vis.gl/react-google-maps';
-
-//Temporary apartment locations (this will be replaced with an API call to get all the apartments near a given location)
-const locations = [
-  { id: 1, name: "Location A", position: { lat: 40.11, lng: -83.14 },
-  images: ["apart1.jpg", "apart2.jpg"]},
-  { id: 2, name: "The Pines at Tuttle Crossing", position: { lat: 40.0956, lng: -83.1405 }, 
- images: ["apart1.jpg", "apart2.jpg"]},
-  { id: 3, name: "The Orchard", position: { lat: 40.0959, lng: -83.1383 }, 
- images: ["apart1.jpg", "apart2.jpg"]},
-  { id: 4, name: "The Residences", position: { lat: 40.1181, lng: -83.1238 }, 
- images: ["apart1.jpg", "apart2.jpg"]},
-  { id: 5, name: "Camden Place", position: { lat: 40.1070, lng: -83.1554 }, 
- images: ["apart1.jpg", "apart2.jpg"]},
-  { id: 6, name: "Scycamore Ridge", position: { lat: 40.1088, lng: -83.1322 }, 
- images: ["apart1.jpg", "apart2.jpg"]},
-  { id: 7, name: "Bent Tree", position: { lat: 40.1492, lng: -83.1684 }, 
- images: ["apart1.jpg", "apart2.jpg"]},
-  { id: 8, name: "The Charles at Riggins Run", position: { lat: 40.0952, lng: -83.1409 }, 
- images: ["apart1.jpg", "apart2.jpg"]},
-  { id: 9, name: "Sawmill Commons", position: { lat: 40.1095, lng: -83.1503 },
- images: ["apart1.jpg", "apart2.jpg"]},
-  { id: 10, name: "Strathemoor", position: { lat: 40.1102, lng: -83.1437 }, 
- images: ["apart1.jpg", "apart2.jpg"]},
-];
+import axios from 'axios'
 
 function ChatBox({chatAI, setChatAI}){
   const handleExit = () => {
@@ -141,7 +118,25 @@ function CrimeRate({display, setDisplay}){
 function MapPage() {
   const [showBusRoutes, setShowBusRoutes] = useState(false);
   const [showCrimeData, setShowCrimeData] = useState(false)
-  const [apart, setApart] = useState(locations[0]);
+  //Defauly value so that conditional rendering not required null no accessed
+  const [apart, setApart] = useState({
+      latitude: 40.110031,
+      longitude: -83.141846,
+      name: '',
+      images: []
+  });
+  const [listApart, setListApart] = useState([]);
+  //Empty array for useEffect means the code runs once upon mount and never again
+  useEffect(() => {
+      axios.get(`http://localhost:8000/apartments/`)
+    .then(res => {
+      setListApart(res.data);
+      //Sets the apartment on the list to the first apartment until user makes selection
+      if (res.data.length > 0) setApart(res.data[0]);
+    })
+    .catch(err => console.error(err));
+  }, []);
+
   const handleBusRoutes = () => {
     console.log(showBusRoutes);
       if(showBusRoutes){
@@ -155,26 +150,27 @@ function MapPage() {
         setShowCrimeData(true);
   }
   //Handles the event when user clicks on a marker on the map.
-  //Store the coordinates of the marker as well as the name of the apartment
+  //stores the apartment object the user has selected on the map
   const handleMarkerClick = (apartment) => {
     //Copy the old fields
       setApart(apartment)
   }
-  const apartmentLocations = locations.map(apartment => 
+  const apartmentLocations = listApart.map(apartment => 
       <Marker
-      position={{lat: apartment.position.lat, lng: apartment.position.lng}} 
+       key={apartment.id}
+      position={{lat: apartment.latitude, lng: apartment.longitude}} 
       onClick={() => handleMarkerClick(apartment)}/>
   )
   return (
     <div className = 'container'>
-        <APIProvider apiKey={"API_KEY"}>
+        <APIProvider apiKey={""}>
       <div className='map'>
         <Map
           style={{width: '900px', height: '800px'}}
           defaultCenter={{lat: 40.110031, lng: -83.141846}}
           defaultZoom={10}
           fullscreenControl = {true}>
-          <Directions active = {showBusRoutes} coords = {[apart.position.lat, apart.position.lng]}/>
+          <Directions active = {showBusRoutes} coords = {[apart.latitude, apart.longitude]}/>
           {apartmentLocations}
         </Map>
         <div className='buttons'>
@@ -183,7 +179,7 @@ function MapPage() {
         </div>
       </div>
       {showCrimeData && <CrimeRate display = {showCrimeData} setDisplay={setShowCrimeData}/>}
-      <ApartmentList apartmentName={apart.name} images = {apart.images}/>
+      {apart && <ApartmentList apartmentName={apart.name} images={apart.images} />}
     </APIProvider>
     </div>
   );
