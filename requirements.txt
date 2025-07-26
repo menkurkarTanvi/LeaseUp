@@ -1,19 +1,15 @@
-# LeaseUp/requirements.txt
-
-# Flask + CORS
-flask
-flask-cors
-
-# .env support
-python-dotenv
-
-# PDF processing
-pymupdf
-
-# LangChain components
-langchain
-openai
-pinecone-client
-
-# Optional: in case you expand later
-tiktoken
+aiofiles==24.1.0                 # For async file operations (used by FastAPI)
+fastapi==0.116.1                 # API framework
+uvicorn==0.35.0                  # ASGI server for FastAPI
+python-dotenv==1.1.1             # Load env vars from .env
+httpx==0.28.1                    # Async HTTP requests
+openai==1.97.1                   # OpenAI API
+pinecone==7.3.0                  # Pinecone vector DB
+langchain==0.3.27                # Main LangChain library
+langchain-core==0.3.72          # Langchain core logic
+langchain-text-splitters==0.3.9 # Text splitting for RAG
+tiktoken==0.9.0                  # Token counting (OpenAI, Langchain)
+PyMuPDF==1.26.3                  # PDF parsing
+PyPDF2==3.0.1                    # PDF parsing fallback
+python-multipart==0.0.20         # For file uploads in FastAPI
+orjson==3.11.0                   # Fast JSON parsing (optional for FastAPI)
