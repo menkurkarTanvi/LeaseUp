@@ -9,33 +9,48 @@ const LeasesPage = () => {
   };
 
   const handleUpload = async () => {
-    if (!selectedFile) return;
+    if (!selectedFile) {
+      console.error("No file selected");
+      return;
+    }
+  
     const formData = new FormData();
-    formData.append('pdf', selectedFile);
-
-    const res = await fetch('http://localhost:5000/upload_pdf', {
-      method: 'POST',
-      body: formData,
-    });
-
-    const result = await res.json();
-    console.log("File uploaded:", result);
-    setUploadedFilename(result.saved_filename); // Save the name for submit step
+    formData.append("file", selectedFile);
+  
+    try {
+      const res = await fetch("/uploads", {
+        method: "POST",
+        body: formData,
+      });      
+  
+      const result = await res.json();
+      console.log("Upload result:", result);
+      setUploadedFilename(result.filename);
+    } catch (err) {
+      console.error("Upload failed", err);
+    }
   };
 
   const handleSubmit = async () => {
     if (!uploadedFilename) return;
-
-    const res = await fetch('http://localhost:5000/ingest_pdf', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ filename: uploadedFilename }),
-    });
-
-    const result = await res.json();
-    console.log("Ingest result:", result);
-    alert(`✅ Ingested ${result.chunks} chunks into Pinecone!`);
-  };
+  
+    try {
+      const res = await fetch("http://localhost:8000/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ filename: uploadedFilename }),
+      });
+  
+      const result = await res.json();
+      console.log("[✅ Submit Result]", result);
+      alert(`✅ Uploaded to Pinecone! Vector ID: ${result.vector_id}`);
+    } catch (err) {
+      console.error("❌ Submit failed", err);
+    }
+  }; // ← Make sure this closing brace exists
+  
 
   return (
     <div>
