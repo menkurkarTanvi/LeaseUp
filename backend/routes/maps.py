@@ -2,7 +2,7 @@
 from typing import Annotated, List
 from fastapi import Depends, HTTPException
 from sqlmodel import Session, select
-from sqlmodel import and_
+from sqlmodel import and_, delete
 from fastapi import APIRouter
 #Imports from other files
 from backend.app.db.database import get_db
@@ -83,3 +83,9 @@ def save_map_conversation(id: int, query: QueryRequest, db: Session = Depends(ge
     # Commit the changes to the database
     db.commit()
     return {"message": "Sample conversation saved!"}
+
+@router.put("/clear/{id}")
+def clear_conversation(id: int, db: Session = Depends(get_db)): 
+    db.exec(delete(ConversationHistoryMap).where(ConversationHistoryMap.property_id == id))
+    db.commit()
+    return {"message": f"Conversation for property_id {id} cleared."}

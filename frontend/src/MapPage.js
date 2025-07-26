@@ -5,6 +5,7 @@ import axios from 'axios'
 
 function ChatBox({chatAI, setChatAI, apartName, apartId}){
   const [send, setSend] = useState(0);
+  const [clear, setClear] = useState(0);
   const [conversationList, setConversationList] = useState([]);
   const [userQuestion, setUserQuestion] = useState('');
   const handleSend = () => {
@@ -14,16 +15,40 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
   const handleExit = () => {
       setChatAI(false);
   }
+
+  const handleClear = () => {
+      setClear(prev => prev +1);
+  }
    const conversation = conversationList.map(msg => (
     <p>
       <strong>{msg.sender === "human" ? "You" : "Bot"}:</strong> {msg.content}
     </p>
   ));
   useEffect(() => {
-    if (send === 0) return;
-    axios.put(`http://localhost:8000/save_map_conversation/${apartId}`, {
-        question: userQuestion
-    }).then(() => {
+    const fetchConversation = async () => {
+      try {
+        // PUT only if userQuestion is not empty
+        if (userQuestion.trim() !== '') {
+          await axios.put(`http://localhost:8000/save_map_conversation/${apartId}`, {
+            question: userQuestion
+          });
+          setUserQuestion('');
+        }
+
+        // Always run GET
+        const res = await axios.get(`http://localhost:8000/get_map_conversation/${apartId}`);
+        setConversationList(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchConversation();
+  }, [send]);
+
+   useEffect(() => {
+    if (clear === 0) return;
+    axios.put(`http://localhost:8000/clear/${apartId}`
+    ).then(() => {
         setUserQuestion('');
     }).catch(err => console.error(err))
     .then(() =>{
@@ -33,7 +58,7 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
           })
           .catch(err => console.error(err));
     });
-  }, [send]);
+  }, [clear]);
 
   if(chatAI){
     return(
@@ -51,7 +76,7 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
               onChange={(e) => setUserQuestion(e.target.value)}
             />
             <button onClick={handleSend}>Send</button>
-            <button>Clear</button>
+            <button onClick={handleClear}>Clear</button>
             <button className = "exit" onClick={handleExit}>X</button>
           </div>
         </div>
