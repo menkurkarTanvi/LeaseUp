@@ -1,9 +1,9 @@
 
 import ApartmentForm from "./components/FormComponents/ApartmentForm";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import MapsPage from './components/MapsPage';
-import LeasesPage from './LeasesPage';
-import Navbar from './Navbar';
+import LeasesPage from './components/Leases/LeasesPage';
+import MapsPage from './components/MapsPage/MapPage';
+import Navbar from './components/Navbar';
 
 
 
