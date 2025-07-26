@@ -21,17 +21,18 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
   ));
   useEffect(() => {
     if (send === 0) return;
-    axios.put(`http://localhost:8000/save_conversation/${apartId}/${encodeURIComponent(userQuestion)}`)
-      .then(() => {
+    axios.put(`http://localhost:8000/save_map_conversation/${apartId}`, {
+        question: userQuestion
+    }).then(() => {
         setUserQuestion('');
-      }).catch(err => console.error(err))
-      .then(() =>{
-          axios.get(`http://localhost:8000/conversation/${apartId}`)
+    }).catch(err => console.error(err))
+    .then(() =>{
+          axios.get(`http://localhost:8000/get_map_conversation/${apartId}`)
           .then(res => {
             setConversationList(res.data);
           })
           .catch(err => console.error(err));
-      });
+    });
   }, [send]);
 
   if(chatAI){
@@ -50,6 +51,7 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
               onChange={(e) => setUserQuestion(e.target.value)}
             />
             <button onClick={handleSend}>Send</button>
+            <button>Clear</button>
             <button className = "exit" onClick={handleExit}>X</button>
           </div>
         </div>

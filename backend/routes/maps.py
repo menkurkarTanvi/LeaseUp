@@ -7,7 +7,7 @@ from fastapi import APIRouter
 #Imports from other files
 from backend.app.db.database import get_db
 from backend.app.models.models import ConversationHistoryMap, UserDetails
-from backend.app.schemas import OutputApartmentDetails
+from backend.app.schemas import OutputApartmentDetails, QueryRequest
 import httpx
 import asyncio
 from backend.routes.data import apartments
@@ -24,19 +24,18 @@ def get_apartments(db: Session = Depends(get_db)):
 #Saves details of an apartment the user liked to the database
 @router.post("/apartments/{property_id}")
 def save_aparments(db: Session = Depends(get_db)):
-
     return "Apartment information successfully saved to database"
 
 
 #Gets crime rate info
-@router.get("/apartments/{lattitude}{longitude}")
+@router.get("/apartments/{lattitude}/{longitude}")
 def get_crime_rates():
     return 
 
 
 #Get the conversation history that will be displayed in the chat box
-@router.get("/conversation/{id}")
-def get_chat_history(id: int, db: Session = Depends(get_db)):
+@router.get("/get_map_conversation/{id}")
+def get_map_conversation(id: int, db: Session = Depends(get_db)):
     # Get all messages (human + AI), ordered by timestamp
     statement = (
         select(ConversationHistoryMap)
@@ -53,8 +52,8 @@ def get_chat_history(id: int, db: Session = Depends(get_db)):
 
 
 #Gets ai_response to user_question and save both to the database
-@router.put("/save_conversation/{id}/{user_query}")
-def save_message(id: int, user_query: str, db: Session = Depends(get_db)):
+@router.put("/save_map_conversation/{id}")
+def save_map_conversation(id: int, query: QueryRequest, db: Session = Depends(get_db),):
     #call the maps agent to get ai_response to user question
         
     #Agent will return formatted response like this
@@ -67,7 +66,7 @@ def save_message(id: int, user_query: str, db: Session = Depends(get_db)):
     human_message = ConversationHistoryMap(
         property_id=id,
         sender="human",
-        content=user_query,
+        content=query.question,
         timestamp=datetime.now(timezone.utc)
     )
     db.add(human_message)

@@ -34,4 +34,7 @@ class OutputApartmentDetails(BaseModel):
     parking: str | None = None
     images: List[str] = []
 
+class QueryRequest(BaseModel):
+    question: str
+
 

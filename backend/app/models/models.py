@@ -42,3 +42,18 @@ class ConversationHistoryMap(SQLModel, table=True):
     sender: str  # 'human' or 'ai'
     content: str
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+#Stores Conversation History For Leases Page
+class ConversationHistoryLeases(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    pdf_id: int
+    sender: str  # 'human' or 'ai'
+    content: str
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+#save Conversation history for Spreadsheet page
+class ConversationHistorySpreadsheet(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    sender: str  # 'human' or 'ai'
+    content: str
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
