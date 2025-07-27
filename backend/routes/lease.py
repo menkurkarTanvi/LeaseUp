@@ -6,7 +6,7 @@ from sqlmodel import and_
 from fastapi import APIRouter
 #Imports from other files
 from backend.app.db.database import get_db
-from backend.app.models.models import ConversationHistoryLeases, UserDetails
+from backend.app.models.models import ConversationHistoryLeases, UserDetails, SavedApartments
 from backend.app.schemas import OutputApartmentDetails, QueryRequest
 import httpx
 import asyncio
@@ -16,15 +16,20 @@ from fastapi.responses import JSONResponse
 import os
 import uuid
 from datetime import datetime, timezone
-from backend.app.vector_store.vector_database import upload_pdf_lease
+from backend.app.agents.vector_store.vector_database import upload_pdf_lease
 from backend.app.agents import lease_agent
-
+import json
 router = APIRouter()
 
 
-@router.get("/lease_terms/")
-def get_lease_terms():
-    pass
+@router.get("/lease_terms")
+def get_lease_terms(db: Session = Depends(get_db)):
+    apartments = db.exec(select(SavedApartments)).all()
+    #using json to convert the json string back inot a python list
+    lease_terms_all_apartments = [
+        json.loads(apartment.lease_terms) for apartment in apartments
+    ]
+    return lease_terms_all_apartments
 
 #Uploads the pdf and stores in in the vector database
 @router.get("/upload_pdf/")
@@ -41,23 +46,22 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     # Calls the function to store the pdf to Pinecone vector database
     #upload_pdf_lease(pdf_path, pdf_id)
-
-    return JSONResponse(content={"pdf_id": pdf_id})
+    return pdf_id
 
 
 
 #Get the conversation history that will be displayed in the chat box
 @router.get("/get_lease_conversation/{pdf_id}")
-def get_lease_conversation(id: int, db: Session = Depends(get_db)):
+def get_lease_conversation(pdf_id: int, db: Session = Depends(get_db)):
     # Get all messages (human + AI), ordered by timestamp
     statement = (
         select(ConversationHistoryLeases)
-        .where(ConversationHistoryLeases.pdf_id == id)
+        .where(ConversationHistoryLeases.pdf_id == pdf_id)
         .order_by(ConversationHistoryLeases.timestamp)
     )
     messages = db.exec(statement).all()
 
-    # [{"sender": "ai", "content": "How can I help you"}...... ]
+    # [{"sender": "ai", "content": "How can I help you"}, {"sender": "human", "content": "I want to know....."}...... ]
     return [
         {"sender": msg.sender, "content": msg.content} for msg in messages
     ]
@@ -73,7 +77,7 @@ def save_lease_conversation(pdf_id: int, query: QueryRequest, db: Session = Depe
 
      # Sample human message
     human_message = ConversationHistoryLeases(
-        pdf_id=id,
+        pdf_id=pdf_id,
         sender="human",
         content=query,
         timestamp=datetime.now(timezone.utc)
@@ -82,7 +86,7 @@ def save_lease_conversation(pdf_id: int, query: QueryRequest, db: Session = Depe
     
     # Sample AI response (for testing)
     ai_message = ConversationHistoryLeases(
-        pdf_id=id,
+        pdf_id= pdf_id,
         sender="ai",
         content="This is a sample AI response to your question.",
         timestamp=datetime.now(timezone.utc)

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from backend.routes import questions
 from backend.routes import maps
-from backend.routes import lease
+from backend.routes import lease, spreadsheet
 from backend.app.db.database import create_db
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,6 +20,7 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(questions.router)
 app.include_router(maps.router)
 app.include_router(lease.router)
+app.include_router(spreadsheet.router)
 
 @app.get("/")
 def root():

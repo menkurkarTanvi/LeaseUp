@@ -20,19 +20,18 @@ class UserDetails(SQLModel, table=True):
 #Store apartment information for apartments user likes 
 class SavedApartments(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    property_id: int
+    name: str
     price: float
-    street: str
-    city: str
-    state: str
-    zip_code: int
+    address: str
+    latitude: float
+    longitude: float
     beds: int
     baths: int
-    area: int
-    lattitude: float
-    longitde: float
-    images: str
+    lot_size_sqft: int
+    listing_agent: str
+    contact: str
     amenities: str
+    lease_terms: str
 
 
 #Stores conversation history for the map_page
@@ -54,6 +53,8 @@ class ConversationHistoryLeases(SQLModel, table=True):
 #save Conversation history for Spreadsheet page
 class ConversationHistorySpreadsheet(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
+    property_one: int
+    property_two: int
     sender: str  # 'human' or 'ai'
     content: str
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

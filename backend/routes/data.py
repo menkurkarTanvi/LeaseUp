@@ -1,6 +1,6 @@
 apartments = [
   {
-    "id": 1,
+    "id": 0,
     "url": "https://www.zillow.com/apartments/dublin-oh/gorden-farms/Ckh4fC/",
     "name": "Gordon Farms",
     "price": 1650,
@@ -13,12 +13,12 @@ apartments = [
     "description": "Gorden Farms is located in prestigious Dublin, Ohio. Here, you'll find luxury living at it's finest. Our community features six beautiful one and two bedroom garden and two bedroom town home style floor plans. Features include open floor plans, washer/dryer connections, patios and balconies, and fireplaces in select units. Gorden Farms is located just minutes from a multitude of dining, shopping, and entertainment venues. We offer wonderful amenities including a sparkling swimming pool, on-site fitness center, ample parking, and garages! With convenient access to 161 and 270, you won't want to miss out on this gorgeous community. Stop in today to find your new home!",
     "listing_agent":"Spring Property Management",
     "contact": "(380) 205-3698",
-    "amentities": ["Club House","Fitness Center","Laundry: Hookups","Swimming Pool"],
+    "amenities": ["Club House","Fitness Center","Laundry: Hookups","Swimming Pool"],
     "lease_terms": ["Flexible","One year"],
     "images": []
   },
   {
-    "id": 2,
+    "id": 1,
     "url": "https://www.zillow.com/homedetails/5252-Willow-Grove-Pl-S-Dublin-OH-43017/34064106_zpid/",
     "name": "Willow Grove Condominiums",
     "price": 2450,

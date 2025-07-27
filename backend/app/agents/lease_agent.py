@@ -1,5 +1,5 @@
 #Import the vector database (The pdf has already been loaded into the vector database)
-from backend.app.vector_store.vector_database import vector_store
+from backend.app.agents.vector_store.vector_database import vector_store
 
 def lease_agent(pdf_id: int):
     #logic for lease agent goes here
