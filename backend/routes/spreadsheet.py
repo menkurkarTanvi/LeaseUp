@@ -11,7 +11,7 @@ from backend.app.schemas import OutputApartmentDetails, QueryRequest
 from backend.app.agents.spreadsheet_agent import spreadsheet_agent
 import httpx
 import asyncio
-from backend.routes.data import apartments
+from backend.apartment_data.data import apartments
 from datetime import datetime, timezone
 router = APIRouter()
 
@@ -19,15 +19,15 @@ router = APIRouter()
 @router.get("/saved_apartments", response_model = List[SavedApartments])
 def get_saved_apartments(db: Session = Depends(get_db)):
     apartments = db.exec(select(SavedApartments)).all()
-    #Take a look at the SavedApartments is models.py to see all the fields that should be included in the spreadsheet
+    #Take a look at the SavedApartments in models.py to see all the fields that should be included in the spreadsheet
     return apartments
 
 
 
-#Get the conversation history that will be displayed in the chat box
+#Get the conversation history that will be displayed in the chat box. id_1: number of first apartment, id_2: id of 2nd apartment
 @router.get("/get_spreadsheet_conversation/{id_1}/{id_2}")
 def get_lease_conversation(id_1: int, id_2: int, db: Session = Depends(get_db)):
-    # Get all messages (human + AI), ordered by timestamp
+    # Get all messages (human + AI), ordered by timestamp for the pair of apartments with id_1 and id_2
     statement = (
         select(ConversationHistorySpreadsheet)
         .where(and_(ConversationHistorySpreadsheet.property_one == id_1, ConversationHistorySpreadsheet.property_two == id_2))
@@ -41,7 +41,7 @@ def get_lease_conversation(id_1: int, id_2: int, db: Session = Depends(get_db)):
     ]
 
 
-#Gets ai_response to user_question and save both to the database
+#Gets the ai response and saves the human question and the ai response to the database
 @router.put("/save_spreadsheet_conversation/{id_1}/{id_2}")
 def save_lease_conversation(id_1: int, id_2: int, query: QueryRequest, db: Session = Depends(get_db),):
     #call the lease agent to get ai_response to user question

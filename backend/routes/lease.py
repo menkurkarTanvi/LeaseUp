@@ -10,18 +10,18 @@ from backend.app.models.models import ConversationHistoryLeases, UserDetails, Sa
 from backend.app.schemas import OutputApartmentDetails, QueryRequest
 import httpx
 import asyncio
-from backend.routes.data import apartments
+from backend.apartment_data.data import apartments
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 import os
 import uuid
 from datetime import datetime, timezone
-from backend.app.agents.vector_store.vector_database import upload_pdf_lease
+from backend.vector_store.vector_database import upload_pdf_lease
 from backend.app.agents.lease_agent import lease_agent
 import json
 router = APIRouter()
 
-
+#GETS LEASE TERMS FOR SAVED APARTMENTS TO DISPLAY IN THE TABLE
 @router.get("/lease_terms")
 def get_lease_terms(db: Session = Depends(get_db)):
     apartments = db.exec(select(SavedApartments)).all()
@@ -31,7 +31,7 @@ def get_lease_terms(db: Session = Depends(get_db)):
     ]
     return lease_terms_all_apartments
 
-#Uploads the pdf and stores in in the vector database
+#This Router is called once the user clicks the sumbit button on the Leases Page
 @router.post("/upload_pdf/")
 async def upload_pdf(file: UploadFile = File(...)):
     # Create a unique file name and created the unique pdf_id to identify the pdf
@@ -52,7 +52,7 @@ async def upload_pdf(file: UploadFile = File(...)):
 
 
 
-#Get the conversation history that will be displayed in the chat box
+#--------------------------------------------This gets the coversation history for the pdf uploaded----------------------------#
 @router.get("/get_lease_conversation/{pdf_id}")
 def get_lease_conversation(pdf_id: int, db: Session = Depends(get_db)):
     # Get all messages (human + AI), ordered by timestamp
@@ -69,6 +69,7 @@ def get_lease_conversation(pdf_id: int, db: Session = Depends(get_db)):
     ]
 
 
+#------------------------------------THIS IS WHERE THE AGENT IS CALLED---------------------------------------------#
 #Gets ai_response to user_question and save both to the database
 @router.put("/save_lease_conversation/{pdf_id}")
 def save_lease_conversation(pdf_id: int, query: QueryRequest, db: Session = Depends(get_db),):

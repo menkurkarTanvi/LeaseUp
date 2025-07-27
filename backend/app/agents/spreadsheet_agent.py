@@ -1,4 +1,4 @@
-from backend.routes.data import apartments
+from backend.apartment_data.data import apartments
 
 def spreadsheet_agent(id_1, id_2):
     #logic for spreadsheet agent goes here

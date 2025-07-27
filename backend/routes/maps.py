@@ -10,7 +10,7 @@ from backend.app.models.models import ConversationHistoryMap, UserDetails, Saved
 from backend.app.schemas import OutputApartmentDetails, QueryRequest
 import httpx
 import asyncio
-from backend.routes.data import apartments
+from backend.apartment_data.data import apartments
 from datetime import datetime, timezone
 from backend.app.agents.maps_agent import maps_agent
 import json

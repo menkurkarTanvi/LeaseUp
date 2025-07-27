@@ -12,6 +12,7 @@ dotenv.load_dotenv()
 #---------------------------------------------------INITIALIZE VECTOR DATABASE------------------------------------------------------------#
 pinecone_api_key = "pcsk_2kqyLV_8dDv1FDrLsXQB6BzFrkYCQs8A3fcLbbnHSfT4sF91DyQaUZVuSL7jnh35pThBHi"
 
+#Embeddings model
 embeddings = OpenAIEmbeddings(
     api_key="OPEN API KEY",
     model="text-embedding-3-small",
@@ -28,7 +29,7 @@ index = pc.Index(pinecone_index_name)
 # Initialize the vector store
 vector_store = PineconeVectorStore(embedding=embeddings, index=index)
 
-#-----------------------------------------------------------------------------------------------------------------------------#
+#--------------------------------------------------------------------------------------------------------------------------------------#
 #UPLOADS THE LEASE TO VECTOR DATABASE
 def upload_pdf_lease(pdf_path: str, pdf_id: int):
     # Load the single PDF document

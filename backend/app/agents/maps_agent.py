@@ -1,4 +1,4 @@
-from backend.routes.data import apartments
+from backend.apartment_data.data import apartments
 def maps_agent(id: int):
     #logic for maps agent goes here
 

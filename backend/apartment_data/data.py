@@ -34,5 +34,43 @@ apartments = [
     "amentities": ["Washer/Dryer hookup (WD Hookup)","Attached garage","Community pool","Fenced‑in back patio"],
     "lease_terms": ["1 Year"], 
     "images": []
+  },
+
+  {
+    "id": 2,
+    "url": "https://www.zillow.com/homedetails/1501-1507-Michigan-Ave-Columbus-OH-43201/33939076_zpid/",
+    "name": "Michigan Ave, Columbus, OH",
+    "price": 2445,
+    "address": "1501-1507 Michigan Ave, Columbus, OH 43201",
+    "latitude": 39.991875,
+    "longitude": -83.016555,
+    "beds": 4,
+    "baths": 1.5,
+    "lot_size_sqft": 1746,
+    "description": "4 Bd 1.5 Ba one side of a duplex next to OSU medical campus. Fully renovated with a brand new kitchen with granite counter, white cabinets and SS appliances. Brand new windows with blinds, and new 1.5 baths (first floor half bath). Spacious living and dining rooms with bar area, original pocket doors, original wood works and decorative fireplace. Upstairs feature the updated full bath with floor to ceiling tiled shower and three sizeable bedrooms with ample closet spaces (decorative fireplace in one room), bright tall windows as well as ceiling fan lights in each bedroom. There is an additional third level finished as two study/office/guest rooms. Rent include basement washer/dryer and off street parkings and lawn care (no snow removal). Utilities are on tenants and refundable pet deposit and monthly rent apply.",
+    "listing_agent": "7rent com",
+    "contact": "(614) 725-5777",
+    "amentities": ["Dishwasher, Dryer, Freezer, Microwave, Oven, Refridgerator, Washer"],
+    "lease_terms": ["1 Year", "Pets Allowed"], 
+    "images": []
+  },
+
+  {
+    "id": 3,
+    "url": "https://www.zillow.com/homedetails/1537-Doten-Ave-Columbus-OH-43212/2090723976_zpid/",
+    "name": "Michigan Ave, Columbus, OH",
+    "price": 2445,
+    "address": "1537 Doten Ave, Columbus, OH 43212",
+    "latitude": 39.990104,
+    "longitude": -83.037938,
+    "beds": 1,
+    "baths": 1,
+    "lot_size_sqft": 1746,
+    "description": "Beautiful apartment with hardwood floors, updated tile bathroom, washer/dryer, lots of storage and green space . Located in the Grandview area and very walkable to everything you need.",
+    "listing_agent":"Dan Bryan",
+    "contact": "(380) 205-2349",
+    "amentities": ["Dryer, Washer, Laundry: In Unit", "Flooring: Hardwoord", "Cooling: Central air"],
+    "lease_terms": ["1 Year", "Pets Allowed"], 
+    "images": []
   }
 ]
