@@ -21,7 +21,27 @@ router = APIRouter()
 def get_saved_apartments(db: Session = Depends(get_db)):
     apartments = db.exec(select(SavedApartments)).all()
     #Take a look at the SavedApartments in models.py to see all the fields that should be included in the spreadsheet
+
+    #EXAMPLE OUTPUT
+#    [
+#       {
+#            "id": 1,
+#            "name": "Gordon Farms",
+#            "price": 1650.0,
+#            "address": "7200 Gorden Farms Pkwy, Dublin, OH 43016",
+#            "latitude": 40.110219,
+#            "longitude": -83.169342,
+#            "beds": 2,
+#            "baths": 2,
+#            "lot_size_sqft": 1122,
+#            "listing_agent": "Spring Property Management",
+#            "contact": "(380) 205-3698",
+#            "amenities": "[\"Club House\",\"Fitness Center\",\"Swimming Pool\"]",
+#            "lease_terms": "[\"Flexible\",\"One year\"]"
+#        }
+#    ]
     return apartments
+
 
 
 
