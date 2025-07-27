@@ -14,7 +14,7 @@ class InfoFromQuestionnaire(BaseModel):
     max_price: int
     amenities: List[str]
 
-
+#Details we are going to save about the Apartments
 class OutputApartmentDetails(BaseModel):
     property_id: str
     price: int
@@ -34,6 +34,7 @@ class OutputApartmentDetails(BaseModel):
     parking: str | None = None
     images: List[str] = []
 
+#Question asked to chat bot
 class QueryRequest(BaseModel):
     question: str
 

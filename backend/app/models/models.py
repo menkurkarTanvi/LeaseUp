@@ -14,7 +14,7 @@ class UserDetails(SQLModel, table=True):
     max_price: int
     amenities: str
 
-#Store apartment information for apartments user likes 
+#Store apartment information for apartments user LIKES 
 class SavedApartments(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
@@ -30,6 +30,7 @@ class SavedApartments(SQLModel, table=True):
     amenities: str
     lease_terms: str
 
+#------------------------------------------------------CONVERSATION HISTORY-----------------------------------------------------------------#
 
 #Stores conversation history for the map_page
 class ConversationHistoryMap(SQLModel, table=True):
