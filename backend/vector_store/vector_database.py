@@ -49,6 +49,11 @@ def upload_pdf_lease(pdf_path: str, pdf_id: int):
         #for that pdf in the vector database and not the other pdf's
         doc.metadata["pdf_id"] = pdf_id  # Tag the doc with its unique ID
     
-    vector_store.add_documents(all_splits)
+    try:
+        vector_store.add_documents(all_splits)
+    except Exception as e:
+        raise RuntimeError(f"Failed to upload documents to Pinecone: {e}")
+    
+    return "Pdf successfully uploaded"
 
 #---------------------------------------------------------------------------------------------------------------------------------#

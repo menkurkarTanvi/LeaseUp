@@ -9,8 +9,6 @@ from backend.app.db.database import get_db
 from backend.app.models.models import ConversationHistorySpreadsheet, UserDetails, SavedApartments
 from backend.app.schemas import OutputApartmentDetails, QueryRequest
 from backend.app.agents.spreadsheet_agent import spreadsheet_agent
-import httpx
-import asyncio
 from backend.apartment_data.data import apartments
 from datetime import datetime, timezone
 from langchain_core.messages import HumanMessage, AIMessage,SystemMessage, BaseMessage, ToolMessage
@@ -41,8 +39,6 @@ def get_saved_apartments(db: Session = Depends(get_db)):
 #        }
 #    ]
     return apartments
-
-
 
 
 #Get the conversation history that will be displayed in the chat box. id_1: number of first apartment, id_2: id of 2nd apartment

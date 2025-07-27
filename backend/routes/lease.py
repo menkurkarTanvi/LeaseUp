@@ -8,8 +8,6 @@ from fastapi import APIRouter
 from backend.app.db.database import get_db
 from backend.app.models.models import ConversationHistoryLeases, UserDetails, SavedApartments
 from backend.app.schemas import OutputApartmentDetails, QueryRequest
-import httpx
-import asyncio
 from backend.apartment_data.data import apartments
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
@@ -28,8 +26,20 @@ def get_lease_terms(db: Session = Depends(get_db)):
     apartments = db.exec(select(SavedApartments)).all()
     #using json to convert the json string back into a python list
     lease_terms_all_apartments = [
-        json.loads(apartment.lease_terms) for apartment in apartments
+        {"address": apartment.address, "lease_terms": json.loads(apartment.lease_terms)} for apartment in apartments
     ]
+
+#    Example Output
+#    [
+#        {
+#            "address": "7200 Gorden Farms Pkwy, Dublin, OH 43016",
+#            "lease_terms": ["Flexible", "One year"]
+#        },
+#        {
+#            "address": "5252 Willow Grove Pl S, Dublin, OH 43017",
+#            "lease_terms": ["1 Year"]
+#        }
+#    ]
     return lease_terms_all_apartments
 
 
@@ -49,8 +59,11 @@ async def upload_pdf(file: UploadFile = File(...)):
     # Calls the function to store the pdf to Pinecone vector database
     upload_pdf_lease(pdf_path, pdf_id)
     
-    #Returns an id number for that pdf
-    return pdf_id
+#    Returns an id number for that pdf
+#   {
+#        "pdf_id": "f4a7c0e2-52cb-4d41-9132-9b6a8c3e7c99"
+#    }
+    return {"pdf_id": pdf_id}
 
 
 
