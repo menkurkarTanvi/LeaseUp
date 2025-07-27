@@ -21,11 +21,8 @@ def put_info_from_questionare(
     amenities_list = questionnaire_info.amenities
     user = UserDetails(
         id = 1,
-        name=questionnaire_info.name,
+        userName=questionnaire_info.name,
         college=questionnaire_info.college,
-        country=questionnaire_info.country,
-        state=questionnaire_info.state,
-        city=questionnaire_info.city,
         min_price=questionnaire_info.min_price,
         max_price=questionnaire_info.max_price,
         amenities=json.dumps(amenities_list)

@@ -8,11 +8,8 @@ from datetime import datetime, timezone
 #Database models go here
 class UserDetails(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
+    userName: str
     college: str
-    country: str
-    state: str
-    city: str
     min_price: int
     max_price: int
     amenities: str
