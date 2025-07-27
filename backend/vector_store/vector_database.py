@@ -19,8 +19,8 @@ embeddings = OpenAIEmbeddings(
     dimensions=1536
 )
 
-# Define Pinecone index name (just stored a random indexname temporarily)
-pinecone_index_name = "resume-index"
+# Define Pinecone index name
+pinecone_index_name = "lease"
 
 # Initialize Pinecone client
 pc = Pinecone(api_key= pinecone_api_key)
@@ -47,7 +47,7 @@ def upload_pdf_lease(pdf_path: str, pdf_id: int):
     for doc in all_splits:
         #Add id to pdf so that if the user decides to upload multiple pdf's, the pdf id can be used to only search 
         #for that pdf in the vector database and not the other pdf's
-        doc.metadata["pdf_id"] = pdf_id  # Tag the doc with its unique ID
+        doc.metadata["pdf_id"] = pdf_id
     
     try:
         vector_store.add_documents(all_splits)
