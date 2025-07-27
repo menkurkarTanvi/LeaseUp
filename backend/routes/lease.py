@@ -17,7 +17,7 @@ import os
 import uuid
 from datetime import datetime, timezone
 from backend.app.agents.vector_store.vector_database import upload_pdf_lease
-from backend.app.agents import lease_agent
+from backend.app.agents.lease_agent import lease_agent
 import json
 router = APIRouter()
 
@@ -32,7 +32,7 @@ def get_lease_terms(db: Session = Depends(get_db)):
     return lease_terms_all_apartments
 
 #Uploads the pdf and stores in in the vector database
-@router.get("/upload_pdf/")
+@router.post("/upload_pdf/")
 async def upload_pdf(file: UploadFile = File(...)):
     # Create a unique file name and created the unique pdf_id to identify the pdf
     pdf_id = str(uuid.uuid4())
@@ -45,7 +45,9 @@ async def upload_pdf(file: UploadFile = File(...)):
         f.write(contents)
 
     # Calls the function to store the pdf to Pinecone vector database
-    #upload_pdf_lease(pdf_path, pdf_id)
+    upload_pdf_lease(pdf_path, pdf_id)
+    
+    #Returns an id number for that pdf
     return pdf_id
 
 
