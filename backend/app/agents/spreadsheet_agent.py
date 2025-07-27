@@ -1,6 +1,8 @@
 from backend.apartment_data.data import apartments
+from typing import List
 
-def spreadsheet_agent(id_1, id_2):
+#memory: list of conversation history --> [Human(), AI(), Human(), AI()]
+def spreadsheet_agent(memory: List, id_1: int, id_2: int):
     #logic for spreadsheet agent goes here
 
 

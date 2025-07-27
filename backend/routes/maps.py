@@ -13,6 +13,7 @@ import asyncio
 from backend.apartment_data.data import apartments
 from datetime import datetime, timezone
 from backend.app.agents.maps_agent import maps_agent
+from langchain_core.messages import HumanMessage, AIMessage,SystemMessage, BaseMessage, ToolMessage
 import json
 router = APIRouter()
 
@@ -75,15 +76,26 @@ def get_map_conversation(id: int, db: Session = Depends(get_db)):
 #Gets ai_response to user_question and save both to the database
 @router.put("/save_map_conversation/{id}")
 def save_map_conversation(id: int, query: QueryRequest, db: Session = Depends(get_db),):
+    statement = (
+        select(ConversationHistoryMap)
+        .where(ConversationHistoryMap.property_id == id)
+        .order_by(ConversationHistoryMap.timestamp)
+    )
+    messages = db.exec(statement).all()
+    memory = []
+    #Gather memory
+    for msg in messages:
+        if msg.sender == 'human':
+            memory.append(HumanMessage(content = msg.content))
+        elif msg.sender == 'ai':
+            memory.append(AIMessage(content = msg.content))
+    
     #call the maps agent to get ai_response to user question
-    answer = maps_agent(id)
+    answer = maps_agent(memory, id)
     #Agent will return formatted response like this
-    #[HumanMessage(content='What is 3 * 12? Also, what is 11 + 49?'),
     #AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_loT2pliJwJe3p7nkgXYF48A1', 'function': {'arguments': '{"a": 3, "b": 12}', 'name': 'multiply'}, 'type': 'function'}, {'id': 'call_bG9tYZCXOeYDZf3W46TceoV4', 'function': {'arguments': '{"a": 11, "b": 49}', 'name': 'add'}, 'type': 'function'}]}, response_metadata={'token_usage': {'completion_tokens': 50, 'prompt_tokens': 87, 'total_tokens': 137}, 'model_name': 'gpt-4o-mini-2024-07-18', 'system_fingerprint': 'fp_661538dc1f', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-e3db3c46-bf9e-478e-abc1-dc9a264f4afe-0', tool_calls=[{'name': 'multiply', 'args': {'a': 3, 'b': 12}, 'id': 'call_loT2pliJwJe3p7nkgXYF48A1', 'type': 'tool_call'}, {'name': 'add', 'args': {'a': 11, 'b': 49}, 'id': 'call_bG9tYZCXOeYDZf3W46TceoV4', 'type': 'tool_call'}], usage_metadata={'input_tokens': 87, 'output_tokens': 50, 'total_tokens': 137}),
-    #ToolMessage(content='36', name='multiply', tool_call_id='call_loT2pliJwJe3p7nkgXYF48A1'),
-    #ToolMessage(content='60', name='add', tool_call_id='call_bG9tYZCXOeYDZf3W46TceoV4')]
 
-     # Sample human message
+    # Sample human message
     human_message = ConversationHistoryMap(
         property_id=id,
         sender="human",

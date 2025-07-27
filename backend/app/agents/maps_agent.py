@@ -1,5 +1,7 @@
 from backend.apartment_data.data import apartments
-def maps_agent(id: int):
+from typing import List
+#memory: list of conversation history --> [Human(), AI(), Human(), AI()]
+def maps_agent(memory: List, id: int):
     #logic for maps agent goes here
 
 

@@ -1,7 +1,9 @@
 #Import the vector database (The pdf has already been loaded into the vector database)
-from backend.app.agents.vector_store.vector_database import vector_store
+from backend.vector_store.vector_database import vector_store
+from typing import List
 
-def lease_agent(pdf_id: int):
+#memory: list of conversation history --> [Human(), AI(), Human(), AI()]
+def lease_agent(memory: List, pdf_id: int):
     #logic for lease agent goes here
     #vector_store.similarity_search(query, k=3, filter={"pdf_id": pdf_id})
 
