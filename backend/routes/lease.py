@@ -26,11 +26,12 @@ router = APIRouter()
 @router.get("/lease_terms")
 def get_lease_terms(db: Session = Depends(get_db)):
     apartments = db.exec(select(SavedApartments)).all()
-    #using json to convert the json string back inot a python list
+    #using json to convert the json string back into a python list
     lease_terms_all_apartments = [
         json.loads(apartment.lease_terms) for apartment in apartments
     ]
     return lease_terms_all_apartments
+
 
 #This Router is called once the user clicks the sumbit button on the Leases Page
 @router.post("/upload_pdf/")
