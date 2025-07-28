@@ -57,8 +57,8 @@ async def upload_pdf(file: UploadFile = File(...)):
         f.write(contents)
 
     # Calls the function to store the pdf to Pinecone vector database
-    upload_pdf_lease(pdf_path, pdf_id)
-    
+    message = upload_pdf_lease(pdf_path, pdf_id)
+    print(message)
 #    Returns an id number for that pdf
 #   {
 #        "pdf_id": "f4a7c0e2-52cb-4d41-9132-9b6a8c3e7c99"

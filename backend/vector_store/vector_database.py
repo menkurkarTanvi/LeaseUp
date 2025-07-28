@@ -10,6 +10,7 @@ import dotenv
 
 dotenv.load_dotenv()
 #---------------------------------------------------INITIALIZE VECTOR DATABASE------------------------------------------------------------#
+#Tanvi's pinecone api key
 pinecone_api_key = "pcsk_2kqyLV_8dDv1FDrLsXQB6BzFrkYCQs8A3fcLbbnHSfT4sF91DyQaUZVuSL7jnh35pThBHi"
 
 #Embeddings model
