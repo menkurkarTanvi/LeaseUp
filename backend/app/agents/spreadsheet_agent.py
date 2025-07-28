@@ -1,8 +1,19 @@
-from backend.apartment_data.data import apartments
+from backend.vector_store.vector_database import vector_store
 from typing import List
+from typing import Sequence
+from langchain_core.messages import HumanMessage, AIMessage,SystemMessage, BaseMessage, ToolMessage
+from typing_extensions import TypedDict
+
+class State(TypedDict):
+    messages: Sequence[BaseMessage]
 
 #memory: list of conversation history --> [Human(), AI(), Human(), AI()]
-def spreadsheet_agent(memory: List, id_1: int, id_2: int):
+def spreadsheet_agent(memory: List[BaseMessage], id_1: int, id_2: int):
+    
+    #---------------------------------------ONE WAY TO STORE MEMORY FOR AGENTS, CAN BE CHANGED -----------------------------------------#
+    conversationMemory = State(messages = memory)
+    #------------------------------------------------------------------------------------------------------------------------------------#
+    
     #logic for spreadsheet agent goes here
 
 

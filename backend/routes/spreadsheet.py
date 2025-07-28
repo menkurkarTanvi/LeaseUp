@@ -23,7 +23,7 @@ def get_saved_apartments(db: Session = Depends(get_db)):
     #EXAMPLE OUTPUT
 #    [
 #       {
-#            "id": 1,
+#            "id": 0,
 #            "name": "Gordon Farms",
 #            "price": 1650.0,
 #            "address": "7200 Gorden Farms Pkwy, Dublin, OH 43016",

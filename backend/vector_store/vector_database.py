@@ -43,12 +43,13 @@ def upload_pdf_lease(pdf_path: str, pdf_id: int):
     )
     all_splits = text_splitter.split_documents(documents)
 
-    # Add splits to Pinecone vector store
+    # And metadata to the split documents
     for doc in all_splits:
         #Add id to pdf so that if the user decides to upload multiple pdf's, the pdf id can be used to only search 
         #for that pdf in the vector database and not the other pdf's
         doc.metadata["pdf_id"] = pdf_id
     
+    #Store the split documents in the vector database
     try:
         vector_store.add_documents(all_splits)
     except Exception as e:
