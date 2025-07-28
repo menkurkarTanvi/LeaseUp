@@ -67,7 +67,7 @@ async def upload_pdf(file: UploadFile = File(...)):
     return {"pdf_id": pdf_id}
 
 #This Router is called once the user clicks the SUMMARIZE button on the Leases Page
-@router.post("/summarize_lease/{pdf_id}")
+@router.get("/summarize_lease/{pdf_id}")
 async def upload_pdf(pdf_id: str, file: UploadFile = File(...)):
     #Call the summarize lease agent
     messages = summarize_lease_agent(pdf_id)
