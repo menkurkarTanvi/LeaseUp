@@ -27,12 +27,14 @@
   align-items: center;
 }
 
-#description {
-  margin-top: 20px;
+#page-title {
+  padding-left: 78%;
+  padding-top: 10%;
 }
 
-#page-title {
-  margin-top: 100px;
+#description {
+  margin-top: 1.5%;
+  margin-bottom: -1%;
 }
 
 #login-button {

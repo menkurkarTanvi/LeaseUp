@@ -7,7 +7,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Spreadsheets/>}/>
-      <Route path="/MapPage" element={<Login/>}/> {/* Replace with actual map URL */}
+      <Route path="/Login" element={<Login/>}/>
     </Routes>
   );
 }
