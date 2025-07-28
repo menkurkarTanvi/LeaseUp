@@ -258,7 +258,7 @@ function MapPage() {
   )
   return (
     <div className = 'container'>
-        <APIProvider apiKey={"AIzaSyCa8bWzF5tllZ0X1FTST9vvYLHU9nSkb24"}>
+        <APIProvider apiKey={"API KEY"}>
       <div className='map'>
         <Map
           style={{width: '900px', height: '800px'}}
