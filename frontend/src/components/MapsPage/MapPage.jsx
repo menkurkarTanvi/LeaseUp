@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './MapPage.css'
 import {APIProvider, Map, Marker, useMapsLibrary, useMap} from '@vis.gl/react-google-maps';
 import axios from 'axios'
@@ -88,6 +88,8 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
 export function ApartmentList({apartmentName, images, description, price, beds, baths, sqft, id}){
   const [index, setIndex] = useState(0);
   const [chat, setChat] = useState(false);
+  const [like, setLike] = useState(0);
+  const currId = useRef(-1);
   const handleNextImage = () => {
       if(index + 1 >= images.length){
         setIndex(0);
@@ -98,9 +100,25 @@ export function ApartmentList({apartmentName, images, description, price, beds, 
   const handleChat = () => {
       setChat(true);
   }
+
+  const handleLike = () => {
+    if (id !== currId.current) {
+      setLike(prev => prev + 1);
+      currId.current = id;
+    }
+  }
   useEffect (() => {
         setChat(false);
   }, [id])
+
+  useEffect(() => {
+    if (currId == -1) return;
+    axios.put(`http://localhost:8000/save_apartments/${id}`
+    ).then(() => {
+        console.log("hi");
+    }).catch(err => console.error(err))
+  }, [like]);
+
   return (
     <>
       <div className='apartment'>
@@ -111,7 +129,7 @@ export function ApartmentList({apartmentName, images, description, price, beds, 
           <img src = {images[index]}></img>
           <div className='buttons'>
             <button onClick={handleNextImage}>Next Image</button>
-            <button className='like_button'>Like</button>
+            <button onClick = {handleLike} className='like_button'>Like</button>
             <button onClick={handleChat}>Chat with AI</button>
           </div>
         </div>

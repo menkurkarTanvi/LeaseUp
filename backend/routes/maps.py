@@ -23,7 +23,7 @@ def get_apartments(db: Session = Depends(get_db)):
 
                 
 #Saves details of an apartment the user liked to the database
-@router.post("/apartments/{property_id}")
+@router.put("/save_apartments/{property_id}")
 def save_aparments(property_id: int, db: Session = Depends(get_db)):
     dict = apartments[property_id]
     saved_apartment = SavedApartments(

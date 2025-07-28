@@ -58,7 +58,7 @@ apartments = [
   {
     "id": 3,
     "url": "https://www.zillow.com/homedetails/1537-Doten-Ave-Columbus-OH-43212/2090723976_zpid/",
-    "name": "Michigan Ave, Columbus, OH",
+    "name": "Doten Ave, Columbus, OH",
     "price": 2445,
     "address": "1537 Doten Ave, Columbus, OH 43212",
     "latitude": 39.990104,

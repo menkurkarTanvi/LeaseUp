@@ -3,6 +3,7 @@ from typing import List
 from typing import Sequence
 from langchain_core.messages import HumanMessage, AIMessage,SystemMessage, BaseMessage, ToolMessage
 from typing_extensions import TypedDict
+from backend.apartment_data.data import apartments
 
 class State(TypedDict):
     messages: Sequence[BaseMessage]
