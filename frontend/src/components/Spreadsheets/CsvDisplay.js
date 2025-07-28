@@ -1,6 +1,6 @@
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
-import '../styles/Csv.css';
+import '../../styles/Csv.css';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },

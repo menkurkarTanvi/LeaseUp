@@ -1,4 +1,4 @@
-import '../styles/ChatBox.css';
+import '../../styles/ChatBox.css';
 
 export default function ChatBox({chatAI, setChatAI}){
   return(

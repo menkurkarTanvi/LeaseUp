@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import './styles/App.css';
 import Login from './components/Login';
-import Spreadsheets from './components/Spreadsheets';
+import Spreadsheets from './components/Spreadsheets/Spreadsheets';
 
 function App() {
   return (
