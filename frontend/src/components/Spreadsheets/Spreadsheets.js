@@ -1,7 +1,7 @@
 import React from 'react';
 import { CSVLink } from 'react-csv';
 import CsvDisplay from './CsvDisplay';
-import '../styles/Spreadsheet.css';
+import '../../styles/Spreadsheet.css';
 import ChatBox from './ChatBox';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
