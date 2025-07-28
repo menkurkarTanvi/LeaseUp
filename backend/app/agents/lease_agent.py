@@ -9,7 +9,7 @@ class State(TypedDict):
     messages: Sequence[BaseMessage]
 
 #memory: list of conversation history --> [Human(), AI(), Human(), AI()]
-def lease_agent(memory: List[BaseMessage], pdf_id: int):
+def lease_agent(memory: List[BaseMessage], pdf_id: str):
 
     #---------------------------------------ONE WAY TO STORE MEMORY FOR AGENTS, CAN BE CHANGED -----------------------------------------#
     conversationMemory = State(messages = memory)
