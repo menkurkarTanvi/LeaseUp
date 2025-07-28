@@ -15,6 +15,7 @@ import os
 import uuid
 from datetime import datetime, timezone
 from backend.vector_store.vector_database import upload_pdf_lease
+from backend.app.agents.summarize_lease_agent import summarize_lease_agent
 from backend.app.agents.lease_agent import lease_agent
 from langchain_core.messages import HumanMessage, AIMessage,SystemMessage, BaseMessage, ToolMessage
 import json
@@ -65,11 +66,18 @@ async def upload_pdf(file: UploadFile = File(...)):
 #    }
     return {"pdf_id": pdf_id}
 
+#This Router is called once the user clicks the SUMMARIZE button on the Leases Page
+@router.post("/summarize_lease/{pdf_id}")
+async def upload_pdf(pdf_id: str, file: UploadFile = File(...)):
+    #Call the summarize lease agent
+    messages = summarize_lease_agent(pdf_id)
+    #Returns a list of the most important parts of the lease TO BE HIGHLITED
+    return messages
 
 
 #--------------------------------------------This gets the coversation history for the pdf uploaded----------------------------#
 @router.get("/get_lease_conversation/{pdf_id}")
-def get_lease_conversation(pdf_id: int, db: Session = Depends(get_db)):
+def get_lease_conversation(pdf_id: str, db: Session = Depends(get_db)):
     # Get all messages (human + AI), ordered by timestamp
     statement = (
         select(ConversationHistoryLeases)
@@ -84,7 +92,7 @@ def get_lease_conversation(pdf_id: int, db: Session = Depends(get_db)):
     ]
 
 
-#Gets ai_response to user_question and save both to the database
+#Gets ai_response to user_question and save both to the database (where the lease_agent is called)
 @router.put("/save_lease_conversation/{pdf_id}")
 def save_lease_conversation(pdf_id: int, query: QueryRequest, db: Session = Depends(get_db),):
     statement = (
