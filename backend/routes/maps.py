@@ -25,6 +25,14 @@ def get_apartments(db: Session = Depends(get_db)):
 #Saves details of an apartment the user liked to the database
 @router.put("/save_apartments/{property_id}")
 def save_aparments(property_id: int, db: Session = Depends(get_db)):
+    # Check if the apartment already exists
+    existing_apartment = db.exec(
+        select(SavedApartments).where(SavedApartments.id == property_id)
+    ).first()
+    
+    if existing_apartment:
+        return {"message": "Apartment is already saved"}
+    
     dict = apartments[property_id]
     saved_apartment = SavedApartments(
         id = property_id,
