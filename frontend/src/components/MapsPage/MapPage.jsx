@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback} from 'react'
 import './MapPage.css'
-import {APIProvider, Map, Marker, useMapsLibrary, useMap} from '@vis.gl/react-google-maps';
+import {APIProvider, Map, Marker, InfoWindow, useMapsLibrary, useMap, useMarkerRef} from '@vis.gl/react-google-maps';
 import {BarChart } from '@mui/x-charts/BarChart';
 import {LineChart } from '@mui/x-charts/LineChart';
 import axios from 'axios'
@@ -253,7 +253,8 @@ function MapPage() {
   const [showBusRoutes, setShowBusRoutes] = useState(false);
   const [showCrimeData, setShowCrimeData] = useState(false);
   const [infoWindowShown, setInfoWindowShown] = useState(false);
-  const [markerRef, marker] = useMarkerRef();
+  const [selectedMarkerIndex, setSelectedMarkerIndex] = useState(null);
+  const markerRefs = useRef([])
   //Defauly value so that conditional rendering not required null no accessed
   const [apart, setApart] = useState({
       latitude: 40.110031,
@@ -287,20 +288,26 @@ function MapPage() {
   }
   //Handles the event when user clicks on a marker on the map.
   //stores the apartment object the user has selected on the map
-  const handleMarkerClick = (apartment) => {
+  const handleMarkerClick = (apartment, index) => {
     //Copy the old fields
       setApart(apartment)
+      setSelectedMarkerIndex(index);
       setInfoWindowShown(isShown => !isShown)
   }
-   const handleClose = () => {
-      setInfoWindowShown(false);
-   }
-  const apartmentLocations = listApart.map(apartment => 
+   
+  // if the maps api closes the infowindow, we have to synchronize our state
+  const handleClose = () => {
+      setSelectedMarkerIndex(null);
+      setInfoWindowShown(isShown => !isShown)
+  }
+
+
+  const apartmentLocations = listApart.map((apartment, index) => 
       <Marker
        key={apartment.id}
-       ref = {markerRef}
+       ref = {(el) => (markerRefs.current[index] = el)}
       position={{lat: apartment.latitude, lng: apartment.longitude}} 
-      onClick={() => handleMarkerClick(apartment)}/>
+      onClick={() => handleMarkerClick(apartment, index)}/>
   )
   return (
     <div className = 'container'>
@@ -314,9 +321,8 @@ function MapPage() {
           <Directions active = {showBusRoutes} coords = {[apart.latitude, apart.longitude]}/>
           {apartmentLocations}
           {infoWindowShown && (
-            <InfoWindow anchor={marker} onClose={handleClose}>
-              <h2>InfoWindow content!</h2>
-              <p>Some arbitrary html to be rendered into the InfoWindow.</p>
+            <InfoWindow anchor={markerRefs.current[selectedMarkerIndex]} onClose={handleClose}>
+              <p>${apart.price}</p>
             </InfoWindow>
           )}
         </Map>
