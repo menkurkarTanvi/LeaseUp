@@ -251,7 +251,9 @@ function CrimeRate({display, setDisplay}){
 
 function MapPage() {
   const [showBusRoutes, setShowBusRoutes] = useState(false);
-  const [showCrimeData, setShowCrimeData] = useState(false)
+  const [showCrimeData, setShowCrimeData] = useState(false);
+  const [infoWindowShown, setInfoWindowShown] = useState(false);
+  const [markerRef, marker] = useMarkerRef();
   //Defauly value so that conditional rendering not required null no accessed
   const [apart, setApart] = useState({
       latitude: 40.110031,
@@ -288,10 +290,15 @@ function MapPage() {
   const handleMarkerClick = (apartment) => {
     //Copy the old fields
       setApart(apartment)
+      setInfoWindowShown(isShown => !isShown)
   }
+   const handleClose = () => {
+      setInfoWindowShown(false);
+   }
   const apartmentLocations = listApart.map(apartment => 
       <Marker
        key={apartment.id}
+       ref = {markerRef}
       position={{lat: apartment.latitude, lng: apartment.longitude}} 
       onClick={() => handleMarkerClick(apartment)}/>
   )
@@ -306,6 +313,12 @@ function MapPage() {
           fullscreenControl = {true}>
           <Directions active = {showBusRoutes} coords = {[apart.latitude, apart.longitude]}/>
           {apartmentLocations}
+          {infoWindowShown && (
+            <InfoWindow anchor={marker} onClose={handleClose}>
+              <h2>InfoWindow content!</h2>
+              <p>Some arbitrary html to be rendered into the InfoWindow.</p>
+            </InfoWindow>
+          )}
         </Map>
         <div className='buttons'>
             <button onClick={handleBusRoutes}>{showBusRoutes ? "Hide Bus Routes" : "Show Bus Routes"}</button>
