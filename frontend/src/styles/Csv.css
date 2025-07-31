@@ -1,7 +1,6 @@
 #csv-display {
     display: flex;
     align-items: center;
-    margin-left: 5%;
-    max-width: 50%;
+    max-width: 90%;
     max-height: 80%;
 }

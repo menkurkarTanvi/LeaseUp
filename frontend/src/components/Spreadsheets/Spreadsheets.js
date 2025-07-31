@@ -17,7 +17,7 @@ export function Spreadsheets() {
         <div className="sheetPage">
             <div id="sheet-container">
                 <Typography id="page-title" variant="h5">My Listings</Typography>
-                <CsvDisplay/>
+                <CsvDisplay id="csv-display"/>
                     <CSVLink 
                         id="download-link"
                         data={dummyData}
