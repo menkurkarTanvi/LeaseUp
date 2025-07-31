@@ -5,9 +5,9 @@ from datetime import date
 from sqlmodel import and_
 from fastapi import APIRouter
 #Imports from other files
-from backend.app.db.database import get_db
-from backend.app.schemas import InfoFromQuestionnaire
-from backend.app.models.models import UserDetails
+from app.db.database import get_db
+from app.schemas import InfoFromQuestionnaire
+from app.models.models import UserDetails
 import json
 
 router = APIRouter()

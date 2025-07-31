@@ -1,5 +1,5 @@
 #Import the vector database (The pdf has already been loaded into the vector database)
-from backend.vector_store.vector_database import vector_store
+from vector_store.vector_database import vector_store
 from typing import List
 from typing import Sequence
 from langchain_core.messages import HumanMessage, AIMessage,SystemMessage, BaseMessage, ToolMessage

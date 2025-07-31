@@ -5,11 +5,11 @@ from sqlmodel import Session, select
 from sqlmodel import and_
 from fastapi import APIRouter
 #Imports from other files
-from backend.app.db.database import get_db
-from backend.app.models.models import ConversationHistorySpreadsheet, UserDetails, SavedApartments
-from backend.app.schemas import OutputApartmentDetails, QueryRequest
-from backend.app.agents.spreadsheet_agent import spreadsheet_agent
-from backend.apartment_data.data import apartments
+from app.db.database import get_db
+from app.models.models import ConversationHistorySpreadsheet, UserDetails, SavedApartments
+from app.schemas import OutputApartmentDetails, QueryRequest
+from app.agents.spreadsheet_agent import spreadsheet_agent
+from apartment_data.data import apartments
 from datetime import datetime, timezone
 from langchain_core.messages import HumanMessage, AIMessage,SystemMessage, BaseMessage, ToolMessage
 router = APIRouter()
