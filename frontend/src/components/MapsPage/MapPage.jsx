@@ -69,11 +69,17 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
             {conversation}
           </div>
           <div className="chatbox-input">
-             <input
+            <input
               type="text"
               placeholder="Type your message..."
               value={userQuestion}
               onChange={(e) => setUserQuestion(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSend();
+                }
+              }}
             />
             <button onClick={handleSend}>Send</button>
             <button onClick={handleClear}>Clear</button>
@@ -111,13 +117,16 @@ export function ApartmentList({apartmentName, images, description, price, beds, 
         setChat(false);
   }, [id])
 
-  useEffect(() => {
-    if (currId == -1) return;
-    axios.put(`http://localhost:8000/save_apartments/${id}`
-    ).then(() => {
-        console.log("hi");
-    }).catch(err => console.error(err))
-  }, [like]);
+useEffect(() => {
+  if (currId.current === -1) return;
+    console.log("Saving apartment with ID:", currId.current);
+    axios.put(`http://localhost:8000/save_apartments/${currId.current}`)
+    .then(() => {
+      console.log("hi");
+    })
+    .catch(err => console.error(err));
+}, [like]);
+
 
   return (
     <>
@@ -258,7 +267,7 @@ function MapPage() {
   )
   return (
     <div className = 'container'>
-        <APIProvider apiKey={"API KEY"}>
+        <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
       <div className='map'>
         <Map
           style={{width: '900px', height: '800px'}}
