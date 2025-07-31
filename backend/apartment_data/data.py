@@ -1,76 +1,285 @@
 apartments = [
   {
     "id": 0,
-    "url": "https://www.zillow.com/apartments/dublin-oh/gorden-farms/Ckh4fC/",
-    "name": "Gordon Farms",
-    "price": 1650,
-    "address": "7200 Gorden Farms Pkwy, Dublin, OH 43016",
-    "latitude": 40.110219,
-    "longitude": -83.169342,
+    "url": "https://www.zillow.com/apartments/arlington-tx/stadium-700/CkKqd6/",
+    "name": "Stadium 700",
+    "price": 1643,
+    "address": "700 E Randol Mill Rd, Arlington, TX 76011",
+    "latitude": 32.7544,
+    "longitude": -97.1006,
     "beds": 2,
     "baths": 2,
     "lot_size_sqft": 1122,
-    "description": "Gorden Farms is located in prestigious Dublin, Ohio. Here, you'll find luxury living at it's finest. Our community features six beautiful one and two bedroom garden and two bedroom town home style floor plans. Features include open floor plans, washer/dryer connections, patios and balconies, and fireplaces in select units. Gorden Farms is located just minutes from a multitude of dining, shopping, and entertainment venues. We offer wonderful amenities including a sparkling swimming pool, on-site fitness center, ample parking, and garages! With convenient access to 161 and 270, you won't want to miss out on this gorgeous community. Stop in today to find your new home!",
-    "listing_agent":"Spring Property Management",
-    "contact": "(380) 205-3698",
-    "amenities": ["Club House","Fitness Center","Laundry: Hookups","Swimming Pool"],
-    "lease_terms": ["Flexible","One year"],
-    "images": []
+    "description": "Stadium 700 offers spacious apartments with modern amenities just minutes from AT&T Stadium. Enjoy a gated community with a pool, fitness center, and newly renovated units featuring stainless steel appliances and hardwood-style flooring.",
+    "listing_agent": "",
+    "contact": "(844) 558-0246",
+    "amenities": [
+      "Gated access",
+      "Resort-style swimming pool",
+      "Fitness center",
+      "Ceiling fans",
+      "Stainless steel appliances",
+      "Hardwood-style flooring",
+      "Washer/Dryer hookups",
+      "Patios (select units)",
+      "Laundry facilities",
+      "Pet-friendly"
+    ],
+    "lease_terms": [
+      "12-month lease",
+      "Short-term lease options available (6–11 months)",
+      "Move-in specials: $1,200 off 1st month on select units"
+    ],
+    "images": ["/images/one/image1.png", "/images/one/image2.png", "/images/one/image3.png", "/images/one/image4.png", "/images/one/image5.png", "/images/one/image6.png"], 
+    "utilities_included": [
+      "Trash removal",
+      "Water (partial)",
+      "Pest control"
+    ],
+    "parking": {
+      "type": "Surface lot",
+      "spaces_per_unit": 2,
+      "guest_parking": "true",
+    },
+    "pet_policy": {
+      "allowed": "true",
+      "max_per_unit": 2,
+      "breed_restrictions": "true",
+      "monthly_fee": 25,
+      "one_time_fee": 300
+    },
+    "application_fee": 75,
+    "security_deposit": 500,
+    "availability_date": "2025-08-15",
+    "year_built": 1985,
+    "renovated": 2022,
+    "floor": 2,
+    "walk_score": 68,
+    "transit_score": 40,
   },
+
   {
     "id": 1,
-    "url": "https://www.zillow.com/homedetails/5252-Willow-Grove-Pl-S-Dublin-OH-43017/34064106_zpid/",
-    "name": "Willow Grove Condominiums",
-    "price": 2450,
-    "address": "5252 Willow Grove Pl S, Dublin, OH 43017",
-    "latitude": 40.1165,
-    "longitude": -83.1398,
-    "beds": 3,
-    "baths": 2.5,
-    "lot_size_sqft": 1620,
-    "description": "Willow Grove Condominiums on the corner of Emerald Pkwy and Post Road; 3 bedrooms; 2 full bathrooms and 1 half bath; unfinished basement; attached one-car garage with driveway space for another car; off-street parking spots nearby; gated, key entry community pool just steps from your fenced-in back patio. Quiet community across the street from Coffman Park, home of the annual Dublin Irish Festival. Dublin schools, Coffman High School district; contact Dublin Schools Administration for most current districting, but it is believed to be Bailey Elementary, Grizzell Middle and Coffman High School at this time. Just minutes to I-270 and all that Dublin, Bridge Park and Columbus have to offer. One pet allowed with payment of $500.00 refundable pet deposit.",
-    "listing_agent":"Jay Eggspuehler",
-    "contact": "(614) 214-7250",
-    "amentities": ["Washer/Dryer hookup (WD Hookup)","Attached garage","Community pool","Fenced‑in back patio"],
-    "lease_terms": ["1 Year"], 
-    "images": []
-  },
-
-  {
-    "id": 2,
-    "url": "https://www.zillow.com/homedetails/1501-1507-Michigan-Ave-Columbus-OH-43201/33939076_zpid/",
-    "name": "Michigan Ave, Columbus, OH",
-    "price": 2445,
-    "address": "1501-1507 Michigan Ave, Columbus, OH 43201",
-    "latitude": 39.991875,
-    "longitude": -83.016555,
-    "beds": 4,
-    "baths": 1.5,
-    "lot_size_sqft": 1746,
-    "description": "4 Bd 1.5 Ba one side of a duplex next to OSU medical campus. Fully renovated with a brand new kitchen with granite counter, white cabinets and SS appliances. Brand new windows with blinds, and new 1.5 baths (first floor half bath). Spacious living and dining rooms with bar area, original pocket doors, original wood works and decorative fireplace. Upstairs feature the updated full bath with floor to ceiling tiled shower and three sizeable bedrooms with ample closet spaces (decorative fireplace in one room), bright tall windows as well as ceiling fan lights in each bedroom. There is an additional third level finished as two study/office/guest rooms. Rent include basement washer/dryer and off street parkings and lawn care (no snow removal). Utilities are on tenants and refundable pet deposit and monthly rent apply.",
-    "listing_agent": "7rent com",
-    "contact": "(614) 725-5777",
-    "amentities": ["Dishwasher, Dryer, Freezer, Microwave, Oven, Refridgerator, Washer"],
-    "lease_terms": ["1 Year", "Pets Allowed"], 
-    "images": []
-  },
-
-  {
-    "id": 3,
-    "url": "https://www.zillow.com/homedetails/1537-Doten-Ave-Columbus-OH-43212/2090723976_zpid/",
-    "name": "Doten Ave, Columbus, OH",
-    "price": 2445,
-    "address": "1537 Doten Ave, Columbus, OH 43212",
-    "latitude": 39.990104,
-    "longitude": -83.037938,
-    "beds": 1,
+    "url": "https://www.zillow.com/apartments/arlington-tx/montecito-club/5XhsjW/",
+    "name": "Montecito Club",
+    "price": 1428,
+    "address": "2001 S Cooper St, Arlington, TX 76010",
+    "latitude": 32.7108,
+    "longitude": -97.1186,
+    "beds": 2,
     "baths": 1,
-    "lot_size_sqft": 1746,
-    "description": "Beautiful apartment with hardwood floors, updated tile bathroom, washer/dryer, lots of storage and green space . Located in the Grandview area and very walkable to everything you need.",
-    "listing_agent":"Dan Bryan",
-    "contact": "(380) 205-2349",
-    "amentities": ["Dryer, Washer, Laundry: In Unit", "Flooring: Hardwoord", "Cooling: Central air"],
-    "lease_terms": ["1 Year", "Pets Allowed"], 
-    "images": []
-  }
+    "lot_size_sqft": 890,
+    "description": "Montecito Club offers studio to two‑bedroom apartments in a pet‑friendly, amenity‑rich community near central Arlington — filled with courtyard settings, pools, a dog park, and clubhouse.",
+    "listing_agent": "Laura Martinez",
+    "contact": "(817) 265-7173",
+    "amenities": [
+      "Gated entry",
+      "Two resort-style pools",
+      "Fitness center",
+      "Business center",
+      "Clubhouse",
+      "Dog park",
+      "Basketball/soccer court",
+      "Picnic area with outdoor kitchen",
+      "Package receiving",
+      "Bilingual staff",
+      "Laundry facilities",
+      "On-site maintenance"
+    ],
+    "lease_terms": [
+      "6‑, 9‑, 12‑ or 13‑month lease terms",
+      "Move-in special: $500 off first month"
+    ],
+    "images": [],
+    "utilities_included": [
+      "Trash",
+      "Pest control"
+    ],
+    "parking": {
+      "type": "Surface lot and covered garage",
+      "spaces_per_unit": 1,
+      "guest_parking": "true"
+    },
+    "pet_policy": {
+      "allowed": "true",
+      "max_per_unit": 2,
+      "weight_limit_lbs": 50,
+      "one_time_fee": 300,
+      "monthly_fee": 20
+    },
+    "application_fee": 75,
+    "security_deposit": 500,
+    "availability_date": "2025-08-02",
+    "year_built": 1984,
+    "renovated": 2021,
+    "floor": 1,
+    "school_district": "Arlington Independent School District",
+    "walk_score": 74,
+    "transit_score": 48
+  },
+
+    {
+    "id": 2,
+    "url": "https://www.zillow.com/homedetails/1816-E-Tucker-Blvd-1-Arlington-TX-76010/455578811_zpid/",
+    "name": "1816 E Tucker Blvd #1",
+    "price": 2200,
+    "address": "1816 E Tucker Blvd #1, Arlington, TX 76010",
+    "latitude": 32.7290,
+    "longitude": -97.0965,
+    "beds": 3,
+    "baths": 1.5,
+    "lot_size_sqft": 1375,
+    "description": "This updated 3-bedroom, 1.5-bath home offers two spacious living areas, in-unit laundry, a fenced backyard, and easy access to highways. Located in a quiet residential area close to shopping and dining.",
+    "listing_agent": "Red Team Real Estate",
+    "contact": "(817) 921-3545",
+    "amenities": [
+      "Two living areas",
+      "Covered patio",
+      "Washer/Dryer hookups",
+      "Ceiling fans",
+      "Fenced backyard",
+      "Storage shed",
+      "Window coverings"
+    ],
+    "lease_terms": [
+      "12-month lease",
+      "Available August 5, 2025",
+      "No pets allowed"
+    ],
+    "images": [],
+    "utilities_included": [
+      "Trash"
+    ],
+    "parking": {
+      "type": "Surface lot",
+      "spaces_per_unit": 2,
+      "guest_parking": "true"
+    },
+    "pet_policy": {
+      "allowed": "false"
+    },
+    "application_fee": 35,
+    "security_deposit": 1200,
+    "availability_date": "2025-08-05",
+    "year_built": 1960,
+    "renovated": 2023,
+    "floor": 1,
+    "school_district": "Arlington Independent School District",
+    "walk_score": 70,
+    "transit_score": 0
+  }, 
+
+  {
+  "id": 3,
+  "url": "https://www.zillow.com/apartments/arlington-tx/the-collection/Cgz3Ns/",
+  "name": "The Collection – Rose Street (1 Bed)",
+  "price": 895,
+  "address": "313‑319 Rose St, Arlington, TX 76010",
+  "latitude": 32.7315,
+  "longitude": -97.1092,
+  "beds": 1,
+  "baths": 1,
+  "lot_size_sqft": 720,
+  "description": "Newly remodeled 1‑bedroom, 1‑bath unit at Rose Street in Arlington, featuring granite countertops, plank‑style flooring, and smart‑compatible in‑unit laundry. Walking distance to UTA and downtown entertainment.",
+  "listing_agent": "Rick Rivera / RentalHousingDeals.com",
+  "contact": "(626) 281‑8301",
+  "amenities": [
+    "Granite countertops",
+    "Plank-style flooring",
+    "Subway tile backsplash",
+    "Stainless steel appliances",
+    "In-unit washer & dryer",
+    "Ceiling fans",
+    "Pergola with BBQ grills",
+    "On-site laundry facility"
+  ],
+  "lease_terms": [
+    "12‑month lease",
+    "Available Now",
+    "No pets allowed"
+  ],
+  "images": [],
+  "utilities_included": [
+    "Trash"
+  ],
+  "parking": {
+    "type": "Surface lot",
+    "spaces_per_unit": 1,
+    "guest_parking": "true"
+  },
+  "pet_policy": {
+    "allowed": "false"
+  },
+  "application_fee": 75,
+  "security_deposit": 500,
+  "availability_date": "2025-07-31",
+  "year_built": 2021,
+  "renovated": 2025,
+  "floor": "none",
+  "school_district": "Arlington Independent School District",
+  "walk_score": 20,
+  "transit_score": 0
+}, 
+{
+  "id": 4,
+  "url": "https://www.zillow.com/homedetails/505-Kingscote-Ct-505-Arlington-TX-76010/419945740_zpid/",
+  "name": "505 Kingscote Ct Unit 505",
+  "price": 2599,
+  "address": "505 Kingscote Ct, Arlington, TX 76010",
+  "latitude": 32.7310,
+  "longitude": -97.1035,
+  "beds": 3,
+  "baths": 2.5,
+  "lot_size_sqft": 1350,
+  "description": "Completely renovated 3‑bedroom, 2.5‑bath townhouse in central Arlington. Features include modern finishes, open-concept kitchen, in‑unit laundry, attached garage, and private patio. Located minutes from UT Arlington, parks, and shopping.",
+  "listing_agent": "Laura Simmons",
+  "contact": "(682) 555‑2741",
+  "amenities": [
+    "Attached garage parking",
+    "In‑unit washer & dryer",
+    "Dishwasher",
+    "Luxury vinyl plank flooring",
+    "Private patio",
+    "Ceiling fans in all bedrooms",
+    "Central air conditioning",
+    "Walk-in closets",
+    "Energy-efficient appliances"
+  ],
+  "lease_terms": [
+    "12‑month lease",
+    "Available Now",
+    "Deposit equals one month rent",
+    "Online rent payments available"
+  ],
+  "images": [],
+  "utilities_included": [
+    "Trash",
+    "Lawn maintenance"
+  ],
+  "parking": {
+    "type": "Attached garage and driveway",
+    "spaces_per_unit": 2,
+    "guest_parking": "true"
+  },
+  "pet_policy": {
+    "allowed": "true",
+    "max_per_unit": 2,
+    "weight_limit_lbs": 60,
+    "one_time_fee": 300,
+    "monthly_fee": 25
+  },
+  "application_fee": 45,
+  "security_deposit": 2599,
+  "availability_date": "2025-07-19",
+  "year_built": 2004,
+  "renovated": 2025,
+  "floor": 1,
+  "school_district": "Arlington Independent School District",
+  "walk_score": 76,
+  "transit_score": 48
+}
+
+
+
+  
 ]

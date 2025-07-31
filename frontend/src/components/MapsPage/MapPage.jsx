@@ -92,6 +92,7 @@ export function ApartmentList({apartmentName, images, description, price, beds, 
   const [chat, setChat] = useState(false);
   const [like, setLike] = useState(0);
   const currId = useRef(-1);
+  console.log(images);
   const handleNextImage = () => {
       if(index + 1 >= images.length){
         setIndex(0);
@@ -184,7 +185,7 @@ function Directions({active, coords}){
         if(active){
             directionsService.route({
             origin: {lat: coords[0], lng: coords[1]},
-            destination: "281 W Lane Ave, Columbus, OH 43210",
+            destination: "701 S. West Street, Arlington, TX 76019",
             travelMode: 'DRIVING', 
             provideRouteAlternatives: true,   
             }).then(response => {
@@ -257,8 +258,8 @@ function MapPage() {
   const markerRefs = useRef([])
   //Defauly value so that conditional rendering not required null no accessed
   const [apart, setApart] = useState({
-      latitude: 40.110031,
-      longitude: -83.141846,
+      latitude: 32.7318,
+      longitude: -97.1106,
       name: '',
       images: []
   });
@@ -315,7 +316,7 @@ function MapPage() {
       <div className='map'>
         <Map
           style={{width: '900px', height: '800px'}}
-          defaultCenter={{lat: 40.110031, lng: -83.141846}}
+          defaultCenter={{lat: 32.7318, lng: -97.1106}}
           defaultZoom={10}
           fullscreenControl = {true}>
           <Directions active = {showBusRoutes} coords = {[apart.latitude, apart.longitude]}/>
