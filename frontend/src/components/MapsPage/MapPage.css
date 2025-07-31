@@ -5,11 +5,12 @@
     gap: 20px;
     justify-content: center;
     margin-top: 50px;
+    max-height: 900px;
 }
 
 .map{
   position: relative;
-  overflow: scroll;
+  overflow: hidden;
   border: 1px solid #ccc;
   border-radius: 12px;
   background-color: #fafafa;
