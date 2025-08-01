@@ -257,6 +257,8 @@ img{
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  overflow-y: auto; /* allow scrolling if content overflows */
+  padding: 20px;
 }
 
 /* Popup box */
@@ -265,9 +267,31 @@ img{
   padding: 20px 30px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  width: 500px;
-  height: 500px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto; /* scroll internally if needed */
   text-align: center;
+}
+
+/* Optional: style for headings and charts */
+.crime_rate h2 {
+  margin-bottom: 10px;
+}
+
+.crime_rate h3 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.crime_rate button {
+  margin-top: 20px;
+  padding: 8px 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 /***********************************Chat Box ********************************/

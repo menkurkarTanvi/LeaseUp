@@ -222,32 +222,60 @@ function Directions({active, coords}){
     );
 }
 
-function CrimeRate({display, setDisplay}){
+function CrimeRate({ display, setDisplay }) {
   const handleExit = () => {
-      setDisplay(false);
-  }
-  if(display){
-      return (
-      <div className="overlay">
-        <div className="crime_rate">
-          <h2>Crime Data</h2>
-          <LineChart
-            xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
-            series={[
-              {
-                data: [2, 5.5, 2, 8.5, 1.5, 5],
-              },
-            ]}
-            height={300}
-          />
-          <button onClick={handleExit}>Close</button>
-        </div>
+    setDisplay(false);
+  };
+
+  if (!display) return null;
+
+  const years = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
+
+  return (
+    <div className="overlay">
+      <div className="crime_rate">
+        <h2>Arlington, TX Crime Data (2017–2024)</h2>
+
+        <h3>Violent Crime Rate per 100,000 Residents</h3>
+        <LineChart
+          xAxis={[{ data: years, label: 'Year' }]}
+          series={[
+            {
+              data: [306.5, 270, 305.4, 321.0, 342.5, 328, 340, 330],
+              label: 'Violent Crime Rate',
+            },
+          ]}
+          height={300}
+        />
+
+        <h3>Estimated Total Violent Crime Incidents</h3>
+        <LineChart
+          xAxis={[{ data: years, label: 'Year' }]}
+          series={[
+            {
+              data: [1875, 1650, 1900, 2000, 2150, 2075, 1921, 1900],
+              label: 'Total Violent Crimes',
+            },
+          ]}
+          height={300}
+        />
+
+        <h3>Homicide Count</h3>
+        <LineChart
+          xAxis={[{ data: years, label: 'Year' }]}
+          series={[
+            {
+              data: [15, 12, 13, 17, 18, 14, 15, 17],
+              label: 'Homicides',
+            },
+          ]}
+          height={300}
+        />
+
+        <button onClick={handleExit}>Close</button>
       </div>
-    
-    );
-  }else{
-    return <></>
-  }
+    </div>
+  );
 }
 
 function MapPage() {
