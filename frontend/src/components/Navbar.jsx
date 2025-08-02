@@ -5,10 +5,19 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import logoimg from "../assets/logo.png";
+import { useNavigate } from 'react-router-dom';
 
-const pages = ['Maps', 'Leases', 'SpreadSheet'];
+const pages = ['Maps', 'Leases', 'Spreadsheet'];
 
 function NavBar() {
+  const navigate = useNavigate();
+
+  const pagePaths = {
+    Maps: '/maps',
+    Leases: '/leases',
+    Spreadsheet: '/spreadsheet'
+  }
+
   return (
     <AppBar 
       position="static" 
@@ -49,6 +58,7 @@ function NavBar() {
             {pages.map((page) => (
               <Button
                 key={page}
+                onClick={() => navigate(pagePaths[page])}
                 sx={{
                   my: 2,
                   color: 'black',
