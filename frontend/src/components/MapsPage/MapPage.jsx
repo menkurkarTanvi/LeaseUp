@@ -275,36 +275,37 @@ function MapPage() {
   )
   return (
     <div className = 'container'>
+      <div className="background-fade"> </div>
         <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-      <div className='map'>
-        <Map
-          style={{width: '900px', height: '800px'}}
-          defaultCenter={{lat: 40.110031, lng: -83.141846}}
-          defaultZoom={10}
-          fullscreenControl = {true}>
-          <Directions active = {showBusRoutes} coords = {[apart.latitude, apart.longitude]}/>
-          {apartmentLocations}
-        </Map>
-        <div className='buttons'>
-            <button onClick={handleBusRoutes}>{showBusRoutes ? "Hide Bus Routes" : "Show Bus Routes"}</button>
-            <button onClick={handleCrimeRate}>Crime Rates</button>
+        <div className='map'>
+          <Map
+            style={{width: '900px', height: '800px'}}
+            defaultCenter={{lat: 40.110031, lng: -83.141846}}
+            defaultZoom={10}
+            fullscreenControl = {true}>
+            <Directions active = {showBusRoutes} coords = {[apart.latitude, apart.longitude]}/>
+            {apartmentLocations}
+          </Map>
+          <div className='buttons'>
+              <button onClick={handleBusRoutes}>{showBusRoutes ? "Hide Bus Routes" : "Show Bus Routes"}</button>
+              <button onClick={handleCrimeRate}>Crime Rates</button>
+          </div>
         </div>
+        {showCrimeData && <CrimeRate display = {showCrimeData} setDisplay={setShowCrimeData}/>}
+        {apart && 
+          <ApartmentList 
+            apartmentName={apart.name} 
+            images={apart.images} 
+            description={apart.description} 
+            price = {apart.price} 
+            beds = {apart.beds}
+            baths = {apart.baths} 
+            sqft={apart.lot_size_sqft} 
+            id={apart.id}
+            userData={userData}
+            />}
+        </APIProvider>
       </div>
-      {showCrimeData && <CrimeRate display = {showCrimeData} setDisplay={setShowCrimeData}/>}
-      {apart && 
-        <ApartmentList 
-          apartmentName={apart.name} 
-          images={apart.images} 
-          description={apart.description} 
-          price = {apart.price} 
-          beds = {apart.beds}
-          baths = {apart.baths} 
-          sqft={apart.lot_size_sqft} 
-          id={apart.id}
-          userData={userData}
-          />}
-    </APIProvider>
-    </div>
   );
 }
 

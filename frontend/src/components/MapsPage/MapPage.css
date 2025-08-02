@@ -7,6 +7,18 @@
     margin-top: 50px;
 }
 
+  .background-fade {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    background: linear-gradient(to center, rgba(0, 122, 63, 0.1), rgba(255, 255, 255, 1));
+    z-index: -1;
+  }
+
+
 .map{
   overflow: hidden;
   border: 1px solid #ccc;
