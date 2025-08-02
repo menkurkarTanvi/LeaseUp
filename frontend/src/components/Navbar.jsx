@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css'; // Optional for styling
+import './Navbar.css';
 
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <h2 className="logo">LeaseUp</h2>
+      <div className="logo-container">
+        <img src="/Leaseup.png" alt="Leaseup Logo" className="logo-image" />
+        <h2 className="logo-text">LeaseUp</h2>
+      </div>
       <ul className="nav-links">
         <li><Link to="/">Map</Link></li>
         <li><Link to="/leases">Leases</Link></li>

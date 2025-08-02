@@ -7,7 +7,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #1a1a1a;
   line-height: 1.6;
 }
 
@@ -26,7 +26,7 @@ button:not([class*="Mui"]) {
 }
 
 button:not([class*="Mui"]):focus {
-  outline: 2px solid #667eea;
+  outline: 2px solid #2d5a2d;
   outline-offset: 2px;
 }
 
@@ -35,7 +35,7 @@ input:not([class*="Mui"]),
 textarea:not([class*="Mui"]), 
 select:not([class*="Mui"]) {
   font-family: inherit;
-  border: 1px solid #e1e8ed;
+  border: 2px solid #2d5a2d;
   border-radius: 6px;
   padding: 0.75rem;
   font-size: 1rem;
@@ -46,8 +46,8 @@ input:not([class*="Mui"]):focus,
 textarea:not([class*="Mui"]):focus, 
 select:not([class*="Mui"]):focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #2d5a2d;
+  box-shadow: 0 0 0 3px rgba(45, 90, 45, 0.1);
 }
 
 /* Scrollbar styling */
@@ -61,22 +61,22 @@ select:not([class*="Mui"]):focus {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+  background: #2d5a2d;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: #1a1a1a;
 }
 
 /* Selection styling */
 ::selection {
-  background: rgba(102, 126, 234, 0.3);
-  color: #2c3e50;
+  background: rgba(45, 90, 45, 0.3);
+  color: #1a1a1a;
 }
 
 /* Focus visible for accessibility - only for non-Material-UI elements */
 *:not([class*="Mui"]):focus-visible {
-  outline: 2px solid #667eea;
+  outline: 2px solid #2d5a2d;
   outline-offset: 2px;
 }
