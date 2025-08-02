@@ -1,9 +1,9 @@
-from vector_store.vector_database import vector_store
+from backend.vector_store.vector_database import vector_store
 from typing import List
 from typing import Sequence
 from langchain_core.messages import HumanMessage, AIMessage,SystemMessage, BaseMessage, ToolMessage
 from typing_extensions import TypedDict
-from apartment_data.data import apartments
+from backend.apartment_data.data import apartments
 
 class State(TypedDict):
     messages: Sequence[BaseMessage]

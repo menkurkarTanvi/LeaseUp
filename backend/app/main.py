@@ -1,9 +1,9 @@
 from fastapi import FastAPI
-from routes import questions
-from routes import maps
+from backend.routes import questions
+from backend.routes import maps
 
-from routes import lease, spreadsheet
-from app.db.database import create_db
+from backend.routes import lease, spreadsheet
+from backend.app.db.database import create_db
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 from pinecone import Pinecone, ServerlessSpec
