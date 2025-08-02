@@ -1,16 +1,15 @@
 #This page has endpoints needs for the maps page
-from typing import Annotated, List
 from fastapi import Depends, HTTPException
 from sqlmodel import Session, select
 from sqlmodel import and_, delete
 from fastapi import APIRouter
 #Imports from other files
-from app.db.database import get_db
-from app.models.models import ConversationHistoryMap, UserDetails, SavedApartments
-from app.schemas import OutputApartmentDetails, QueryRequest
-from apartment_data.data import apartments
+from backend.app.db.database import get_db
+from backend.app.models.models import ConversationHistoryMap, UserDetails, SavedApartments
+from backend.app.schemas import OutputApartmentDetails, QueryRequest
+from backend.apartment_data.data import apartments
 from datetime import datetime, timezone
-from app.agents.maps_agent import maps_agent
+from backend.app.agents.maps_agent import maps_agent
 from langchain_core.messages import HumanMessage, AIMessage,SystemMessage, BaseMessage, ToolMessage
 import json
 router = APIRouter()
@@ -74,6 +73,10 @@ def get_map_conversation(id: int, db: Session = Depends(get_db)):
 #Gets ai_response to user_question and save both to the database
 @router.put("/save_map_conversation/{id}")
 def save_map_conversation(id: int, query: QueryRequest, db: Session = Depends(get_db)):
+    
+    user_info = query.user_info
+    print(f"Received user_info: {user_info}")
+    
     # save human message
     human_message = ConversationHistoryMap(
         property_id=id,
@@ -101,7 +104,7 @@ def save_map_conversation(id: int, query: QueryRequest, db: Session = Depends(ge
             memory.append(AIMessage(content=msg.content))
 
     print("Calling maps_agent with memory and property_id")
-    answer = maps_agent(memory, id)
+    answer = maps_agent(memory, id, user_info=user_info)
     print(f"Agent answer: {answer} (type: {type(answer)})")
 
     # save ai message

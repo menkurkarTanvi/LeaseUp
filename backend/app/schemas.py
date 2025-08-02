@@ -1,4 +1,4 @@
-from typing import Annotated, List
+from typing import Annotated, List, Optional
 from pydantic import BaseModel, EmailStr
 from datetime import date
 from sqlmodel import Field
@@ -37,5 +37,6 @@ class OutputApartmentDetails(BaseModel):
 #Question asked to chat bot
 class QueryRequest(BaseModel):
     question: str
+    user_info: Optional[dict] = None
 
 

@@ -2,12 +2,16 @@ import { useState, useEffect, useRef } from 'react'
 import './MapPage.css'
 import {APIProvider, Map, Marker, useMapsLibrary, useMap} from '@vis.gl/react-google-maps';
 import axios from 'axios'
+import { useLocation } from 'react-router-dom';
 
-function ChatBox({chatAI, setChatAI, apartName, apartId}){
+function ChatBox({chatAI, setChatAI, apartName, apartId, userData}){
   const [send, setSend] = useState(0);
   const [clear, setClear] = useState(0);
   const [conversationList, setConversationList] = useState([]);
   const [userQuestion, setUserQuestion] = useState('');
+  
+  
+  
   const handleSend = () => {
     if (!userQuestion.trim()) return;
     setSend(prev => prev + 1);
@@ -30,7 +34,8 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
         // PUT only if userQuestion is not empty
         if (userQuestion.trim() !== '') {
           await axios.put(`http://localhost:8000/save_map_conversation/${apartId}`, {
-            question: userQuestion
+            question: userQuestion, 
+            user_info: userData
           });
           setUserQuestion('');
         }
@@ -65,7 +70,7 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
         <div className="chatbox" id="chatbox">
           <div className="chatbox-header">AI Assistant</div>
           <div className="chatbox-body" id="chat-messages">
-            <p><strong>Bot:</strong> Hi! What questions can I help you answer about {apartName}!</p>
+            <p><strong>Bot:</strong> Hi {userData.userName}! What questions can I help you answer about {apartName}!</p>
             {conversation}
           </div>
           <div className="chatbox-input">
@@ -91,7 +96,7 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
     return (<></>);
   }
 }
-export function ApartmentList({apartmentName, images, description, price, beds, baths, sqft, id}){
+export function ApartmentList({apartmentName, images, description, price, beds, baths, sqft, id, userData}){
   const [index, setIndex] = useState(0);
   const [chat, setChat] = useState(false);
   const [like, setLike] = useState(0);
@@ -155,7 +160,7 @@ useEffect(() => {
           <div className = 'description'><p>{description}</p></div>
         </div>
       </div>
-      {chat && <ChatBox chatAI = {chat} setChatAI = {setChat} apartName = {apartmentName}
+      {chat && <ChatBox chatAI = {chat} setChatAI = {setChat} apartName = {apartmentName} userData={userData}
       apartId={id}/>}
      </>
   );
@@ -222,6 +227,9 @@ function CrimeRate({display, setDisplay}){
 function MapPage() {
   const [showBusRoutes, setShowBusRoutes] = useState(false);
   const [showCrimeData, setShowCrimeData] = useState(false)
+  const location = useLocation();
+  const userData = location.state?.userData || null;
+
   //Defauly value so that conditional rendering not required null no accessed
   const [apart, setApart] = useState({
       latitude: 40.110031,
@@ -283,9 +291,18 @@ function MapPage() {
         </div>
       </div>
       {showCrimeData && <CrimeRate display = {showCrimeData} setDisplay={setShowCrimeData}/>}
-      {apart && <ApartmentList apartmentName={apart.name} images={apart.images} 
-      description={apart.description} price = {apart.price} beds = {apart.beds}
-      baths = {apart.baths} sqft={apart.lot_size_sqft} id = {apart.id}/>}
+      {apart && 
+        <ApartmentList 
+          apartmentName={apart.name} 
+          images={apart.images} 
+          description={apart.description} 
+          price = {apart.price} 
+          beds = {apart.beds}
+          baths = {apart.baths} 
+          sqft={apart.lot_size_sqft} 
+          id={apart.id}
+          userData={userData}
+          />}
     </APIProvider>
     </div>
   );

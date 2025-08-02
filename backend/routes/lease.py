@@ -5,18 +5,18 @@ from sqlmodel import Session, select
 from sqlmodel import and_
 from fastapi import APIRouter
 #Imports from other files
-from app.db.database import get_db
-from app.models.models import ConversationHistoryLeases, UserDetails, SavedApartments
-from app.schemas import OutputApartmentDetails, QueryRequest
-from apartment_data.data import apartments
+from backend.app.db.database import get_db
+from backend.app.models.models import ConversationHistoryLeases, UserDetails, SavedApartments
+from backend.app.schemas import OutputApartmentDetails, QueryRequest
+from backend.apartment_data.data import apartments
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 import os
 import uuid
 from datetime import datetime, timezone
-from vector_store.vector_database import upload_pdf_lease
-from app.agents.summarize_lease_agent import summarize_lease_agent
-from app.agents.lease_agent import lease_agent
+from backend.vector_store.vector_database import upload_pdf_lease
+from backend.app.agents.summarize_lease_agent import summarize_lease_agent
+from backend.app.agents.lease_agent import lease_agent
 from langchain_core.messages import HumanMessage, AIMessage,SystemMessage, BaseMessage, ToolMessage
 import json
 router = APIRouter()
