@@ -23,3 +23,11 @@ pinecone-client>=3.2.0
 
 # Optional: for token counting
 tiktoken==0.6.0
+
+# Spreadsheet agent
+pydantic
+langchain
+langchain-core
+langchain-openai
+langgraph
+
