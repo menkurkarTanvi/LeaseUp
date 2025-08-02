@@ -1,13 +1,82 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  line-height: 1.6;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Global button styles - only for custom buttons, not Material-UI */
+button:not([class*="Mui"]) {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+button:not([class*="Mui"]):focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Global input styles - only for custom inputs, not Material-UI */
+input:not([class*="Mui"]), 
+textarea:not([class*="Mui"]), 
+select:not([class*="Mui"]) {
+  font-family: inherit;
+  border: 1px solid #e1e8ed;
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input:not([class*="Mui"]):focus, 
+textarea:not([class*="Mui"]):focus, 
+select:not([class*="Mui"]):focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(102, 126, 234, 0.3);
+  color: #2c3e50;
+}
+
+/* Focus visible for accessibility - only for non-Material-UI elements */
+*:not([class*="Mui"]):focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
 }
