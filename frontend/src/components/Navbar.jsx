@@ -6,14 +6,23 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import logoimg from "../assets/logo.png";
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Maps', 'Leases', 'SpreadSheet'];
 
 function NavBar() {
   return (
-    <AppBar position="static">
+    <AppBar 
+      position="static" 
+      sx={{
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        backdropFilter: 'blur(10px)',
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.3)', 
+
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* Desktop Logo */}
+          
           <Box
             component="a"
             href="#app-bar-with-responsive-menu"
@@ -26,23 +35,38 @@ function NavBar() {
               src={logoimg}
               alt="Logo"
               style={{ 
-                height: '50px', // fixed height
-                width: 'auto',  // auto width to keep aspect ratio
+                height: '50px', 
+                width: 'auto',  
                 display: 'block', 
               }}
 
             />
           </Box>
 
-          {/* Push pages buttons to the right */}
           <Box sx={{ flexGrow: 1 }} />
 
-          {/* Pages buttons for desktop */}
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{
+                  my: 2,
+                  color: 'black',
+                  display: 'block',
+                  textDecoration: 'underline',
+                  backgroundColor: 'transparent',
+                  position: 'relative',
+                  transition: 'all 0.3s ease',
+
+                  '&:hover': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.25)',  // light translucent white bg
+                    backdropFilter: 'blur(8px)',                    // blur background behind button
+                    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)', // glassy shadow
+                    borderRadius: '8px',
+                    transform: 'scale(1.05)',                        // subtle pop out
+                    cursor: 'pointer',
+                  },
+                }}
               >
                 {page}
               </Button>

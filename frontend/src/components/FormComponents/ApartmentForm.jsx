@@ -116,7 +116,7 @@ export default function ApartmentForm(){
             priceRange, 
             address
         };
-        console.log("user data sent to /maps: ", userData)
+        console.log("user data sent to /maps: ", userData);
         navigate('/maps', {state: {userData}});
     }
     
@@ -135,7 +135,11 @@ export default function ApartmentForm(){
             <img
                 src={logo}
                 alt="logo"
-                style={{ height: 50, objectFit: 'contain' }}
+                style={{ 
+                    height: 50, 
+                    objectFit: 'contain', 
+                    maxWidth: 300,
+                }}
             />
         </Box>
 
