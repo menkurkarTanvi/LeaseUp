@@ -1,6 +1,5 @@
 from typing import Annotated, List
 from pydantic import BaseModel, EmailStr
-
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 #Database models go here, below just a sample database
