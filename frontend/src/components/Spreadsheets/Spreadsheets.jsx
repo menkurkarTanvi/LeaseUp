@@ -5,6 +5,8 @@ import ChatBox from './ChatBox';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import '@fontsource/roboto/500.css';
+import "./Spreadsheets.css";
+
 
 export function Spreadsheets() {
     // Array of literal objects. Each item is rendered as CSV line however the order of fields will be defined by the headers props. If the headers props are not defined, the component will generate headers from each data item.
