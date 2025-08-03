@@ -6,6 +6,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.2.0",
     "@fontsource/roboto": "^5.2.6",
     "@mui/material": "^7.2.0",
     "@mui/x-data-grid": "^8.9.1",
@@ -26,8 +27,11 @@
     "react-dom": "^19.1.0",
     "react-router-dom": "^6.30.1",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.30.3",
     "react-type-animation": "^3.2.0",
     "react-typewriter-effect": "^1.1.0",
+    "slick-carousel": "^1.8.1",
+    "swiper": "^11.2.10",
     "web-vitals": "^2.1.4",
     "yup": "^1.6.1"
   },

@@ -18,6 +18,21 @@
     z-index: -1;
   }
 
+.image-carousel-wrapper {
+  width: 750px;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
 
 .map{
   overflow: hidden;
@@ -33,6 +48,19 @@
   flex-direction: row;
   justify-content: center;
 }
+
+.chat-ai-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  padding: 12px 20px;
+  font-weight: bold;
+  text-transform: none;
+  border-radius: 30px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
 /*Button style*/
 .map button {
   background-color: #333;
@@ -52,40 +80,47 @@
   background-color: #555;
 }
 /*-------------------------Apartment list-----------------------------------------------*/
-.apartment{
-  height: 800px;
-  width: 800px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  background-color: #fafafa;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  justify-content: flex-start;
-  align-items: start;
-  font-family: 'Arial', sans-serif;
-  overflow: scroll;
-}
-
 .apartment-title {
-  text-align: center;
+  display: flex;            /* Use flexbox for horizontal layout */
+  align-items: center;      /* Vertically center items */
+  gap: 12px;                /* Space between like button and title */
   padding: 0.5rem 1rem;
   width: 700px;
+  position: relative;       /* For possible overlay positioning */
 }
 
 .apartment-title h1 {
-  text-align: center;
+  margin: 0;
   font-size: 2rem;
   font-weight: 700;
-  color: #2c3e50; /* deep modern blue-gray */
-  margin: 0;
-  padding: 0.3rem;
-  border: 3px solid #6c757d; /* accent color */
+  color: #2c3e50;
+  border: 3px solid #6c757d;
   border-radius: 12px;
+  padding: 0.3rem 1rem;
+  flex-grow: 1;
+  
+  /* Center the text horizontally */
+  text-align: center;
+  
+  /* To ensure it does not shrink */
+  flex-shrink: 1;
 }
 
+.like-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e73cb1;           
+  transition: transform 0.2s ease;
+}
+
+.like-button:hover {
+  transform: scale(1.2);    /* Slightly bigger on hover */
+}
 
 .apartment_image{
   display:flex;
