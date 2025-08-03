@@ -1,5 +1,5 @@
 import os
-from backend.app.db.database import engine, SQLModel
+from app.db.database import engine, SQLModel
 
 # Path to your SQLite database file
 DB_FILE = "database.db"  # adjust this path if your DB is in a subfolder like "db/database.db"
