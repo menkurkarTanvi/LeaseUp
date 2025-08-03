@@ -115,7 +115,7 @@ export function ApartmentList({apartmentName, images, description, price, beds, 
   }, [id])
 
   useEffect(() => {
-    if (currId == -1) return;
+    if (currId == -1 || id === undefined) return;
     axios.put(`http://localhost:8000/save_apartments/${id}`
     ).then(() => {
         console.log("hi");
@@ -186,7 +186,7 @@ function Directions({active, coords}){
             directionsService.route({
             origin: {lat: coords[0], lng: coords[1]},
             destination: "701 S. West Street, Arlington, TX 76019",
-            travelMode: 'DRIVING', 
+            travelMode: 'DRIVING',
             provideRouteAlternatives: true,   
             }).then(response => {
               directionsRenderer.setDirections(response);
