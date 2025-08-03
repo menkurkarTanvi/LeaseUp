@@ -243,15 +243,15 @@ const handleLike = () => {
     currId.current = id
 }, [id]);
 
-useEffect(() => {
-  if (currId.current === -1) return;
-    console.log("Saving apartment with ID:", currId.current);
-    axios.put(`http://localhost:8000/save_apartments/${currId.current}`)
-    .then(() => {
-      console.log("hi");
-    })
-    .catch(err => console.error(err));
-}, [liked]);
+// useEffect(() => {
+//   if (currId.current === -1) return;
+//     console.log("Saving apartment with ID:", currId.current);
+//     axios.put(`http://localhost:8000/save_apartments/${currId.current}`)
+//     .then(() => {
+//       console.log("hi");
+//     })
+//     .catch(err => console.error(err));
+// }, [liked]);
 
 
   return (
