@@ -3,7 +3,7 @@ import ApartmentForm from "./components/FormComponents/ApartmentForm";
 import { Routes, Route, useLocation, Navigate} from 'react-router-dom';
 import LeasesPage from './components/Leases/LeasesPage';
 import MapsPage from './components/MapsPage/MapPage';
-import Navbar from "./components/Navbar";
+import Navbar from './components/Navbar';
 import Spreadsheets from "./components/Spreadsheets/Spreadsheets";
 
 

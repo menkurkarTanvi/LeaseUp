@@ -243,6 +243,7 @@ const handleLike = () => {
     currId.current = id
 }, [id]);
 
+
 // useEffect(() => {
 //   if (currId.current === -1) return;
 //     console.log("Saving apartment with ID:", currId.current);
@@ -252,6 +253,7 @@ const handleLike = () => {
 //     })
 //     .catch(err => console.error(err));
 // }, [liked]);
+
 
 
   return (
