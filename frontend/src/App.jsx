@@ -4,7 +4,8 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import LeasesPage from './components/Leases/LeasesPage';
 import MapsPage from './components/MapsPage/MapPage';
 import Navbar from './components/Navbar';
-
+import Login from './components/Login';
+import Spreadsheets from './components/Spreadsheets/Spreadsheets';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<ApartmentForm/>}></Route>
         <Route path="/maps" element={<MapsPage/>}></Route>
         <Route path="/leases" element={<LeasesPage />} />
+        <Route path="/spreadsheets" element={<Spreadsheets />} />
       </Routes>
     </BrowserRouter>
   );

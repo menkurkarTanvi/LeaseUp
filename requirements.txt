@@ -8,7 +8,7 @@ flask-cors==4.0.0
 python-dotenv==1.0.1
 
 # PDF processing
-pymupdf==1.23.22  # also known as fitz
+pymupdf>=1.23.22  # also known as fitz
 pypdf>=3.0.0  # for PDF text extraction
 
 # LangChain components
@@ -21,13 +21,17 @@ langchain-core>=0.1.48
 openai>=1.30.0
 pinecone-client>=3.2.0
 
+# OpenAI + Vector DB
+openai==1.30.1
+pinecone-client==3.2.2
+
 # Optional: for token counting
-tiktoken==0.6.0
+tiktoken==0.8.0
 
 # Spreadsheet agent
 pydantic
-langchain
-langchain-core
-langchain-openai
+fastapi==0.111.0
+sqlmodel==0.0.16
+uvicorn==0.29.0
 langgraph
 
