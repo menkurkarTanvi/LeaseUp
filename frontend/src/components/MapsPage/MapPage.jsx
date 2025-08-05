@@ -11,6 +11,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'; 
 import { Card, CardContent } from '@mui/material';
 import { Button, Box } from '@mui/material';
+import { LineChart } from '@mui/x-charts/LineChart';
 
 
 function ApartmentImage({ id, index, apartmentName }) {
@@ -466,9 +467,11 @@ function CrimeRate({ display, setDisplay }) {
 
 function MapPage() {
   const [showBusRoutes, setShowBusRoutes] = useState(false);
-  const [showCrimeData, setShowCrimeData] = useState(false)
+  const [showCrimeData, setShowCrimeData] = useState(false);
   const location = useLocation();
   const userData = location.state?.userData || null;
+  const [selectedMarkerIndex, setSelectedMarkerIndex] = useState(null);
+  const [infoWindowShown, setInfoWindowShown] = useState(false);
 
   //Defauly value so that conditional rendering not required null no accessed
   const [apart, setApart] = useState({
@@ -527,7 +530,7 @@ function MapPage() {
   return (
     <div className = 'container'>
       {/* <div className="background-fade"> </div> */}
-        <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+        <APIProvider apiKey= {process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
         <div className='map'>
           <Map
             style={{width: '900px', height: '800px'}}
