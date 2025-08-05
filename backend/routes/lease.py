@@ -58,8 +58,12 @@ async def upload_pdf(file: UploadFile = File(...)):
         f.write(contents)
 
     # Calls the function to store the pdf to Pinecone vector database
-    message = upload_pdf_lease(pdf_path, pdf_id)
-    print(message)
+    try:
+        message = upload_pdf_lease(pdf_path, pdf_id)
+        print(message)
+    except Exception as e:
+        print(f"Error uploading to vector database: {e}")
+        return {"error": str(e)}
 #    Returns an id number for that pdf
 #   {
 #        "pdf_id": "f4a7c0e2-52cb-4d41-9132-9b6a8c3e7c99"
@@ -68,11 +72,11 @@ async def upload_pdf(file: UploadFile = File(...)):
 
 #This Router is called once the user clicks the SUMMARIZE button on the Leases Page
 @router.get("/summarize_lease/{pdf_id}")
-async def upload_pdf(pdf_id: str, file: UploadFile = File(...)):
+async def summarize_lease(pdf_id: str):
     #Call the summarize lease agent
-    messages = summarize_lease_agent(pdf_id)
+    important_sections = summarize_lease_agent(pdf_id)
     #Returns a list of the most important parts of the lease TO BE HIGHLITED
-    return messages
+    return {"important_sections": important_sections}
 
 
 #--------------------------------------------This gets the coversation history for the pdf uploaded----------------------------#
@@ -94,7 +98,7 @@ def get_lease_conversation(pdf_id: str, db: Session = Depends(get_db)):
 
 #Gets ai_response to user_question and save both to the database (where the lease_agent is called)
 @router.put("/save_lease_conversation/{pdf_id}")
-def save_lease_conversation(pdf_id: int, query: QueryRequest, db: Session = Depends(get_db),):
+def save_lease_conversation(pdf_id: str, query: QueryRequest, db: Session = Depends(get_db),):
     statement = (
         select(ConversationHistoryLeases)
         .where(ConversationHistoryLeases.pdf_id == pdf_id)
@@ -109,31 +113,39 @@ def save_lease_conversation(pdf_id: int, query: QueryRequest, db: Session = Depe
             memory.append(HumanMessage(content = msg.content))
         elif msg.sender == 'ai':
             memory.append(AIMessage(content = msg.content))
+    
+    # Add the current user question to memory
+    memory.append(HumanMessage(content=query.question))
+    
     #call the lease agent to get ai_response to user question
-    answer = lease_agent(memory, pdf_id)
-    #Agent will return formatted response like this
-    #AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_loT2pliJwJe3p7nkgXYF48A1', 'function': {'arguments': '{"a": 3, "b": 12}', 'name': 'multiply'}, 'type': 'function'}, {'id': 'call_bG9tYZCXOeYDZf3W46TceoV4', 'function': {'arguments': '{"a": 11, "b": 49}', 'name': 'add'}, 'type': 'function'}]}, response_metadata={'token_usage': {'completion_tokens': 50, 'prompt_tokens': 87, 'total_tokens': 137}, 'model_name': 'gpt-4o-mini-2024-07-18', 'system_fingerprint': 'fp_661538dc1f', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-e3db3c46-bf9e-478e-abc1-dc9a264f4afe-0', tool_calls=[{'name': 'multiply', 'args': {'a': 3, 'b': 12}, 'id': 'call_loT2pliJwJe3p7nkgXYF48A1', 'type': 'tool_call'}, {'name': 'add', 'args': {'a': 11, 'b': 49}, 'id': 'call_bG9tYZCXOeYDZf3W46TceoV4', 'type': 'tool_call'}], usage_metadata={'input_tokens': 87, 'output_tokens': 50, 'total_tokens': 137}),
+    ai_response = lease_agent(memory, pdf_id)
+    
+    # Extract the AI response content
+    if hasattr(ai_response, 'content'):
+        ai_content = ai_response.content
+    else:
+        ai_content = "I'm sorry, I couldn't process your question at this time."
 
     #------------------------------------------------------------------------------------------------------------------#
 
-     # Sample human message
+    # Save human message
     human_message = ConversationHistoryLeases(
         pdf_id=pdf_id,
         sender="human",
-        content=query,
+        content=query.question,
         timestamp=datetime.now(timezone.utc)
     )
     db.add(human_message)
     
-    # Sample AI response (for testing)
+    # Save AI response
     ai_message = ConversationHistoryLeases(
-        pdf_id= pdf_id,
+        pdf_id=pdf_id,
         sender="ai",
-        content="This is a sample AI response to your question.",
+        content=ai_content,
         timestamp=datetime.now(timezone.utc)
     )
     db.add(ai_message)
     
     # Commit the changes to the database
     db.commit()
-    return {"message": "Sample conversation saved!"}
+    return {"message": "Conversation saved successfully!", "ai_response": ai_content}

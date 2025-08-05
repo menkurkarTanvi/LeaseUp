@@ -1,285 +1,181 @@
 apartments = [
   {
     "id": 0,
-    "url": "https://www.zillow.com/apartments/arlington-tx/stadium-700/CkKqd6/",
-    "name": "Stadium 700",
-    "price": 1643,
-    "address": "700 E Randol Mill Rd, Arlington, TX 76011",
-    "latitude": 32.7544,
-    "longitude": -97.1006,
-    "beds": 2,
+    "url": "https://housing.offcampus.utexas.edu/listing?property=71879",
+    "name": "VIP Apartments",
+    "price": 2300,
+    "address": "101 E 33rd St, Austin, TX 78705",
+    "latitude": 30.296979,
+    "longitude": -97.735547,
+    "beds": 3,
     "baths": 2,
-    "lot_size_sqft": 1122,
-    "description": "Stadium 700 offers spacious apartments with modern amenities just minutes from AT&T Stadium. Enjoy a gated community with a pool, fitness center, and newly renovated units featuring stainless steel appliances and hardwood-style flooring.",
-    "listing_agent": "",
-    "contact": "(844) 558-0246",
-    "amenities": [
-      "Gated access",
-      "Resort-style swimming pool",
-      "Fitness center",
-      "Ceiling fans",
-      "Stainless steel appliances",
-      "Hardwood-style flooring",
-      "Washer/Dryer hookups",
-      "Patios (select units)",
-      "Laundry facilities",
-      "Pet-friendly"
-    ],
-    "lease_terms": [
-      "12-month lease",
-      "Short-term lease options available (6–11 months)",
-      "Move-in specials: $1,200 off 1st month on select units"
-    ],
-    "images": ["/images/one/image1.png", "/images/one/image2.png", "/images/one/image3.png", "/images/one/image4.png", "/images/one/image5.png", "/images/one/image6.png"], 
-    "utilities_included": [
-      "Trash removal",
-      "Water (partial)",
-      "Pest control"
-    ],
-    "parking": {
-      "type": "Surface lot",
-      "spaces_per_unit": 2,
-      "guest_parking": "true",
-    },
-    "pet_policy": {
-      "allowed": "true",
-      "max_per_unit": 2,
-      "breed_restrictions": "true",
-      "monthly_fee": 25,
-      "one_time_fee": 300
-    },
-    "application_fee": 75,
-    "security_deposit": 500,
-    "availability_date": "2025-08-15",
-    "year_built": 1985,
-    "renovated": 2022,
-    "floor": 2,
-    "walk_score": 68,
-    "transit_score": 40,
+    "lot_size_sqft": 1240,
+    "description": "VIP APARTMENTS! North Campus on UT Shuttle and City Bus Route. Less than a mile from campus!!! Located right on the edge of the UT campus! Nearby coffee shops, restaurants, gym, clinic, fast food, and many other shopping options! Complimentary parking and onsite shared laundry facilities with mobile payment app! GOOGLE FIBER IS AVAILABLE!!! Pets allowed! Must have no criminal record. Lease Terms: 6 – 12 months",
+    "listing_agent":"Spring Property Management",
+    "contact": "(512) 205-3698",
+    "amenities": ["Laundry","Fitness Center","Laundry: Hookups","Swimming Pool"],
+    "lease_terms": ["Flexible","6-12 months"]
   },
 
   {
     "id": 1,
-    "url": "https://www.zillow.com/apartments/arlington-tx/montecito-club/5XhsjW/",
-    "name": "Montecito Club",
-    "price": 1428,
-    "address": "2001 S Cooper St, Arlington, TX 76010",
-    "latitude": 32.7108,
-    "longitude": -97.1186,
+    "url": "https://housing.offcampus.utexas.edu/listing?property=32602/",
+    "name": "Nueces (Cameron House)",
+    "price": 1275,
+    "address": "2222 Rio Grande St., Suite 200, Austin, TX 78705",
+    "latitude": 30.286656,
+    "longitude": -97.745099,
+    "beds": 2,
+    "baths": 2,
+    "lot_size_sqft": 1233,
+    "description": "Nueces House is a newer addition to The Quarters and one of the largest — eight stories featuring 235 apartments that is within walking distance to the University of Texas and two blocks from Guadalupe Street.",   
+    "listing_agent":"Jay Eggspuehler",
+    "contact": "(737) 377-1229",
+    "amentities": ["Attached garage parking","Community pool","Coffee bar", "Game room"],
+    "lease_terms": ["1 Year"]
+  },
+  {
+    "id": 2,
+    "url": "https://housing.offcampus.utexas.edu/listing?property=99570",
+    "name": "UT Speedway",
+    "price": 1599,
+    "address": "3121 Speedway, Austin, TX 78705",
+    "latitude": 30.295961,
+    "longitude": -97.736077,
     "beds": 2,
     "baths": 1,
-    "lot_size_sqft": 890,
-    "description": "Montecito Club offers studio to two‑bedroom apartments in a pet‑friendly, amenity‑rich community near central Arlington — filled with courtyard settings, pools, a dog park, and clubhouse.",
-    "listing_agent": "Laura Martinez",
-    "contact": "(817) 265-7173",
-    "amenities": [
-      "Gated entry",
-      "Two resort-style pools",
-      "Fitness center",
-      "Business center",
-      "Clubhouse",
-      "Dog park",
-      "Basketball/soccer court",
-      "Picnic area with outdoor kitchen",
-      "Package receiving",
-      "Bilingual staff",
-      "Laundry facilities",
-      "On-site maintenance"
-    ],
-    "lease_terms": [
-      "6‑, 9‑, 12‑ or 13‑month lease terms",
-      "Move-in special: $500 off first month"
-    ],
-    "images": [],
-    "utilities_included": [
-      "Trash",
-      "Pest control"
-    ],
-    "parking": {
-      "type": "Surface lot and covered garage",
-      "spaces_per_unit": 1,
-      "guest_parking": "true"
-    },
-    "pet_policy": {
-      "allowed": "true",
-      "max_per_unit": 2,
-      "weight_limit_lbs": 50,
-      "one_time_fee": 300,
-      "monthly_fee": 20
-    },
-    "application_fee": 75,
-    "security_deposit": 500,
-    "availability_date": "2025-08-02",
-    "year_built": 1984,
-    "renovated": 2021,
-    "floor": 1,
-    "school_district": "Arlington Independent School District",
-    "walk_score": 74,
-    "transit_score": 48
+    "lot_size_sqft": 689,
+    "description": "UT Speedway is located in a highly desired north campus area at 32nd and Speedway. It is a quiet and cozy neighborhood within walking distance of the campus, parks, shops, and entertainment. Enjoy affordable living at a great location! UT Speedway offers efficiency along with one and two-bedroom floor plans. Onsite laundry, parking, and gas are included, and Safety patrol every night.",
+    "listing_agent": "7rent com",
+    "contact": "(614) 725-5777",
+    "amentities": ["Dishwasher", "Refridgerator", "Walk-in closet", "Air conditioning", "Garage Parking", "Laundry on-site", "Pets Allowed"],
+    "lease_terms": ["1 Year", "Pets Allowed"]
   },
-
-    {
-    "id": 2,
-    "url": "https://www.zillow.com/homedetails/1816-E-Tucker-Blvd-1-Arlington-TX-76010/455578811_zpid/",
-    "name": "1816 E Tucker Blvd #1",
-    "price": 2200,
-    "address": "1816 E Tucker Blvd #1, Arlington, TX 76010",
-    "latitude": 32.7290,
-    "longitude": -97.0965,
-    "beds": 3,
-    "baths": 1.5,
-    "lot_size_sqft": 1375,
-    "description": "This updated 3-bedroom, 1.5-bath home offers two spacious living areas, in-unit laundry, a fenced backyard, and easy access to highways. Located in a quiet residential area close to shopping and dining.",
-    "listing_agent": "Red Team Real Estate",
-    "contact": "(817) 921-3545",
-    "amenities": [
-      "Two living areas",
-      "Covered patio",
-      "Washer/Dryer hookups",
-      "Ceiling fans",
-      "Fenced backyard",
-      "Storage shed",
-      "Window coverings"
-    ],
-    "lease_terms": [
-      "12-month lease",
-      "Available August 5, 2025",
-      "No pets allowed"
-    ],
-    "images": [],
-    "utilities_included": [
-      "Trash"
-    ],
-    "parking": {
-      "type": "Surface lot",
-      "spaces_per_unit": 2,
-      "guest_parking": "true"
-    },
-    "pet_policy": {
-      "allowed": "false"
-    },
-    "application_fee": 35,
-    "security_deposit": 1200,
-    "availability_date": "2025-08-05",
-    "year_built": 1960,
-    "renovated": 2023,
-    "floor": 1,
-    "school_district": "Arlington Independent School District",
-    "walk_score": 70,
-    "transit_score": 0
-  }, 
 
   {
-  "id": 3,
-  "url": "https://www.zillow.com/apartments/arlington-tx/the-collection/Cgz3Ns/",
-  "name": "The Collection – Rose Street (1 Bed)",
-  "price": 895,
-  "address": "313‑319 Rose St, Arlington, TX 76010",
-  "latitude": 32.7315,
-  "longitude": -97.1092,
-  "beds": 1,
-  "baths": 1,
-  "lot_size_sqft": 720,
-  "description": "Newly remodeled 1‑bedroom, 1‑bath unit at Rose Street in Arlington, featuring granite countertops, plank‑style flooring, and smart‑compatible in‑unit laundry. Walking distance to UTA and downtown entertainment.",
-  "listing_agent": "Rick Rivera / RentalHousingDeals.com",
-  "contact": "(626) 281‑8301",
-  "amenities": [
-    "Granite countertops",
-    "Plank-style flooring",
-    "Subway tile backsplash",
-    "Stainless steel appliances",
-    "In-unit washer & dryer",
-    "Ceiling fans",
-    "Pergola with BBQ grills",
-    "On-site laundry facility"
-  ],
-  "lease_terms": [
-    "12‑month lease",
-    "Available Now",
-    "No pets allowed"
-  ],
-  "images": [],
-  "utilities_included": [
-    "Trash"
-  ],
-  "parking": {
-    "type": "Surface lot",
-    "spaces_per_unit": 1,
-    "guest_parking": "true"
-  },
-  "pet_policy": {
-    "allowed": "false"
-  },
-  "application_fee": 75,
-  "security_deposit": 500,
-  "availability_date": "2025-07-31",
-  "year_built": 2021,
-  "renovated": 2025,
-  "floor": "none",
-  "school_district": "Arlington Independent School District",
-  "walk_score": 20,
-  "transit_score": 0
-}, 
-{
-  "id": 4,
-  "url": "https://www.zillow.com/homedetails/505-Kingscote-Ct-505-Arlington-TX-76010/419945740_zpid/",
-  "name": "505 Kingscote Ct Unit 505",
-  "price": 2599,
-  "address": "505 Kingscote Ct, Arlington, TX 76010",
-  "latitude": 32.7310,
-  "longitude": -97.1035,
-  "beds": 3,
-  "baths": 2.5,
-  "lot_size_sqft": 1350,
-  "description": "Completely renovated 3‑bedroom, 2.5‑bath townhouse in central Arlington. Features include modern finishes, open-concept kitchen, in‑unit laundry, attached garage, and private patio. Located minutes from UT Arlington, parks, and shopping.",
-  "listing_agent": "Laura Simmons",
-  "contact": "(682) 555‑2741",
-  "amenities": [
-    "Attached garage parking",
-    "In‑unit washer & dryer",
-    "Dishwasher",
-    "Luxury vinyl plank flooring",
-    "Private patio",
-    "Ceiling fans in all bedrooms",
-    "Central air conditioning",
-    "Walk-in closets",
-    "Energy-efficient appliances"
-  ],
-  "lease_terms": [
-    "12‑month lease",
-    "Available Now",
-    "Deposit equals one month rent",
-    "Online rent payments available"
-  ],
-  "images": [],
-  "utilities_included": [
-    "Trash",
-    "Lawn maintenance"
-  ],
-  "parking": {
-    "type": "Attached garage and driveway",
-    "spaces_per_unit": 2,
-    "guest_parking": "true"
-  },
-  "pet_policy": {
-    "allowed": "true",
-    "max_per_unit": 2,
-    "weight_limit_lbs": 60,
-    "one_time_fee": 300,
-    "monthly_fee": 25
-  },
-  "application_fee": 45,
-  "security_deposit": 2599,
-  "availability_date": "2025-07-19",
-  "year_built": 2004,
-  "renovated": 2025,
-  "floor": 1,
-  "school_district": "Arlington Independent School District",
-  "walk_score": 76,
-  "transit_score": 48
-}
-
-
-
+    "id": 3,
+    "url": "https://housing.offcampus.utexas.edu/listing?property=76236",
+    "name": "Mosaic at Mueller",
+    "price": 2125,
+    "address": "4600 Mueller Blvd, Austin, TX 78723",
+    "latitude": 30.298913,
+    "longitude": -97.708187,
+    "beds": 2,
+    "baths": 1,
+    "lot_size_sqft": 1389,
+    "description": "Like a beautiful work of art featuring different elements that come together for a breathtaking masterpiece, Mosaic at Mueller Apartments creates an unforgettable living experience for renters in Austin, Texas. With five unique courtyards, shops on the first level, two beautiful pools and a convenient location that is known for its walkability, you’re sure to love living at our luxury apartments. Our community will amaze you with luxurious amenities that are unique to Mosaic at Mueller. Residents enjoy two resort-style swimming pools, large sundecks, five uniquely themed courtyards and a cinema theater for private movie screenings. Other amenities include a state-of-the-art fitness center with cardio spinning area, resident clubhouse with billiards table, an internet cafe with WiFi, on-site package lockers, a hammock garden, guest suite, BBQ grills, elevator access, night patrol, off-street parking, bike storage, recycling station and more. We have something for everyone at Mosaic at Mueller Apartments. Have pets? We welcome up to two per apartment home. There is a weight limit of 85 pounds total and aggressive breeds are prohibited. There is a $300 pet fee per pet and a $300 refundable deposit per apartment. Pet rent is $20 per month per pReady for a beautiful apartment living experience in Austin, Texas? Schedule a tour of Mosaic at Mueller today!",     
+    "listing_agent":"Dan Bryan",
+    "contact": "(512) 357-8424",
+    "amentities": ["Swimming pool", "Dishwasher", "Microwave", "Washer/Dryer", "Walk-in closet", "Kitchen appliances", "Fitness center", "Gated community", "Media Lounge", "Conference center", "Community Swimming Pool", "Courtyard"],
+    "lease_terms": ["1 Year", "Pets Allowed"]
+  }, 
   
+  {
+    "id": 4,
+    "url": "https://housing.offcampus.utexas.edu/listing?property=107659",
+    "name": "4406 Bennett Ave",
+    "price": 2795,
+    "address": "4406 Bennett Ave, Austin, TX 78751",
+    "latitude": 30.303586,
+    "longitude": -97.718270,
+    "beds": 3,
+    "baths": 2,
+    "lot_size_sqft": 1410,
+    "description": "Spacious and updated 3-bedroom, 2-bath single-story home in North Campus near Hyde Park. This charming property features original hardwood floors, granite countertops, an open floor plan, and ample storage. Includes a washer and dryer, covered parking, and a large backyard perfect for pets. Ideally located minutes from UT and St. David's Hospital in the heart of Hyde ***.******.*** Control pricing varies from $25-$40/mo depending on the size of the unit.",     
+    "listing_agent":"Holly Finn",
+    "contact": "(512) 357-8424",
+    "amentities": ["Washer/Dryer", "Covered parking", "Hardwood floors", "Refrigerator", "Mircowave", "Air conditioning"],     
+    "lease_terms": ["1 Year"]
+  },
+  
+  {
+    "id": 5,
+    "url": "https://housing.offcampus.utexas.edu/listing?property=112119",
+    "name": "San Gabriel Square Apartments",
+    "price": 1049,
+    "address": "2212 San Gabriel St, Austin, TX 78705",
+    "latitude": 30.286624,
+    "longitude": -97.748498,
+    "beds": 2,
+    "baths": 1,
+    "lot_size_sqft": 600,
+    "description": "San Gabriel Square Apartments are the ultimate in convenience and affordability for those who prefer the West Campus area. Our residents enjoy the economy and peace of mind of our community, as well as the luxury of being located a few short blocks from campus. With a commitment to serving the University of Texas Community, our professional and courteous management and maintenance team strives to provide each resident a pleasant environment in which to live and study",   
+    "listing_agent":"Tawnda Cross",
+    "contact": "(512) 559-1514",
+    "amentities": ["Air Conditioning", "Hardwood Floors", "Dishwasher", "Microwave", "Refridgerator", "Walk-in closet"],     
+    "lease_terms": ["1 Year", "Pets allowed"]
+  },
+  
+  {
+    "id": 6,
+    "url": "https://housing.offcampus.utexas.edu/listing?property=31429",
+    "name": "Ballpark North",
+    "price": 1150,
+    "address": "4600 Elmont Dr, Austin, TX 78741",
+    "latitude": 30.237970,
+    "longitude": -97.716217,
+    "beds": 1,
+    "baths": 1,
+    "lot_size_sqft": 477,
+    "description": "Ballpark North located in Austin, TX, is a great rental option for University of Texas students looking for their next place to call home. This apartment building is a short 20-minute walk to campus . There are 4 bedroom units. If you can see yourself living at Ballpark North or have questions about the units, reach out to the landlord by contacting them using the form above, or by calling them at (512) 359-7781.",     
+    "listing_agent":"Matterport",
+    "contact": "(512) 359-7781",
+    "amentities": ["Air conditioning", "Washer/Dryer", "Refridgerator", "Oven", "Game Room", "Fitness Center"],     
+    "lease_terms": ["1 Year", "Pets allowed", "Cable"]
+  },
+  
+  {
+    "id": 7,
+    "url": "https://housing.offcampus.utexas.edu/listing?property=70668",
+    "name": "Barranca Square Student Apartments",
+    "price": 1250,
+    "address": "910 W 26th St, Austin, TX 78705",
+    "latitude": 30.291161,
+    "longitude": -97.746945,
+    "beds": 1,
+    "baths": 1,
+    "lot_size_sqft": 565,
+    "description": "Why share when you can have an entire apartment without a roommate to enjoy the privacy?  Grab this special, no-price increase rate for Fall 2025.  Free 1-car parking permit and utilities include Gas, Trash, Recycling, and Pest Control. Limited units are available on a first-come, first-serve basis. The Barranca Square Student Apartments is a small community building with 20 units between significant fraternity and sorority houses. It has recently been renovated with new paint, landscaping, and redesigned interiors to maximize each dwelling's space. These off-campus student apartments near UT Austin offer accessibility to sidewalks and routes to several nearby restaurants, bookstores, shops, and hangouts. Nearby Neighborhoods:  North University, West Campus, Old West, Hyde Park, Central East Austin, Downtown, Riverside, Windsor Road, North Loop, University Hill, Allandale, Montopolis, Triangle State, Brentwood, MLK-183, Hancock.",
+    "listing_agent":"Edward Lindenschmidt",
+    "contact": "(512) 764-9233",
+    "amentities": ["Air conditioning", "Garage Parking", "Walk-in closet", "Refridgerator", "Balcony", "Laundry On-site"],     
+    "lease_terms": ["1 Year", "Pets allowed", "Cable"]
+  },
+  
+  {
+    "id": 8,
+    "url": "https://housing.offcampus.utexas.edu/listing?property=31595",
+    "name": "Town Lake",
+    "price": 830,
+    "address": "1109 S Pleasant Valley Rd, Austin, TX 78741",
+    "latitude": 30.241466,
+    "longitude": -97.714897,
+    "beds": 2,
+    "baths": 2,
+    "lot_size_sqft": 764,
+    "description": "Stay away from the hustle and bustle of the busy West Campus area!  Start living in the heart of Clarksville, Austin, with this one-of-a-kind budget apartment that offers location, price, and value! We are on the Lake Austin shuttle bus line, directly connected to the UT Austin campus area. Next door neighbor is the UT Austin student housing building, The Gateway.  Whole Foods and H-E-B are a half-mile away, and the warehouse district and fine dining downtown are just a few blocks away. The hike and bike trail is within walking distance for those who prefer to walk or ride a bike. Live alone or share these units.  From 1 to 2-bedroom units featuring spacious layouts, you can take full advantage of all 6th Street West and charming Old West Austin offers - from outdoor trails & lakeside sunsets to bustling nightlife. And there's more; gas and trash are included, plus a convenient onsite property manager ready for your needs. Discover why everyone talks about 6th Street West Apartments near downtown Austin and UT's West Campus. Pets Are Allowed Only for Maximum Weight Limits: Dog: 25 lbs. Cat: 25 lbs. Walk to popular nearby cafes and shops like Galaxy Cafe, Caffe Medici, Fresh Plus, Cipolina Italian, Clarks Oyster Bar, Arroyos, and Sweetish Hill Bakery. Nearby Neighborhoods:  North University, West Campus, Old West, Hyde Park, Central East Austin, Downtown, Riverside, Windsor Road, North Loop, University Hill, Allandale, Montopolis, Triangle State, Brentwood, MLK-183, Hancock.",
+    "listing_agent":"Jeffrey Post",
+    "contact": "(512) 359-5945",
+    "amentities": ["Washer/Dryer", "Heat included", "Car parking", "Air conditioning", "Microwave", "Dishwasher", "Walk-in closet", "Gated community"],     
+    "lease_terms": ["Academic Year", "Cable", "Pets allowed"]
+  },
+  
+  {
+    "id": 9,
+    "url": "https://housing.offcampus.utexas.edu/listing?property=70667",
+    "name": "6th Street West Apartments Austin",
+    "price": 1695,
+    "address": "1616 W 6th St, Austin, TX 78703",
+    "latitude": 30.275804,
+    "longitude": -97.763523,
+    "beds": 2,
+    "baths": 1,
+    "lot_size_sqft": 725,
+    "description": "Spacious and updated 3-bedroom, 2-bath single-story home in North Campus near Hyde Park. This charming property features original hardwood floors, granite countertops, an open floor plan, and ample storage. Includes a washer and dryer, covered parking, and a large backyard perfect for pets. Ideally located minutes from UT and St. David's Hospital in the heart of Hyde ***.******.*** Control pricing varies from $25-$40/mo depending on the size of the unit.",     
+    "listing_agent":"Holly Finn",
+    "contact": "(737) 377-1404",
+    "amentities": ["Washer/Dryer", "Covered parking", "Laundry On-site"],     
+    "lease_terms": ["1 Year", "Pets allowed"]
+  },
+
 ]
