@@ -28,6 +28,7 @@ export function Spreadsheets() {
                     <Button variant="contained" id="download-button">Download</Button>
                     </CSVLink>
             </div>
+            <Button variant="outlined" id="submit-to-ai">Submit to AI</Button>
             <div id="chat-box">
                 <ChatBox/>
             </div>
