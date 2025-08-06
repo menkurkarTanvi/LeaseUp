@@ -3,7 +3,7 @@ from typing import Annotated, List
 from fastapi import Depends, HTTPException
 from sqlmodel import Session, select
 from sqlmodel import and_
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 #Imports from other files
 from backend.app.db.database import get_db
 from backend.app.models.models import ConversationHistorySpreadsheet, UserDetails, SavedApartments
@@ -42,12 +42,15 @@ def get_saved_apartments(db: Session = Depends(get_db)):
 
 
 #Get the conversation history that will be displayed in the chat box. id_1: number of first apartment, id_2: id of 2nd apartment
-@router.get("/get_spreadsheet_conversation/{id_1}/{id_2}")
-def get_lease_conversation(id_1: int, id_2: int, db: Session = Depends(get_db)):
+@router.get("/get_spreadsheet_conversation")
+def get_spreadsheet_conversation(
+    apartment_ids: Annotated[List[int], Query()],
+    db: Session = Depends(get_db)
+):
     # Get all messages (human + AI), ordered by timestamp for the pair of apartments with id_1 and id_2
     statement = (
         select(ConversationHistorySpreadsheet)
-        .where(and_(ConversationHistorySpreadsheet.property_one == id_1, ConversationHistorySpreadsheet.property_two == id_2))
+        .where(ConversationHistorySpreadsheet.property_one == apartment_ids)
         .order_by(ConversationHistorySpreadsheet.timestamp)
     )
     messages = db.exec(statement).all()
@@ -59,11 +62,15 @@ def get_lease_conversation(id_1: int, id_2: int, db: Session = Depends(get_db)):
 
 
 #Gets the ai response and saves the human question and the ai response to the database
-@router.put("/save_spreadsheet_conversation/{id_1}/{id_2}")
-def save_lease_conversation(id_1: int, id_2: int, query: QueryRequest, db: Session = Depends(get_db)):
+@router.put("/save_spreadsheet_conversation")
+def save_spreadsheet_conversation(
+    apartment_ids: Annotated[List[int], Query()],
+    query: QueryRequest,
+    db: Session = Depends(get_db)
+):
     statement = (
         select(ConversationHistorySpreadsheet)
-        .where(and_(ConversationHistorySpreadsheet.property_one == id_1, ConversationHistorySpreadsheet.property_two == id_2))
+        .where(ConversationHistorySpreadsheet.property_one == apartment_ids)
         .order_by(ConversationHistorySpreadsheet.timestamp)
     )
     messages = db.exec(statement).all()
@@ -76,15 +83,14 @@ def save_lease_conversation(id_1: int, id_2: int, query: QueryRequest, db: Sessi
             memory.append(AIMessage(content = msg.content))
    
     #call the lease agent to get ai_response to user question
-    answer = spreadsheet_agent(memory, id_1, id_2)
+    answer = spreadsheet_agent(memory, apartment_ids)
     #Agent will return formatted response like this
     #AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_loT2pliJwJe3p7nkgXYF48A1', 'function': {'arguments': '{"a": 3, "b": 12}', 'name': 'multiply'}, 'type': 'function'}, {'id': 'call_bG9tYZCXOeYDZf3W46TceoV4', 'function': {'arguments': '{"a": 11, "b": 49}', 'name': 'add'}, 'type': 'function'}]}, response_metadata={'token_usage': {'completion_tokens': 50, 'prompt_tokens': 87, 'total_tokens': 137}, 'model_name': 'gpt-4o-mini-2024-07-18', 'system_fingerprint': 'fp_661538dc1f', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-e3db3c46-bf9e-478e-abc1-dc9a264f4afe-0', tool_calls=[{'name': 'multiply', 'args': {'a': 3, 'b': 12}, 'id': 'call_loT2pliJwJe3p7nkgXYF48A1', 'type': 'tool_call'}, {'name': 'add', 'args': {'a': 11, 'b': 49}, 'id': 'call_bG9tYZCXOeYDZf3W46TceoV4', 'type': 'tool_call'}], usage_metadata={'input_tokens': 87, 'output_tokens': 50, 'total_tokens': 137}),
 
     #------------------------------------------------------------------------------------------------------------------#
      # Sample human message
     human_message = ConversationHistorySpreadsheet(
-        property_one = id_1,
-        property_two = id_2,
+        property_ids = apartment_ids,
         sender="human",
         content=query,
         timestamp=datetime.now(timezone.utc)
@@ -93,8 +99,7 @@ def save_lease_conversation(id_1: int, id_2: int, query: QueryRequest, db: Sessi
     
     # Sample AI response (for testing)
     ai_message = ConversationHistorySpreadsheet(
-        property_one = id_1,
-        property_two = id_2,
+        property_ids = apartment_ids,
         sender="ai",
         content="This is a sample AI response to your question.",
         timestamp=datetime.now(timezone.utc)

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './LeasesPage.css';
 
-const LeasesPage = () => {
+function LeasesPage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadedFilename, setUploadedFilename] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
