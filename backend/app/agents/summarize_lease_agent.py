@@ -1,12 +1,11 @@
 from typing import List
 from backend.vector_store.vector_database import vector_store
-from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, BaseMessage, ToolMessage
-from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage, AIMessage,SystemMessage, BaseMessage, ToolMessage
+from dotenv import load_dotenv
 import os
-import dotenv
+from langchain_community.chat_models import ChatOpenAI
 
-dotenv.load_dotenv()
-
+load_dotenv()
 def summarize_lease_agent(pdf_id: str) -> List[str]:
     """
     Returns a list of the most important sections in the lease document.

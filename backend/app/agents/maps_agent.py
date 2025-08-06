@@ -1,25 +1,60 @@
 from backend.vector_store.vector_database import vector_store
-from typing import List
-from typing import Sequence
-from langchain_core.messages import HumanMessage, AIMessage,SystemMessage, BaseMessage, ToolMessage
+from typing import List, Sequence
+from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, BaseMessage, ToolMessage
 from typing_extensions import TypedDict
 from backend.apartment_data.data import apartments
+from dotenv import load_dotenv
+import os
+from openai import OpenAI 
 
 class State(TypedDict):
     messages: Sequence[BaseMessage]
 
-#memory: list of conversation history --> [Human(), AI(), Human(), AI()]
-def maps_agent(memory: List[BaseMessage], id: int):
+load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
 
-     #---------------------------------------ONE WAY TO STORE MEMORY FOR AGENTS, CAN BE CHANGED -----------------------------------------#
-    conversationMemory = State(messages = memory)
-    #------------------------------------------------------------------------------------------------------------------------------------#
+client = OpenAI(api_key=api_key)  
+
+# memory: list of conversation history --> [Human(), AI(), Human(), AI()]
+def maps_agent(memory: list, property_id: int, user_info=None):
+    system_prompt = f"""
+    You are an apartment search assistant for University of Texas at Austin students.
+    Use the conversation history and apartment data to answer user questions.
+    Apartment Data: {apartments[property_id]}
+    """
+
+    if user_info:
+        user_details = []
+        if user_info.get("userName"):
+            user_details.append(f"You are talking to {user_info['userName']}. Address them in a friendly tone using their name.")
+        if user_info.get("selectedCollege"):
+            college = user_info['selectedCollege']
+            college_name = college.get("school.name", "their name")
+            user_details.append(f"They attend {college_name}.")
+        if user_info.get("selectedAmenities"):
+            amenities = " ".join(user_info['selectedAmenities'])
+            user_details.append(f"They want amenities including {amenities}.")
+        if user_info.get("priceRange"):
+            price_range = user_info['priceRange']
+            user_details.append(f"Their budget is between {price_range[0]} and {price_range[1]}.")
+        if user_info.get("address"):
+            user_details.append(f"They are interested in apartments that are near {user_info['address']}.")
+        
+        system_prompt += "\nUser Info:\n" + "\n".join(user_details)
     
-    #logic for maps agent goes here
-
-
-    #Output Response (AIMessage)
-    #Agent will return formatted response like this
-    #AIMessage(content='The amenities are....', additional_kwargs={'tool_calls': [{'id': 'call_loT2pliJwJe3p7nkgXYF48A1', 'function': {'arguments': '{"a": 3, "b": 12}', 'name': 'multiply'}, 'type': 'function'}, {'id': 'call_bG9tYZCXOeYDZf3W46TceoV4', 'function': {'arguments': '{"a": 11, "b": 49}', 'name': 'add'}, 'type': 'function'}]}, response_metadata={'token_usage': {'completion_tokens': 50, 'prompt_tokens': 87, 'total_tokens': 137}, 'model_name': 'gpt-4o-mini-2024-07-18', 'system_fingerprint': 'fp_661538dc1f', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-e3db3c46-bf9e-478e-abc1-dc9a264f4afe-0', tool_calls=[{'name': 'multiply', 'args': {'a': 3, 'b': 12}, 'id': 'call_loT2pliJwJe3p7nkgXYF48A1', 'type': 'tool_call'}, {'name': 'add', 'args': {'a': 11, 'b': 49}, 'id': 'call_bG9tYZCXOeYDZf3W46TceoV4', 'type': 'tool_call'}], usage_metadata={'input_tokens': 87, 'output_tokens': 50, 'total_tokens': 137})
     
-    return "The aparment has the following amenities........."
+    messages = [
+        {"role": "system", "content": system_prompt}
+    ]
+
+    for msg in memory:
+        role = "user" if msg.type == "human" else "assistant"
+        messages.append({"role": role, "content": msg.content})
+
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        temperature=0.5
+    )
+
+    return response.choices[0].message.content

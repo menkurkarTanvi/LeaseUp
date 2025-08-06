@@ -1,15 +1,14 @@
 #Import the vector database (The pdf has already been loaded into the vector database)
-from backend.vector_store.vector_database import vector_store
 from typing import List
 from typing import Sequence
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, BaseMessage, ToolMessage
 from typing_extensions import TypedDict
-from langchain_openai import ChatOpenAI
+from backend.vector_store.vector_database import vector_store
+from langchain_community.chat_models import ChatOpenAI
+from dotenv import load_dotenv
 import os
-import dotenv
 
-dotenv.load_dotenv()
-
+load_dotenv()
 class State(TypedDict):
     messages: Sequence[BaseMessage]
 
