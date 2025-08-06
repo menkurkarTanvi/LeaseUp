@@ -30,6 +30,7 @@ export default function Spreadsheets() {
                     >
                     <Button variant="contained" id="download-button">Download</Button>
                     </CSVLink>
+                {selectedUnitIds.length > 1 && <Button variant="contained" id="submit-to-ai">Submit to AI</Button>}
             </div>
             <div id="chat-box">
                 <ChatBox selectedUnits={selectedUnitIds} />

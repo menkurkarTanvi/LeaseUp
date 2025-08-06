@@ -65,6 +65,11 @@ export default function CsvDisplay({ setSelectedUnitIds }) {
   ];
 
   useEffect(() => {
+  console.log(apartments);
+}, [apartments]);
+
+
+  useEffect(() => {
     setSelectedUnitIds(rowSelectionModel); // <- Pass only the IDs
   }, [rowSelectionModel, setSelectedUnitIds]);
 
@@ -83,3 +88,7 @@ export default function CsvDisplay({ setSelectedUnitIds }) {
         </Paper>
   );
 }
+
+
+
+//CREATE MOCK DATA FOR SELECTED APARTMENTS
