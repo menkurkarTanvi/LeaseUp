@@ -85,7 +85,7 @@ function ChatBox({chatAI, setChatAI, apartName, apartId}){
     return (<></>);
   }
 }
-export function ApartmentList({apartmentName, images, description, price, beds, baths, sqft, id}){
+function ApartmentList({apartmentName, images, description, price, beds, baths, sqft, id}){
   const [index, setIndex] = useState(0);
   const [chat, setChat] = useState(false);
   const [like, setLike] = useState(0);

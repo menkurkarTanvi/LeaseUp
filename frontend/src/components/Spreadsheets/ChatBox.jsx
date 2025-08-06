@@ -16,7 +16,7 @@ export default function ChatBox({selectedUnits}){
     const handleClear = () => {
       setClear(prev => prev +1);
     }
-    const conversation = conversationList.map(msg, i => (
+    const conversation = conversationList.map((msg, i) => (
       <p key={i}>
         <strong>{msg.sender === "human" ? "You" : "Bot"}:</strong> {msg.content}
       </p>
