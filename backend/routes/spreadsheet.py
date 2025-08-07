@@ -2,12 +2,12 @@
 from typing import Annotated, List
 from fastapi import Depends, HTTPException
 from sqlmodel import Session, select
-from sqlmodel import and_
+from sqlmodel import and_, delete
 from fastapi import APIRouter, Query
 #Imports from other files
 from backend.app.db.database import get_db
 from backend.app.models.models import ConversationHistorySpreadsheet, UserDetails, SavedApartments
-from backend.app.schemas import OutputApartmentDetails, QueryRequest
+from backend.app.schemas import OutputApartmentDetails, QueryRequest, SelectedApartments
 from backend.app.agents.spreadsheet_agent import spreadsheet_agent
 from backend.apartment_data.data import apartments
 from datetime import datetime, timezone
@@ -41,71 +41,127 @@ def get_saved_apartments(db: Session = Depends(get_db)):
     return apartments
 
 
-#Get the conversation history that will be displayed in the chat box. id_1: number of first apartment, id_2: id of 2nd apartment
-@router.get("/get_spreadsheet_conversation")
-def get_spreadsheet_conversation(
-    apartment_ids: Annotated[List[int], Query()],
-    db: Session = Depends(get_db)
+saved_names_storage = []  # in-memory storage
+
+@router.post("/save_selected_names")
+def save_selected_names(
+    names: List[str]
 ):
-    # Get all messages (human + AI), ordered by timestamp for the pair of apartments with id_1 and id_2
+    # save to in-memory list
+    global saved_names_storage
+    saved_names_storage = names
+
+    return {"message": f"Saved {len(saved_names_storage)} apartment names successfully."}
+
+@router.get("/get_selected_names")
+def get_selected_names():
+    global saved_names_storage
+    
+    normalized_saved = [name.strip().lower() for name in saved_names_storage]
+    print("len:", len(saved_names_storage))
+
+    selected_apartments = [
+        apt for apt in apartments
+        if apt["name"].strip().lower() in normalized_saved
+    ]
+
+    print("Matched apartments:", selected_apartments)
+
+    return {
+        "selected_apartments": [
+        {
+            "id": apt["id"],
+            "name": apt["name"],
+            "price": apt["price"],
+            "address": apt["address"],
+            "beds": apt["beds"],
+            "baths": apt["baths"],
+            "lot_size_sqft": apt["lot_size_sqft"],
+            "listing_agent": apt["listing_agent"],
+            "contact": apt["contact"],
+            "amenities": apt.get("amenities", "[]"),  # fallback to "[]"
+            "lease_terms": apt.get("lease_terms", "[]"),  # fallback to "[]"
+        } for apt in selected_apartments
+    ]
+    }
+
+
+#Get the conversation history that will be displayed in the chat box
+@router.get("/get_spreadsheet_conversation")
+def get_spreadsheet_conversation(db: Session = Depends(get_db)):
+    # Get all messages (human + AI), ordered by timestamp
     statement = (
         select(ConversationHistorySpreadsheet)
-        .where(ConversationHistorySpreadsheet.property_one == apartment_ids)
         .order_by(ConversationHistorySpreadsheet.timestamp)
     )
+    
     messages = db.exec(statement).all()
 
-    # [{"sender": "ai", "content": "How can I help you"}, {"sender": "human", "content": "I want to know....."}...... ]
+    # Convert to list of dicts
     return [
         {"sender": msg.sender, "content": msg.content} for msg in messages
     ]
 
 
-#Gets the ai response and saves the human question and the ai response to the database
+#Gets ai_response to user_question and save both to the database
 @router.put("/save_spreadsheet_conversation")
-def save_spreadsheet_conversation(
-    apartment_ids: Annotated[List[int], Query()],
-    query: QueryRequest,
-    db: Session = Depends(get_db)
-):
-    statement = (
-        select(ConversationHistorySpreadsheet)
-        .where(ConversationHistorySpreadsheet.property_one == apartment_ids)
-        .order_by(ConversationHistorySpreadsheet.timestamp)
-    )
-    messages = db.exec(statement).all()
-    memory = []
-    #--------------------------------------------------Gather memory and call agent---------------------------------#
-    for msg in messages:
-        if msg.sender == 'human':
-            memory.append(HumanMessage(content = msg.content))
-        elif msg.sender == 'ai':
-            memory.append(AIMessage(content = msg.content))
-   
-    #call the lease agent to get ai_response to user question
-    answer = spreadsheet_agent(memory, apartment_ids)
-    #Agent will return formatted response like this
-    #AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_loT2pliJwJe3p7nkgXYF48A1', 'function': {'arguments': '{"a": 3, "b": 12}', 'name': 'multiply'}, 'type': 'function'}, {'id': 'call_bG9tYZCXOeYDZf3W46TceoV4', 'function': {'arguments': '{"a": 11, "b": 49}', 'name': 'add'}, 'type': 'function'}]}, response_metadata={'token_usage': {'completion_tokens': 50, 'prompt_tokens': 87, 'total_tokens': 137}, 'model_name': 'gpt-4o-mini-2024-07-18', 'system_fingerprint': 'fp_661538dc1f', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-e3db3c46-bf9e-478e-abc1-dc9a264f4afe-0', tool_calls=[{'name': 'multiply', 'args': {'a': 3, 'b': 12}, 'id': 'call_loT2pliJwJe3p7nkgXYF48A1', 'type': 'tool_call'}, {'name': 'add', 'args': {'a': 11, 'b': 49}, 'id': 'call_bG9tYZCXOeYDZf3W46TceoV4', 'type': 'tool_call'}], usage_metadata={'input_tokens': 87, 'output_tokens': 50, 'total_tokens': 137}),
+def save_spreadsheet_conversation(query: QueryRequest, db: Session = Depends(get_db)):
+    global saved_names_storage
 
-    #------------------------------------------------------------------------------------------------------------------#
-     # Sample human message
+    id_array = [
+        apt["id"]
+        for apt in apartments
+        if apt["name"] in saved_names_storage
+    ]
+    
+    # save human message
     human_message = ConversationHistorySpreadsheet(
-        property_ids = apartment_ids,
+        property_ids=id_array,
         sender="human",
-        content=query,
+        content=query.question,
         timestamp=datetime.now(timezone.utc)
     )
     db.add(human_message)
-    
-    # Sample AI response (for testing)
+    db.commit() 
+
+    # refetch convo
+    statement = (
+        select(ConversationHistorySpreadsheet)
+        .where(ConversationHistorySpreadsheet.property_ids == id_array)
+        .order_by(ConversationHistorySpreadsheet.timestamp)
+    )
+    messages = db.exec(statement).all()
+
+    memory = []
+
+    for msg in messages:
+        if msg.sender == 'human':
+            memory.append(HumanMessage(content=msg.content))
+        elif msg.sender == 'ai':
+            memory.append(AIMessage(content=msg.content))
+
+    print(f"Calling spreadsheet_agent with memory and apartments of len {len(id_array)}")
+    aptsById = [
+        apt for apt in apartments
+        if apt["id"] in id_array
+    ]
+    answer = spreadsheet_agent(memory, selectedApartments=aptsById)
+    print(f"Agent answer: {answer} (type: {type(answer)})")
+
+    # save ai message
     ai_message = ConversationHistorySpreadsheet(
-        property_ids = apartment_ids,
+        property_ids=id_array,
         sender="ai",
-        content="This is a sample AI response to your question.",
+        content=answer,
         timestamp=datetime.now(timezone.utc)
     )
     db.add(ai_message)
-    
-    # Commit the changes to the database
     db.commit()
-    return {"message": "Sample conversation saved!"}
+
+    return {"message": "Conversation saved with AI response."}
+
+@router.put("/clear")
+def clear_conversation(db: Session = Depends(get_db)): 
+    db.exec(delete(ConversationHistorySpreadsheet))
+    db.commit()
+    return {"message": f"Conversation cleared."}

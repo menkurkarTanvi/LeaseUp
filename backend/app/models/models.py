@@ -48,6 +48,7 @@ class SavedApartments(SQLModel, table=True):
     def lease_list(self, value: list):
         self._lease_list = json.dumps(value)
 
+
 #------------------------------------------------------CONVERSATION HISTORY-----------------------------------------------------------------#
 
 #Stores conversation history for the map_page

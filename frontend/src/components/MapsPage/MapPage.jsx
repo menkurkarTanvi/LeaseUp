@@ -39,7 +39,6 @@ function ChatBox({chatAI, setChatAI, apartName, apartId, userData}){
   const [userQuestion, setUserQuestion] = useState('');
   
   
-  
   const handleSend = () => {
     if (!userQuestion.trim()) return;
     setSend(prev => prev + 1);

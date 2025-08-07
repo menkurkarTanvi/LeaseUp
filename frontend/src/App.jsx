@@ -18,7 +18,6 @@ function App() {
       <Routes>
         <Route path="/" element={<ApartmentForm/>} />
         <Route path="/maps" element={<MapsPage/>}></Route>
-        <Route path="/spreadsheet" element={<Spreadsheets/>}></Route>
         <Route path="/leases" element={<LeasesPage />} />
         <Route path="/spreadsheets" element={<Spreadsheets />} />
         <Route path="*" element={<Navigate to="/" replace />} />

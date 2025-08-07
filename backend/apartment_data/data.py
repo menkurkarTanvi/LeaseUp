@@ -31,7 +31,7 @@ apartments = [
     "description": "Nueces House is a newer addition to The Quarters and one of the largest — eight stories featuring 235 apartments that is within walking distance to the University of Texas and two blocks from Guadalupe Street.",   
     "listing_agent":"Jay Eggspuehler",
     "contact": "(737) 377-1229",
-    "amentities": ["Attached garage parking","Community pool","Coffee bar", "Game room"],
+    "amenities": ["Attached garage parking","Community pool","Coffee bar", "Game room"],
     "lease_terms": ["1 Year"]
   },
   {
