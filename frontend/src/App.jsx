@@ -4,8 +4,8 @@ import { Routes, Route, useLocation, Navigate} from 'react-router-dom';
 import LeasesPage from './components/Leases/LeasesPage';
 import MapsPage from './components/MapsPage/MapPage';
 import Navbar from './components/Navbar';
-import Spreadsheets from "./components/Spreadsheets/Spreadsheets";
-
+import Login from './components/Login';
+import Spreadsheets from './components/Spreadsheets/Spreadsheets';
 
 
 function App() {
@@ -18,8 +18,8 @@ function App() {
       <Routes>
         <Route path="/" element={<ApartmentForm/>} />
         <Route path="/maps" element={<MapsPage/>}></Route>
-        <Route path="/spreadsheet" element={<Spreadsheets/>}></Route>
         <Route path="/leases" element={<LeasesPage />} />
+        <Route path="/spreadsheets" element={<Spreadsheets />} />
         <Route path="*" element={<Navigate to="/" replace />} />
 
       </Routes>

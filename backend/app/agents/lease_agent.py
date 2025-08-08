@@ -5,8 +5,10 @@ from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, Base
 from typing_extensions import TypedDict
 from backend.vector_store.vector_database import vector_store
 from langchain_community.chat_models import ChatOpenAI
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
 class State(TypedDict):
     messages: Sequence[BaseMessage]
 

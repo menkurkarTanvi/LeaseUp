@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { CSVLink } from 'react-csv';
 import CsvDisplay from './CsvDisplay';
 import '../../styles/Spreadsheet.css';
@@ -45,12 +46,11 @@ export function Spreadsheets() {
                     >
                     <Button variant="contained" id="download-button">Download</Button>
                     </CSVLink>
+                {selectedUnitIds.length > 1 && <Button variant="contained" id="submit-to-ai">Compare with AI</Button>}
             </div>
             <div id="chat-box">
-                <ChatBox/>
+                <ChatBox selectedUnits={selectedUnitIds} />
             </div>
         </div>
     );
 }
-
-export default Spreadsheets;

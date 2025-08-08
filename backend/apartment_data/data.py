@@ -16,6 +16,7 @@ apartments = [
     "amenities": ["Laundry","Fitness Center","Laundry: Hookups","Swimming Pool"],
     "lease_terms": ["Flexible","6-12 months"]
   },
+
   {
     "id": 1,
     "url": "https://housing.offcampus.utexas.edu/listing?property=32602/",

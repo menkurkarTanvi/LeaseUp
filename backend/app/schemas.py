@@ -34,9 +34,13 @@ class OutputApartmentDetails(BaseModel):
     parking: str | None = None
     images: List[str] = []
 
+class SelectedApartments(BaseModel):
+    apartments_names: List[str]
+
 #Question asked to chat bot
 class QueryRequest(BaseModel):
     question: str
     user_info: Optional[dict] = None
+
 
 

@@ -12,6 +12,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Card, CardContent } from '@mui/material';
 import { Button, Box } from '@mui/material';
 import { ApartmentContext } from '../../contexts/ApartmentContext';
+import { LineChart } from '@mui/x-charts/LineChart';
+
 
 function ApartmentImage({ id, index, apartmentName }) {
   const src = `/images/id_${id}_${index}.jpg`;  // Use index directly if your images are named id_0_1.jpg, id_0_2.jpg etc
@@ -36,7 +38,6 @@ function ChatBox({chatAI, setChatAI, apartName, apartId, userData}){
   const [clear, setClear] = useState(0);
   const [conversationList, setConversationList] = useState([]);
   const [userQuestion, setUserQuestion] = useState('');
-  
   
   
   const handleSend = () => {
@@ -381,66 +382,133 @@ function Directions({active, coords}){
     const [directionsService, setDirectionsService] = useState();
     const [directionsRenderer, setDirectionsRenderer] = useState();
     const [routes, setRoutes] = useState([]);
-    useEffect (() => {
-        if(!routesLibrary || !map) return;
-        setDirectionsService(new routesLibrary.DirectionsService());
-        setDirectionsRenderer(new routesLibrary.DirectionsRenderer({map}));
-    }, [routesLibrary, map])
+    const [routeIndex, setRouteIndex] = useState(0);
+
+    const selected = routes[routeIndex];
+    const leg = selected?.legs[0];
+
+    // Initialize Directions Service and Renderer
+    useEffect(() => {
+      if (!routesLibrary || !map) return;
+      if (!directionsService) setDirectionsService(new routesLibrary.DirectionsService());
+      if (!directionsRenderer) {
+        const renderer = new routesLibrary.DirectionsRenderer({ map });
+        setDirectionsRenderer(renderer);
+      }
+    }, [routesLibrary, map]);
     
     //If the button Show Routes is clicked (true), display the route based on the coordinates of the last marker selected by the user
     //If the coordinates change and the show routes buttons is still true, a different route is rendered
     useEffect (() => {
         if(!directionsService || !directionsRenderer) return;
         if(active){
-          console.log("hi")
             directionsService.route({
             origin: {lat: coords[0], lng: coords[1]},
-            destination: "281 W Lane Ave, Columbus, OH 43210",
-            travelMode: 'DRIVING', 
+            destination: "701 S. West Street, Arlington, TX 76019",
+            travelMode: 'DRIVING',
             provideRouteAlternatives: true,   
             }).then(response => {
-                directionsRenderer.setDirections(response);
+              directionsRenderer.setDirections(response);
                 setRoutes(response.routes);
+                setRouteIndex(0); // reset to first route
             });
         }else{
-          //If the user has unclicked bus routes, remove the route
+           //If the user has unclicked bus routes, remove the route
            directionsRenderer.setDirections({ routes: [] });
+           setRoutes([]);
         }
     }, [active, coords, directionsService, directionsRenderer])
 
-    return null;
+  // Update visible route when routeIndex changes
+  useEffect(() => {
+    if (!directionsRenderer || routes.length === 0) return;
+    directionsRenderer.setRouteIndex(routeIndex);
+  }, [routeIndex, directionsRenderer, routes]);
+    
+    if(!leg) return null;
+    return (
+      <div className = "directions"> 
+          <h2>{selected.summary}</h2>
+          <p>{leg.start_address.split(",")[0]} to {leg.end_address.split(",")[0]}</p>
+          <p>Distance: {leg.distance?.text}</p>
+          <p>Duration: {leg.duration?.text}</p>
+
+          <h2>Other Routes</h2>
+          <ul>
+            {routes.map((route,index) => <li key = {route.summary}><button onClick={() => setRouteIndex(index)}>{route.summary}</button></li>)}
+          </ul>
+      </div>
+    );
 }
 
-function CrimeRate({display, setDisplay}){
+function CrimeRate({ display, setDisplay }) {
   const handleExit = () => {
-      setDisplay(false);
-  }
-  if(display){
-      return (
-      <div className="overlay">
-        <div className="crime_rate">
-          <h2>Crime Data</h2>
-          <p>Crime data (graph, chart, etc) goes here</p>
-          <button onClick={handleExit}>Close</button>
-        </div>
+    setDisplay(false);
+  };
+
+  if (!display) return null;
+
+  const years = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
+
+  return (
+    <div className="overlay">
+      <div className="crime_rate">
+        <h2>Arlington, TX Crime Data (2017–2024)</h2>
+
+        <h3>Violent Crime Rate per 100,000 Residents</h3>
+        <LineChart
+          xAxis={[{ data: years, label: 'Year' }]}
+          series={[
+            {
+              data: [306.5, 270, 305.4, 321.0, 342.5, 328, 340, 330],
+              label: 'Violent Crime Rate',
+            },
+          ]}
+          height={300}
+        />
+
+        <h3>Estimated Total Violent Crime Incidents</h3>
+        <LineChart
+          xAxis={[{ data: years, label: 'Year' }]}
+          series={[
+            {
+              data: [1875, 1650, 1900, 2000, 2150, 2075, 1921, 1900],
+              label: 'Total Violent Crimes',
+            },
+          ]}
+          height={300}
+        />
+
+        <h3>Homicide Count</h3>
+        <LineChart
+          xAxis={[{ data: years, label: 'Year' }]}
+          series={[
+            {
+              data: [15, 12, 13, 17, 18, 14, 15, 17],
+              label: 'Homicides',
+            },
+          ]}
+          height={300}
+        />
+
+        <button onClick={handleExit}>Close</button>
       </div>
-    
-    );
-  }else{
-    return <></>
-  }
+    </div>
+  );
 }
 
 function MapPage() {
   const [showBusRoutes, setShowBusRoutes] = useState(false);
-  const [showCrimeData, setShowCrimeData] = useState(false)
+  const [showCrimeData, setShowCrimeData] = useState(false);
   const location = useLocation();
   const userData = location.state?.userData || null;
+  const [selectedMarkerIndex, setSelectedMarkerIndex] = useState(null);
+  const [infoWindowShown, setInfoWindowShown] = useState(false);
 
   //Defauly value so that conditional rendering not required null no accessed
   const [apart, setApart] = useState({
-      latitude: 40.110031,
-      longitude: -83.141846,
+      latitude: 32.7318,
+      longitude: -97.1106,
       name: '',
       images: []
   });
@@ -471,20 +539,30 @@ function MapPage() {
   }
   //Handles the event when user clicks on a marker on the map.
   //stores the apartment object the user has selected on the map
-  const handleMarkerClick = (apartment) => {
+  const handleMarkerClick = (apartment, index) => {
     //Copy the old fields
       setApart(apartment)
+      setSelectedMarkerIndex(index);
+      setInfoWindowShown(isShown => !isShown)
   }
-  const apartmentLocations = listApart.map(apartment => 
+   
+  // if the maps api closes the infowindow, we have to synchronize our state
+  const handleClose = () => {
+      setSelectedMarkerIndex(null);
+      setInfoWindowShown(isShown => !isShown)
+  }
+
+
+  const apartmentLocations = listApart.map((apartment, index) => 
       <Marker
       key={apartment.id}
       position={{lat: apartment.latitude, lng: apartment.longitude}} 
-      onClick={() => handleMarkerClick(apartment)}/>
+      onClick={() => handleMarkerClick(apartment, index)}/>
   )
   return (
     <div className = 'container'>
       {/* <div className="background-fade"> </div> */}
-        <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+        <APIProvider apiKey= {process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
         <div className='map'>
           <Map
             style={{width: '900px', height: '800px'}}
