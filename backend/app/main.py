@@ -6,15 +6,32 @@ from backend.routes import lease, spreadsheet
 from backend.app.db.database import create_db
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
+from backend.app.models.models import SavedApartments  
 from pinecone import Pinecone, ServerlessSpec
+from sqlmodel import SQLModel, create_engine, Session, delete
 
-#Create the database
+# db engine
+sqlite_file_name = "database.db"
+sqlite_url = f"sqlite:///{sqlite_file_name}"
+connect_args = {"check_same_thread": False}
+engine = create_engine(sqlite_url, connect_args=connect_args)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup code
+    print("Running startup tasks...")
+
     create_db()
+
+#    clear SavedApartments table
+    with Session(engine) as session:
+        session.exec(delete(SavedApartments))
+        session.commit()
+
+    print("Startup complete.")
     yield
-    # Shutdown code (optional)
+    print("Shutdown complete.")
+
 
 app = FastAPI(lifespan=lifespan)
 
@@ -38,11 +55,3 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# init once throughout the entire backend 
-# def init_pinecone():
-#     Pinecone.init(
-#         api_key="PINEONE_API_KEY",
-#         environment="PINECONE_ENVIRONMENT"  # or your env
-#     )
-#     return Pinecone.Index("your-index-name")
-#uvicorn backend.app.main:app --reload

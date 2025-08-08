@@ -25,6 +25,67 @@ const LeasesPage = () => {
     scrollToBottom();
   }, [chatMessages]);
 
+  // Suggested questions buttons
+  const suggestedQuestions = [
+    "Summarize the lease",
+    "What is the rent amount?",
+    "What are the pet policies?",
+    "Who pays for utilities?",
+    "What is the security deposit?",
+    "What are the parking rules?",
+    "What is the lease term?",
+    "What are the late payment fees?",
+    "Can I sublet the apartment?",
+    "What are the move-in requirements?"
+  ];
+
+  const handleSuggestedQuestion = (question) => {
+    if (!uploadedFilename || isChatting) return;
+    
+    // Add user message immediately
+    const userMessage = { sender: 'user', content: question, timestamp: new Date() };
+    setChatMessages(prev => [...prev, userMessage]);
+    setIsChatting(true);
+
+    // Send the question to the AI
+    sendQuestionToAI(question);
+  };
+
+  const sendQuestionToAI = async (question) => {
+    try {
+      const res = await fetch(`http://localhost:8000/save_lease_conversation/${uploadedFilename}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ question: question }),
+      });
+
+      const result = await res.json();
+      
+      if (result.error) {
+        throw new Error(result.error);
+      }
+
+      const aiMessage = { 
+        sender: 'ai', 
+        content: result.ai_response || "I'm sorry, I couldn't process your question at this time.",
+        timestamp: new Date() 
+      };
+      setChatMessages(prev => [...prev, aiMessage]);
+    } catch (err) {
+      console.error("Chat failed", err);
+      const errorMessage = { 
+        sender: 'ai', 
+        content: "I'm sorry, I encountered an error. Please try again.",
+        timestamp: new Date() 
+      };
+      setChatMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsChatting(false);
+    }
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
@@ -74,7 +135,7 @@ const LeasesPage = () => {
       // Start chat with initial analysis
       setChatMessages([{
         sender: 'ai',
-        content: `Hello! I've uploaded and analyzed your lease document. I can help you understand any terms, conditions, or sections. Here are some key points I found:\n\nLet me analyze the important sections for you...`,
+        content: `Hello! I've uploaded and analyzed your lease document. I can help you understand any terms, conditions, or sections.`,
         timestamp: new Date()
       }]);
       
@@ -133,41 +194,12 @@ const LeasesPage = () => {
 
     const userMessage = { sender: 'user', content: userInput, timestamp: new Date() };
     setChatMessages(prev => [...prev, userMessage]);
+    const question = userInput;
     setUserInput('');
     setIsChatting(true);
 
-    try {
-      const res = await fetch(`http://localhost:8000/save_lease_conversation/${uploadedFilename}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ question: userInput }),
-      });
-
-      const result = await res.json();
-      
-      if (result.error) {
-        throw new Error(result.error);
-      }
-
-      const aiMessage = { 
-        sender: 'ai', 
-        content: result.ai_response || "I'm sorry, I couldn't process your question at this time.",
-        timestamp: new Date() 
-      };
-      setChatMessages(prev => [...prev, aiMessage]);
-    } catch (err) {
-      console.error("Chat failed", err);
-      const errorMessage = { 
-        sender: 'ai', 
-        content: "I'm sorry, I encountered an error. Please try again.",
-        timestamp: new Date() 
-      };
-      setChatMessages(prev => [...prev, errorMessage]);
-    } finally {
-      setIsChatting(false);
-    }
+    // Send the question to the AI
+    sendQuestionToAI(question);
   };
 
   return (
@@ -260,6 +292,26 @@ const LeasesPage = () => {
                 )}
                 <div ref={chatEndRef} />
               </div>
+              
+              {/* Suggested Questions */}
+              {chatMessages.length > 0 && !isChatting && (
+                <div className="suggested-questions">
+                  <h4>💡 Suggested Questions:</h4>
+                  <div className="suggested-buttons">
+                    {suggestedQuestions.map((question, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleSuggestedQuestion(question)}
+                        className="suggested-button"
+                        disabled={isChatting}
+                      >
+                        {question}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
               <form onSubmit={handleChatSubmit} className="chat-input-form">
                 <input
                   type="text"

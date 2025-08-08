@@ -6,23 +6,41 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import '@fontsource/roboto/500.css';
 import "./Spreadsheets.css";
+import { useContext } from 'react';
+import { ApartmentContext } from '../../contexts/ApartmentContext';
 
 
 export function Spreadsheets() {
-    // Array of literal objects. Each item is rendered as CSV line however the order of fields will be defined by the headers props. If the headers props are not defined, the component will generate headers from each data item.
-    const dummyData = [
-  { id: 1, address: '123 East Drive Street', monthlyRent: 750, amenities: ['In-Unit Laundry', 'Gym'] },
-  { id: 2, address: '456 West Street Road', monthlyRent: 900, amenities: ['Coffee shop', 'Swimming pool', 'Free parking']},
-    ];
+
+    const { savedApartments } = useContext(ApartmentContext);
+    
+    const formattedData = savedApartments.map(apt => ({
+        id: apt.id, 
+        name: apt.name, 
+        monthly_rent: apt.price, 
+        address: apt.address, 
+        beds: apt.beds, 
+        baths: apt.baths,
+        lot_size_sqft: apt.lot_size_sqft,
+        listing_agent: apt.listing_agent, 
+        amenities: Array.isArray(apt.amenities) ? apt.amenities.join(", ") : (typeof apt.amenities === 'string' ? apt.amenities : "No amenities"),
+        contact_number: apt.contact, 
+
+    }))
+
 
     return (
         <div className="sheetPage">
             <div id="sheet-container">
-                <Typography id="page-title" variant="h5">My Listings</Typography>
-                <CsvDisplay id="csv-display"/>
+                {/* <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                <Typography id="page-title" variant="h5" sx={{ textAlign: 'center', marginBottom: 2 }}>My Listings</Typography>
+                </div> */}
+                <Typography id="page-title" variant="h5" sx={{ textAlign: 'center', marginBottom: 2 }}>My Listings</Typography>
+
+                <CsvDisplay id="csv-display" rows={formattedData} />
                     <CSVLink 
                         id="download-link"
-                        data={dummyData}
+                        data={formattedData}
                         filename={"LeaseUp_Listings.csv"}
                     >
                     <Button variant="contained" id="download-button">Download</Button>

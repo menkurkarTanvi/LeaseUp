@@ -4,6 +4,8 @@ from typing import Sequence
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, BaseMessage, ToolMessage
 from typing_extensions import TypedDict
 from backend.vector_store.vector_database import vector_store
+from langchain_community.chat_models import ChatOpenAI
+import os
 
 class State(TypedDict):
     messages: Sequence[BaseMessage]
@@ -16,7 +18,7 @@ def lease_agent(memory: List[BaseMessage], pdf_id: str):
     #------------------------------------------------------------------------------------------------------------------------------------#
     # Initialize the LLM
     llm = ChatOpenAI(
-        model="gpt-4o-mini",
+        model="gpt-3.5-turbo",
         temperature=0.1,
         openai_api_key=os.getenv("OPENAI_API_KEY")
     )

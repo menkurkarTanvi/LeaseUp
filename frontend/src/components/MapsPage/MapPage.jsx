@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import './MapPage.css';
 import {APIProvider, Map, Marker, useMapsLibrary, useMap} from '@vis.gl/react-google-maps';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import {Swiper, SwiperSlide} from 'swiper/react';
+import {Swiper, SwiperSlide, useSwiper} from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
@@ -11,7 +11,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'; 
 import { Card, CardContent } from '@mui/material';
 import { Button, Box } from '@mui/material';
-
+import { ApartmentContext } from '../../contexts/ApartmentContext';
 
 function ApartmentImage({ id, index, apartmentName }) {
   const src = `/images/id_${id}_${index}.jpg`;  // Use index directly if your images are named id_0_1.jpg, id_0_2.jpg etc
@@ -100,8 +100,8 @@ function ChatBox({chatAI, setChatAI, apartName, apartId, userData}){
         position: 'fixed',       
         bottom: 80,             
         right: 24,
-        width: 400,             
-        height: 400,
+        width: 700,             
+        height: 700,
         bgcolor: 'background.paper',
         border: '2px solid black', 
         borderRadius: 2,
@@ -216,6 +216,9 @@ export function ApartmentList({apartmentName, description, price, beds, baths, s
   const [totalLikes, setTotalLikes] = useState(0);
   const currId = useRef(-1);
   const imageMap = { 0:4, 1:3, 2:3, 3:3, 4:3, 5:1, 6:2, 7:4, 8:2, 9:3}
+  const swiperRef = useRef(null);
+  const [savedApartmentsIds, setSavedApartmentsIds] = useState(new Set());
+  // const {likedApartmentsIds, setLikedApartmentsIds} = useContext(ApartmentContext);
 
   const handleChat = () => {
       setChat(true);
@@ -225,23 +228,49 @@ const handleLike = () => {
   if (!liked) {
     setLiked(true);
     setTotalLikes(prev => prev + 1);
+    // setLikedApartmentsIds(prev => [...prev, id])
     console.log("Saving apartment with ID:", currId.current);
     // request immediately after apartment like
     axios.put(`http://localhost:8000/save_apartments/${id}`)
-      .then(() => console.log("Apartment liked"))
+      .then(() => {
+        setSavedApartmentsIds(prev => new Set([...prev, id]));
+        console.log("Apartment liked")
+      })
       .catch(err => console.error(err));
   } else {
     // handle unliking logic 
     setLiked(false);
     setTotalLikes(prev => prev - 1);
+    // setLikedApartmentsIds(prev => prev.filter(apartId => apartId !== id));
+
   }
 };
 
+useEffect(() => {
+  axios.get(`http://localhost:8000/saved_apartments/`)
+    .then(res => {
+      const ids = new Set(res.data.map(ap => ap.id));
+      setSavedApartmentsIds(ids);
+    })
+    .catch(err => console.error(err));
+}, []);
+
   useEffect(() => {
     setChat(false)
-    setLiked(false); 
     currId.current = id
+    setLiked(savedApartmentsIds.has(id));
+
+}, [id, savedApartmentsIds]);
+
+useEffect(() => {
+  if (swiperRef.current) {
+    swiperRef.current.slideTo(0);  
+  }
 }, [id]);
+
+useEffect(() => {
+  console.log('Saved Apartment IDs:', [...savedApartmentsIds]);
+}, [savedApartmentsIds]);
 
 
 // useEffect(() => {
@@ -271,13 +300,16 @@ const handleLike = () => {
         <div className="image-carousel-wrapper">
           {imageMap[id] > 0 ? (
             <Swiper
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+              }}
               navigation={true}
               modules={[Navigation]}
               spaceBetween={100}
               slidesPerView={1}
               style={{ width: '100%', height: '400px' }}
             >
-              {[...Array(3).keys()].map((i) => (
+              {[...Array(imageMap[id] || 0).keys()].map((i) => (
                 <SwiperSlide key={i} style={{ height: '400px' }}>
                   <ApartmentImage id={id} index={i + 1} apartmentName={apartmentName} />
                 </SwiperSlide>

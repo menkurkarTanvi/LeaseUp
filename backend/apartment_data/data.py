@@ -12,7 +12,7 @@ apartments = [
     "lot_size_sqft": 1240,
     "description": "VIP APARTMENTS! North Campus on UT Shuttle and City Bus Route. Less than a mile from campus!!! Located right on the edge of the UT campus! Nearby coffee shops, restaurants, gym, clinic, fast food, and many other shopping options! Complimentary parking and onsite shared laundry facilities with mobile payment app! GOOGLE FIBER IS AVAILABLE!!! Pets allowed! Must have no criminal record. Lease Terms: 6 – 12 months",
     "listing_agent":"Spring Property Management",
-    "contact": "(512) 205-3698",
+    "contact": "(512)-205-3698",
     "amenities": ["Laundry","Fitness Center","Laundry: Hookups","Swimming Pool"],
     "lease_terms": ["Flexible","6-12 months"]
   },
@@ -29,8 +29,8 @@ apartments = [
     "lot_size_sqft": 1233,
     "description": "Nueces House is a newer addition to The Quarters and one of the largest — eight stories featuring 235 apartments that is within walking distance to the University of Texas and two blocks from Guadalupe Street.",   
     "listing_agent":"Jay Eggspuehler",
-    "contact": "(737) 377-1229",
-    "amentities": ["Attached garage parking","Community pool","Coffee bar", "Game room"],
+    "contact": "(737)-377-1229",
+    "amenities": ["Attached garage parking","Community pool","Coffee bar", "Game room"],
     "lease_terms": ["1 Year"]
   },
   {
@@ -46,8 +46,8 @@ apartments = [
     "lot_size_sqft": 689,
     "description": "UT Speedway is located in a highly desired north campus area at 32nd and Speedway. It is a quiet and cozy neighborhood within walking distance of the campus, parks, shops, and entertainment. Enjoy affordable living at a great location! UT Speedway offers efficiency along with one and two-bedroom floor plans. Onsite laundry, parking, and gas are included, and Safety patrol every night.",
     "listing_agent": "7rent com",
-    "contact": "(614) 725-5777",
-    "amentities": ["Dishwasher", "Refridgerator", "Walk-in closet", "Air conditioning", "Garage Parking", "Laundry on-site", "Pets Allowed"],
+    "contact": "(614)-725-5777",
+    "amenities": ["Dishwasher", "Refridgerator", "Walk-in closet", "Air conditioning", "Garage Parking", "Laundry on-site", "Pets Allowed"],
     "lease_terms": ["1 Year", "Pets Allowed"]
   },
 
@@ -64,8 +64,8 @@ apartments = [
     "lot_size_sqft": 1389,
     "description": "Like a beautiful work of art featuring different elements that come together for a breathtaking masterpiece, Mosaic at Mueller Apartments creates an unforgettable living experience for renters in Austin, Texas. With five unique courtyards, shops on the first level, two beautiful pools and a convenient location that is known for its walkability, you’re sure to love living at our luxury apartments. Our community will amaze you with luxurious amenities that are unique to Mosaic at Mueller. Residents enjoy two resort-style swimming pools, large sundecks, five uniquely themed courtyards and a cinema theater for private movie screenings. Other amenities include a state-of-the-art fitness center with cardio spinning area, resident clubhouse with billiards table, an internet cafe with WiFi, on-site package lockers, a hammock garden, guest suite, BBQ grills, elevator access, night patrol, off-street parking, bike storage, recycling station and more. We have something for everyone at Mosaic at Mueller Apartments. Have pets? We welcome up to two per apartment home. There is a weight limit of 85 pounds total and aggressive breeds are prohibited. There is a $300 pet fee per pet and a $300 refundable deposit per apartment. Pet rent is $20 per month per pReady for a beautiful apartment living experience in Austin, Texas? Schedule a tour of Mosaic at Mueller today!",     
     "listing_agent":"Dan Bryan",
-    "contact": "(512) 357-8424",
-    "amentities": ["Swimming pool", "Dishwasher", "Microwave", "Washer/Dryer", "Walk-in closet", "Kitchen appliances", "Fitness center", "Gated community", "Media Lounge", "Conference center", "Community Swimming Pool", "Courtyard"],
+    "contact": "(512)-357-8424",
+    "amenities": ["Swimming pool", "Dishwasher", "Microwave", "Washer/Dryer", "Walk-in closet", "Kitchen appliances", "Fitness center", "Gated community", "Media Lounge", "Conference center", "Community Swimming Pool", "Courtyard"],
     "lease_terms": ["1 Year", "Pets Allowed"]
   }, 
   
@@ -82,8 +82,8 @@ apartments = [
     "lot_size_sqft": 1410,
     "description": "Spacious and updated 3-bedroom, 2-bath single-story home in North Campus near Hyde Park. This charming property features original hardwood floors, granite countertops, an open floor plan, and ample storage. Includes a washer and dryer, covered parking, and a large backyard perfect for pets. Ideally located minutes from UT and St. David's Hospital in the heart of Hyde ***.******.*** Control pricing varies from $25-$40/mo depending on the size of the unit.",     
     "listing_agent":"Holly Finn",
-    "contact": "(512) 357-8424",
-    "amentities": ["Washer/Dryer", "Covered parking", "Hardwood floors", "Refrigerator", "Mircowave", "Air conditioning"],     
+    "contact": "(512)-357-8424",
+    "amenities": ["Washer/Dryer", "Covered parking", "Hardwood floors", "Refrigerator", "Mircowave", "Air conditioning"],     
     "lease_terms": ["1 Year"]
   },
   
@@ -100,8 +100,8 @@ apartments = [
     "lot_size_sqft": 600,
     "description": "San Gabriel Square Apartments are the ultimate in convenience and affordability for those who prefer the West Campus area. Our residents enjoy the economy and peace of mind of our community, as well as the luxury of being located a few short blocks from campus. With a commitment to serving the University of Texas Community, our professional and courteous management and maintenance team strives to provide each resident a pleasant environment in which to live and study",   
     "listing_agent":"Tawnda Cross",
-    "contact": "(512) 559-1514",
-    "amentities": ["Air Conditioning", "Hardwood Floors", "Dishwasher", "Microwave", "Refridgerator", "Walk-in closet"],     
+    "contact": "(512)-559-1514",
+    "amenities": ["Air Conditioning", "Hardwood Floors", "Dishwasher", "Microwave", "Refridgerator", "Walk-in closet"],     
     "lease_terms": ["1 Year", "Pets allowed"]
   },
   
@@ -118,8 +118,8 @@ apartments = [
     "lot_size_sqft": 477,
     "description": "Ballpark North located in Austin, TX, is a great rental option for University of Texas students looking for their next place to call home. This apartment building is a short 20-minute walk to campus . There are 4 bedroom units. If you can see yourself living at Ballpark North or have questions about the units, reach out to the landlord by contacting them using the form above, or by calling them at (512) 359-7781.",     
     "listing_agent":"Matterport",
-    "contact": "(512) 359-7781",
-    "amentities": ["Air conditioning", "Washer/Dryer", "Refridgerator", "Oven", "Game Room", "Fitness Center"],     
+    "contact": "(512)-359-7781",
+    "amenities": ["Air conditioning", "Washer/Dryer", "Refridgerator", "Oven", "Game Room", "Fitness Center"],     
     "lease_terms": ["1 Year", "Pets allowed", "Cable"]
   },
   
@@ -136,8 +136,8 @@ apartments = [
     "lot_size_sqft": 565,
     "description": "Why share when you can have an entire apartment without a roommate to enjoy the privacy?  Grab this special, no-price increase rate for Fall 2025.  Free 1-car parking permit and utilities include Gas, Trash, Recycling, and Pest Control. Limited units are available on a first-come, first-serve basis. The Barranca Square Student Apartments is a small community building with 20 units between significant fraternity and sorority houses. It has recently been renovated with new paint, landscaping, and redesigned interiors to maximize each dwelling's space. These off-campus student apartments near UT Austin offer accessibility to sidewalks and routes to several nearby restaurants, bookstores, shops, and hangouts. Nearby Neighborhoods:  North University, West Campus, Old West, Hyde Park, Central East Austin, Downtown, Riverside, Windsor Road, North Loop, University Hill, Allandale, Montopolis, Triangle State, Brentwood, MLK-183, Hancock.",
     "listing_agent":"Edward Lindenschmidt",
-    "contact": "(512) 764-9233",
-    "amentities": ["Air conditioning", "Garage Parking", "Walk-in closet", "Refridgerator", "Balcony", "Laundry On-site"],     
+    "contact": "(512)-764-9233",
+    "amenities": ["Air conditioning", "Garage Parking", "Walk-in closet", "Refridgerator", "Balcony", "Laundry On-site"],     
     "lease_terms": ["1 Year", "Pets allowed", "Cable"]
   },
   
@@ -154,8 +154,8 @@ apartments = [
     "lot_size_sqft": 764,
     "description": "Stay away from the hustle and bustle of the busy West Campus area!  Start living in the heart of Clarksville, Austin, with this one-of-a-kind budget apartment that offers location, price, and value! We are on the Lake Austin shuttle bus line, directly connected to the UT Austin campus area. Next door neighbor is the UT Austin student housing building, The Gateway.  Whole Foods and H-E-B are a half-mile away, and the warehouse district and fine dining downtown are just a few blocks away. The hike and bike trail is within walking distance for those who prefer to walk or ride a bike. Live alone or share these units.  From 1 to 2-bedroom units featuring spacious layouts, you can take full advantage of all 6th Street West and charming Old West Austin offers - from outdoor trails & lakeside sunsets to bustling nightlife. And there's more; gas and trash are included, plus a convenient onsite property manager ready for your needs. Discover why everyone talks about 6th Street West Apartments near downtown Austin and UT's West Campus. Pets Are Allowed Only for Maximum Weight Limits: Dog: 25 lbs. Cat: 25 lbs. Walk to popular nearby cafes and shops like Galaxy Cafe, Caffe Medici, Fresh Plus, Cipolina Italian, Clarks Oyster Bar, Arroyos, and Sweetish Hill Bakery. Nearby Neighborhoods:  North University, West Campus, Old West, Hyde Park, Central East Austin, Downtown, Riverside, Windsor Road, North Loop, University Hill, Allandale, Montopolis, Triangle State, Brentwood, MLK-183, Hancock.",
     "listing_agent":"Jeffrey Post",
-    "contact": "(512) 359-5945",
-    "amentities": ["Washer/Dryer", "Heat included", "Car parking", "Air conditioning", "Microwave", "Dishwasher", "Walk-in closet", "Gated community"],     
+    "contact": "(512)-359-5945",
+    "amenities": ["Washer/Dryer", "Heat included", "Car parking", "Air conditioning", "Microwave", "Dishwasher", "Walk-in closet", "Gated community"],     
     "lease_terms": ["Academic Year", "Cable", "Pets allowed"]
   },
   
@@ -172,8 +172,8 @@ apartments = [
     "lot_size_sqft": 725,
     "description": "Spacious and updated 3-bedroom, 2-bath single-story home in North Campus near Hyde Park. This charming property features original hardwood floors, granite countertops, an open floor plan, and ample storage. Includes a washer and dryer, covered parking, and a large backyard perfect for pets. Ideally located minutes from UT and St. David's Hospital in the heart of Hyde ***.******.*** Control pricing varies from $25-$40/mo depending on the size of the unit.",     
     "listing_agent":"Holly Finn",
-    "contact": "(737) 377-1404",
-    "amentities": ["Washer/Dryer", "Covered parking", "Laundry On-site"],     
+    "contact": "(737)-377-1404",
+    "amenities": ["Washer/Dryer", "Covered parking", "Laundry On-site"],     
     "lease_terms": ["1 Year", "Pets allowed"]
   },
 
