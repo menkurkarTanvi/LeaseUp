@@ -4,12 +4,11 @@ import CsvDisplay from './CsvDisplay';
 import '../../styles/Spreadsheet.css';
 import ChatBox from './ChatBox';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import '@fontsource/roboto/500.css';
 import "./Spreadsheets.css";
 import { useContext } from 'react';
 import { ApartmentContext } from '../../contexts/ApartmentContext';
-
+import {Typography} from '@mui/material';
 
 export function Spreadsheets() {
 
@@ -33,12 +32,9 @@ export function Spreadsheets() {
     return (
         <div className="sheetPage">
             <div id="sheet-container">
-                {/* <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                <Typography id="page-title" variant="h5" sx={{ textAlign: 'center', marginBottom: 2 }}>My Listings</Typography>
-                </div> */}
                 <Typography id="page-title" variant="h5" sx={{ textAlign: 'center', marginBottom: 2 }}>My Listings</Typography>
 
-                <CsvDisplay id="csv-display" rows={formattedData} />
+                <CsvDisplay id="csv-display" rows={formattedData}  />
                     <CSVLink 
                         id="download-link"
                         data={formattedData}
@@ -46,10 +42,10 @@ export function Spreadsheets() {
                     >
                     <Button variant="contained" id="download-button">Download</Button>
                     </CSVLink>
-                {selectedUnitIds.length > 1 && <Button variant="contained" id="submit-to-ai">Compare with AI</Button>}
+                {/* {selectedUnitIds.length > 1 && <Button variant="contained" id="submit-to-ai">Compare with AI</Button>} */}
             </div>
             <div id="chat-box">
-                <ChatBox selectedUnits={selectedUnitIds} />
+                {/* <ChatBox selectedUnits={selectedUnitIds} /> */}
             </div>
         </div>
     );

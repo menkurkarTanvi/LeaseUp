@@ -1,7 +1,7 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+import {Toolbar} from '@mui/material';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import logoimg from "../assets/logo.png";
@@ -15,7 +15,7 @@ function NavBar() {
   const pagePaths = {
     Maps: '/maps',
     Leases: '/leases',
-    Spreadsheet: '/spreadsheet'
+    Spreadsheet: '/spreadsheets'
   }
 
   return (

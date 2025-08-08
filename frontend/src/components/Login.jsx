@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Typography, TextField } from '@mui/material';
 import Link from '@mui/material/Link';
 import '@fontsource/roboto/500.css';
 import '../styles/Login.css';
