@@ -40,7 +40,25 @@ export function Spreadsheets() {
                         data={formattedData}
                         filename={"LeaseUp_Listings.csv"}
                     >
-                    <Button variant="contained" id="download-button">Download</Button>
+                        <Button 
+                            variant="outlined" 
+                            size="medium" 
+                            sx={{ 
+                                borderColor: 'black', 
+                                color: 'black',
+                                mt: 2,          
+                                px: 3,           
+                                py: 1,           
+                                fontSize: '1rem',
+                                fontWeight: 'bold',
+                                '&:hover': {
+                                    borderColor: 'black',
+                                    backgroundColor: '#f0f0f0',
+                                }
+                            }}
+                        >
+                            Download
+                        </Button>
                     </CSVLink>
                 {/* {selectedUnitIds.length > 1 && <Button variant="contained" id="submit-to-ai">Compare with AI</Button>} */}
             </div>

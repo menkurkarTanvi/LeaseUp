@@ -132,14 +132,14 @@ export default function CsvDisplay({ setSelectedUnitIds }) {
           sx={{ border: 0 }}
         />
       </Paper>
-      <Button
+      {/* <Button
         variant="outlined"
         id="submit-to-ai"
         onClick={handleSubmitAI}
         disabled={selectedIdNames.size === 0}
       >
         Compare with AI
-      </Button>
+      </Button> */}
     </div>
   );
 }

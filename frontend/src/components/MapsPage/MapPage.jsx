@@ -274,18 +274,6 @@ useEffect(() => {
 }, [savedApartmentsIds]);
 
 
-// useEffect(() => {
-//   if (currId.current === -1) return;
-//     console.log("Saving apartment with ID:", currId.current);
-//     axios.put(`http://localhost:8000/save_apartments/${currId.current}`)
-//     .then(() => {
-//       console.log("hi");
-//     })
-//     .catch(err => console.error(err));
-// }, [liked]);
-
-
-
   return (
     <>
       <Card className="apartment-card">
@@ -379,65 +367,121 @@ function Directions({active, coords}){
     //Returns back an instance of the map
     const map = useMap();
     const routesLibrary = useMapsLibrary('routes');
-    const [directionsService, setDirectionsService] = useState();
-    const [directionsRenderer, setDirectionsRenderer] = useState();
+    const placesLibrary = useMapsLibrary('places');
+    const [directionsService, setDirectionsService] = useState(null);
+    const [directionsRenderer, setDirectionsRenderer] = useState(null);
     const [routes, setRoutes] = useState([]);
     const [routeIndex, setRouteIndex] = useState(0);
 
-    const selected = routes[routeIndex];
-    const leg = selected?.legs[0];
+    const selectedRoute = routes[routeIndex];
+    const leg = selectedRoute?.legs?.[0];
 
     // Initialize Directions Service and Renderer
     useEffect(() => {
       if (!routesLibrary || !map) return;
+
       if (!directionsService) setDirectionsService(new routesLibrary.DirectionsService());
       if (!directionsRenderer) {
         const renderer = new routesLibrary.DirectionsRenderer({ map });
         setDirectionsRenderer(renderer);
       }
     }, [routesLibrary, map]);
+
+    const findNearestBusStop = (location) => {
+      return new Promise((resolve, reject) => {
+        if (!placesLibrary || !map) {
+          reject('Places library or map not loaded');
+          return;
+        }
+        const placesService = new placesLibrary.PlacesService(map);
+        placesService.nearbySearch(
+          {
+            location: new routesLibrary.LatLng(location.lat, location.lng),
+            radius: 1500, // 1.5km radius
+            type: ['bus_station'],
+          },
+          (results, status) => {
+            if (status === placesLibrary.PlacesServiceStatus.OK && results.length > 0) {
+              resolve(results[0].geometry.location);
+            } else {
+              reject('No bus stops found nearby');
+            }
+          }
+        );
+      });
+    };
     
     //If the button Show Routes is clicked (true), display the route based on the coordinates of the last marker selected by the user
     //If the coordinates change and the show routes buttons is still true, a different route is rendered
-    useEffect (() => {
-        if(!directionsService || !directionsRenderer) return;
-        if(active){
-            directionsService.route({
-            origin: {lat: coords[0], lng: coords[1]},
-            destination: "701 S. West Street, Arlington, TX 76019",
-            travelMode: 'DRIVING',
-            provideRouteAlternatives: true,   
-            }).then(response => {
-              directionsRenderer.setDirections(response);
-                setRoutes(response.routes);
-                setRouteIndex(0); // reset to first route
-            });
-        }else{
-           //If the user has unclicked bus routes, remove the route
-           directionsRenderer.setDirections({ routes: [] });
-           setRoutes([]);
-        }
-    }, [active, coords, directionsService, directionsRenderer])
+    useEffect(() => {
+    if (!directionsService || !directionsRenderer) return;
+
+    if (!active) {
+      // Clear routes when inactive
+      directionsRenderer.setDirections({ routes: [] });
+      setRoutes([]);
+      return;
+    }
+
+    if (!coords || coords.length !== 2) return;
+
+    const origin = { lat: coords[0], lng: coords[1] };
+
+    findNearestBusStop(origin)
+      .then((busStopLocation) => {
+        const destination = {
+          lat: busStopLocation.lat(),
+          lng: busStopLocation.lng(),
+        };
+
+        directionsService.route({
+          origin,
+          destination,
+          travelMode: 'TRANSIT', // Transit mode for bus/train routes
+          provideRouteAlternatives: true,
+        }).then((response) => {
+          directionsRenderer.setDirections(response);
+          setRoutes(response.routes);
+          setRouteIndex(0);
+        }).catch((error) => {
+          console.error('Directions request failed:', error);
+        });
+      })
+      .catch((error) => {
+        console.warn('Bus stop lookup failed:', error);
+        // Optionally, clear route or show a message
+        directionsRenderer.setDirections({ routes: [] });
+        setRoutes([]);
+      });
+  }, [active, coords, directionsService, directionsRenderer]);
 
   // Update visible route when routeIndex changes
   useEffect(() => {
     if (!directionsRenderer || routes.length === 0) return;
-    directionsRenderer.setRouteIndex(routeIndex);
+      directionsRenderer.setRouteIndex(routeIndex);
   }, [routeIndex, directionsRenderer, routes]);
-    
-    if(!leg) return null;
-    return (
-      <div className = "directions"> 
-          <h2>{selected.summary}</h2>
-          <p>{leg.start_address.split(",")[0]} to {leg.end_address.split(",")[0]}</p>
-          <p>Distance: {leg.distance?.text}</p>
-          <p>Duration: {leg.duration?.text}</p>
 
-          <h2>Other Routes</h2>
-          <ul>
-            {routes.map((route,index) => <li key = {route.summary}><button onClick={() => setRouteIndex(index)}>{route.summary}</button></li>)}
-          </ul>
-      </div>
+  if (!leg) return null;
+
+
+    return (
+      <div className="directions">
+        <h2>{selectedRoute.summary || 'Route'}</h2>
+        <p>{leg.start_address.split(",")[0]} to {leg.end_address.split(",")[0]}</p>
+        <p>Distance: {leg.distance?.text}</p>
+        <p>Duration: {leg.duration?.text}</p>
+
+        <h3>Other Routes</h3>
+        <ul>
+          {routes.map((route, index) => (
+            <li key={index}>
+              <button onClick={() => setRouteIndex(index)}>
+                {route.summary || `Route ${index + 1}`}
+              </button>
+            </li>
+          ))}
+        </ul>
+    </div>
     );
 }
 
